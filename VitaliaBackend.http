@@ -1,0 +1,6 @@
+@VitaliaBackend_HostAddress = http://localhost:5032
+
+GET {{VitaliaBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
