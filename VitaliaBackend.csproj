@@ -13,4 +13,32 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.deps.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.staticwebassets.endpoints.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.deps.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.staticwebassets.endpoints.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rjsmrazor.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rpswa.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\staticwebassets.build.endpoints.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\staticwebassets.build.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\VitaliaBackend.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rjsmrazor.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rpswa.dswa.cache.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\staticwebassets.build.endpoints.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\staticwebassets.build.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\VitaliaBackend.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\VitaliaBackend.csproj.nuget.dgspec.json" />
+  </ItemGroup>
+
 </Project>
