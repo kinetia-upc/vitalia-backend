@@ -4,41 +4,125 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <LangVersion>14</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Cortex.Mediator" Version="3.1.2" />
+    <PackageReference Include="Humanizer" Version="3.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\appsettings.Development.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\appsettings.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.deps.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.runtimeconfig.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net10.0\VitaliaBackend.staticwebassets.endpoints.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\appsettings.Development.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\appsettings.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.deps.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.runtimeconfig.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\bin\Debug\net8.0\VitaliaBackend.staticwebassets.endpoints.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rjsmrazor.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\rpswa.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\staticwebassets.build.endpoints.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\staticwebassets.build.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net10.0\VitaliaBackend.sourcelink.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rjsmrazor.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\rpswa.dswa.cache.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\staticwebassets.build.endpoints.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\staticwebassets.build.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\Debug\net8.0\VitaliaBackend.sourcelink.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\project.assets.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\project.packagespec.json" />
-    <_ContentIncludedByDefault Remove="_local_backup_before_branch_switch\obj\VitaliaBackend.csproj.nuget.dgspec.json" />
+    <Folder Include="Analytics\Application\CommandServices\" />
+    <Folder Include="Analytics\Application\Internal\" />
+    <Folder Include="Analytics\Application\QueryServices\" />
+    <Folder Include="Analytics\Domain\Model\Aggregates\" />
+    <Folder Include="Analytics\Domain\Model\Commands\" />
+    <Folder Include="Analytics\Domain\Model\Entities\" />
+    <Folder Include="Analytics\Domain\Model\Errors\" />
+    <Folder Include="Analytics\Domain\Model\Events\" />
+    <Folder Include="Analytics\Domain\Model\Queries\" />
+    <Folder Include="Analytics\Domain\Model\ValueObjects\" />
+    <Folder Include="Analytics\Domain\Repositories\" />
+    <Folder Include="Analytics\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Analytics\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Analytics\Interfaces\ACL\" />
+    <Folder Include="Analytics\Interfaces\Rest\Resources\" />
+    <Folder Include="Analytics\Interfaces\Rest\Transform\" />
+    <Folder Include="Analytics\Resources\" />
+    <Folder Include="Billing\Application\CommandServices\" />
+    <Folder Include="Billing\Application\Internal\" />
+    <Folder Include="Billing\Application\QueryServices\" />
+    <Folder Include="Billing\Domain\Model\Aggregates\" />
+    <Folder Include="Billing\Domain\Model\Commands\" />
+    <Folder Include="Billing\Domain\Model\Entities\" />
+    <Folder Include="Billing\Domain\Model\Errors\" />
+    <Folder Include="Billing\Domain\Model\Events\" />
+    <Folder Include="Billing\Domain\Model\Queries\" />
+    <Folder Include="Billing\Domain\Model\ValueObjects\" />
+    <Folder Include="Billing\Domain\Repositories\" />
+    <Folder Include="Billing\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Billing\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Billing\Interfaces\ACL\" />
+    <Folder Include="Billing\Interfaces\Rest\Resources\" />
+    <Folder Include="Billing\Interfaces\Rest\Transform\" />
+    <Folder Include="Billing\Resources\" />
+    <Folder Include="Clinical\Application\CommandServices\" />
+    <Folder Include="Clinical\Application\Internal\" />
+    <Folder Include="Clinical\Application\QueryServices\" />
+    <Folder Include="Clinical\Domain\Model\Aggregates\" />
+    <Folder Include="Clinical\Domain\Model\Commands\" />
+    <Folder Include="Clinical\Domain\Model\Entities\" />
+    <Folder Include="Clinical\Domain\Model\Errors\" />
+    <Folder Include="Clinical\Domain\Model\Events\" />
+    <Folder Include="Clinical\Domain\Model\Queries\" />
+    <Folder Include="Clinical\Domain\Model\ValueObjects\" />
+    <Folder Include="Clinical\Domain\Repositories\" />
+    <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Clinical\Interfaces\ACL\" />
+    <Folder Include="Clinical\Interfaces\Rest\Resources\" />
+    <Folder Include="Clinical\Interfaces\Rest\Transform\" />
+    <Folder Include="Clinical\Resources\" />
+    <Folder Include="Pharmacy\Application\CommandServices\" />
+    <Folder Include="Pharmacy\Application\Internal\" />
+    <Folder Include="Pharmacy\Application\QueryServices\" />
+    <Folder Include="Pharmacy\Domain\Model\Aggregates\" />
+    <Folder Include="Pharmacy\Domain\Model\Commands\" />
+    <Folder Include="Pharmacy\Domain\Model\Entities\" />
+    <Folder Include="Pharmacy\Domain\Model\Errors\" />
+    <Folder Include="Pharmacy\Domain\Model\Events\" />
+    <Folder Include="Pharmacy\Domain\Model\Queries\" />
+    <Folder Include="Pharmacy\Domain\Model\ValueObjects\" />
+    <Folder Include="Pharmacy\Domain\Repositories\" />
+    <Folder Include="Pharmacy\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Pharmacy\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Pharmacy\Interfaces\ACL\" />
+    <Folder Include="Pharmacy\Interfaces\Rest\Resources\" />
+    <Folder Include="Pharmacy\Interfaces\Rest\Transform\" />
+    <Folder Include="Pharmacy\Resources\" />
+    <Folder Include="Scheduling\Application\CommandServices\" />
+    <Folder Include="Scheduling\Application\Internal\" />
+    <Folder Include="Scheduling\Application\QueryServices\" />
+    <Folder Include="Scheduling\Domain\Model\Aggregates\" />
+    <Folder Include="Scheduling\Domain\Model\Commands\" />
+    <Folder Include="Scheduling\Domain\Model\Entities\" />
+    <Folder Include="Scheduling\Domain\Model\Errors\" />
+    <Folder Include="Scheduling\Domain\Model\Events\" />
+    <Folder Include="Scheduling\Domain\Model\Queries\" />
+    <Folder Include="Scheduling\Domain\Model\ValueObjects\" />
+    <Folder Include="Scheduling\Domain\Repositories\" />
+    <Folder Include="Scheduling\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Scheduling\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Scheduling\Interfaces\ACL\" />
+    <Folder Include="Scheduling\Interfaces\Rest\Resources\" />
+    <Folder Include="Scheduling\Interfaces\Rest\Transform\" />
+    <Folder Include="Scheduling\Resources\" />
+    <Folder Include="Shared\" />
+    <Folder Include="Tenant\Application\CommandServices\" />
+    <Folder Include="Tenant\Application\Internal\" />
+    <Folder Include="Tenant\Application\QueryServices\" />
+    <Folder Include="Tenant\Domain\Model\Aggregates\" />
+    <Folder Include="Tenant\Domain\Model\Commands\" />
+    <Folder Include="Tenant\Domain\Model\Entities\" />
+    <Folder Include="Tenant\Domain\Model\Errors\" />
+    <Folder Include="Tenant\Domain\Model\Events\" />
+    <Folder Include="Tenant\Domain\Model\Queries\" />
+    <Folder Include="Tenant\Domain\Model\ValueObjects\" />
+    <Folder Include="Tenant\Domain\Repositories\" />
+    <Folder Include="Tenant\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Tenant\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Tenant\Interfaces\ACL\" />
+    <Folder Include="Tenant\Interfaces\Rest\Resources\" />
+    <Folder Include="Tenant\Interfaces\Rest\Transform\" />
+    <Folder Include="Tenant\Resources\" />
   </ItemGroup>
 
 </Project>
