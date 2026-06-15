@@ -88,7 +88,6 @@
     <Folder Include="Pharmacy\Interfaces\Rest\Resources\" />
     <Folder Include="Pharmacy\Interfaces\Rest\Transform\" />
     <Folder Include="Pharmacy\Resources\" />
-    <Folder Include="Scheduling\Interfaces\ACL\" />
     <Folder Include="Shared\" />
     <Folder Include="Tenant\Application\CommandServices\" />
     <Folder Include="Tenant\Application\Internal\" />

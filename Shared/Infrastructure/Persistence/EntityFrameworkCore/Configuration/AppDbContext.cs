@@ -3,7 +3,6 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Inter
 using Microsoft.EntityFrameworkCore;
 
 using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
-using VitaliaBackend.Scheduling.Domain.Model.Entities;
 using VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
@@ -19,9 +18,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<AvailabilitySlot> AvailabilitySlots { get; set; }
-    public DbSet<SchedulingDoctor> SchedulingDoctors { get; set; }
-    public DbSet<SchedulingPatient> SchedulingPatients { get; set; }
-    public DbSet<SchedulingBranch> SchedulingBranches { get; set; }
     /// <inheritdoc />
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {

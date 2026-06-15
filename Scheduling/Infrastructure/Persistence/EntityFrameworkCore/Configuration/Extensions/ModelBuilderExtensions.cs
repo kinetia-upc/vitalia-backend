@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
-using VitaliaBackend.Scheduling.Domain.Model.Entities;
 
 namespace VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 
@@ -37,26 +36,5 @@ public static class ModelBuilderExtensions
         builder.Entity<AvailabilitySlot>()
             .HasIndex(slot => new { slot.DoctorId, slot.BranchId, slot.Date, slot.StartTime });
 
-        builder.Entity<SchedulingDoctor>().HasKey(doctor => doctor.Id);
-        builder.Entity<SchedulingDoctor>().Property(doctor => doctor.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<SchedulingDoctor>().Property(doctor => doctor.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<SchedulingDoctor>().HasIndex(doctor => doctor.PublicId).IsUnique();
-        builder.Entity<SchedulingDoctor>().Property(doctor => doctor.IdUser).IsRequired().HasMaxLength(50);
-        builder.Entity<SchedulingDoctor>().Property(doctor => doctor.Specialty).IsRequired().HasMaxLength(100);
-        builder.Entity<SchedulingDoctor>().Property(doctor => doctor.BranchId).IsRequired().HasMaxLength(50);
-
-        builder.Entity<SchedulingPatient>().HasKey(patient => patient.Id);
-        builder.Entity<SchedulingPatient>().Property(patient => patient.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<SchedulingPatient>().Property(patient => patient.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<SchedulingPatient>().HasIndex(patient => patient.PublicId).IsUnique();
-        builder.Entity<SchedulingPatient>().Property(patient => patient.IdUser).IsRequired().HasMaxLength(50);
-        builder.Entity<SchedulingPatient>().Property(patient => patient.InsuranceProvider).IsRequired().HasMaxLength(100);
-
-        builder.Entity<SchedulingBranch>().HasKey(branch => branch.Id);
-        builder.Entity<SchedulingBranch>().Property(branch => branch.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<SchedulingBranch>().Property(branch => branch.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<SchedulingBranch>().HasIndex(branch => branch.PublicId).IsUnique();
-        builder.Entity<SchedulingBranch>().Property(branch => branch.Name).IsRequired().HasMaxLength(120);
-        builder.Entity<SchedulingBranch>().Property(branch => branch.Description).IsRequired().HasMaxLength(300);
-    }
+ }
 }

@@ -34,15 +34,9 @@ builder.Services.AddProblemDetails();
 //Builders Scheduling Bounded Context
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
-builder.Services.AddScoped<ISchedulingDoctorRepository, SchedulingDoctorRepository>();
-builder.Services.AddScoped<ISchedulingPatientRepository, SchedulingPatientRepository>();
-builder.Services.AddScoped<ISchedulingBranchRepository, SchedulingBranchRepository>();
 
 builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
 builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
-builder.Services.AddScoped<ISchedulingDoctorQueryService, SchedulingDoctorQueryService>();
-builder.Services.AddScoped<ISchedulingPatientQueryService, SchedulingPatientQueryService>();
-builder.Services.AddScoped<ISchedulingBranchQueryService, SchedulingBranchQueryService>();
 
 builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService>();
 builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
