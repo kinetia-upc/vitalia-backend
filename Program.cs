@@ -22,6 +22,12 @@ using VitaliaBackend.Scheduling.Application.Internal.QueryServices;
 using VitaliaBackend.Scheduling.Application.QueryServices;
 using VitaliaBackend.Scheduling.Domain.Repositories;
 using VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using VitaliaBackend.Pharmacy.Application.CommandServices;
+using VitaliaBackend.Pharmacy.Application.Internal.CommandServices;
+using VitaliaBackend.Pharmacy.Application.Internal.QueryServices;
+using VitaliaBackend.Pharmacy.Application.QueryServices;
+using VitaliaBackend.Pharmacy.Domain.Repositories;
+using VitaliaBackend.Pharmacy.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +40,15 @@ builder.Services.AddProblemDetails();
 //Builders Scheduling Bounded Context
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
+builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 
 builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
 builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
+builder.Services.AddScoped<IMedicineQueryService, MedicineQueryService>();
 
 builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService>();
 builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
+builder.Services.AddScoped<IMedicineCommandService, MedicineCommandService>();
 
 //-----------------------
 
