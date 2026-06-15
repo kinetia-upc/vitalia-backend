@@ -88,23 +88,7 @@
     <Folder Include="Pharmacy\Interfaces\Rest\Resources\" />
     <Folder Include="Pharmacy\Interfaces\Rest\Transform\" />
     <Folder Include="Pharmacy\Resources\" />
-    <Folder Include="Scheduling\Application\CommandServices\" />
-    <Folder Include="Scheduling\Application\Internal\" />
-    <Folder Include="Scheduling\Application\QueryServices\" />
-    <Folder Include="Scheduling\Domain\Model\Aggregates\" />
-    <Folder Include="Scheduling\Domain\Model\Commands\" />
-    <Folder Include="Scheduling\Domain\Model\Entities\" />
-    <Folder Include="Scheduling\Domain\Model\Errors\" />
-    <Folder Include="Scheduling\Domain\Model\Events\" />
-    <Folder Include="Scheduling\Domain\Model\Queries\" />
-    <Folder Include="Scheduling\Domain\Model\ValueObjects\" />
-    <Folder Include="Scheduling\Domain\Repositories\" />
-    <Folder Include="Scheduling\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
-    <Folder Include="Scheduling\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
     <Folder Include="Scheduling\Interfaces\ACL\" />
-    <Folder Include="Scheduling\Interfaces\Rest\Resources\" />
-    <Folder Include="Scheduling\Interfaces\Rest\Transform\" />
-    <Folder Include="Scheduling\Resources\" />
     <Folder Include="Shared\" />
     <Folder Include="Tenant\Application\CommandServices\" />
     <Folder Include="Tenant\Application\Internal\" />
@@ -123,6 +107,18 @@
     <Folder Include="Tenant\Interfaces\Rest\Resources\" />
     <Folder Include="Tenant\Interfaces\Rest\Transform\" />
     <Folder Include="Tenant\Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Scheduling\Resources\SchedulingMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Scheduling\Resources\SchedulingMessages.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingMessages.es.Designer.cs</LastGenOutput>
+      <DependentUpon>SchedulingMessages.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

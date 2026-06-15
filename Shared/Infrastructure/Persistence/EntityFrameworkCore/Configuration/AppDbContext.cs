@@ -2,6 +2,10 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Confi
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
+using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
+using VitaliaBackend.Scheduling.Domain.Model.Entities;
+using VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
 /// <summary>
@@ -12,6 +16,12 @@ namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.C
 /// </param>
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
+    
+    public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<AvailabilitySlot> AvailabilitySlots { get; set; }
+    public DbSet<SchedulingDoctor> SchedulingDoctors { get; set; }
+    public DbSet<SchedulingPatient> SchedulingPatients { get; set; }
+    public DbSet<SchedulingBranch> SchedulingBranches { get; set; }
     /// <inheritdoc />
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
@@ -32,7 +42,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+        
+        builder.ApplySchedulingConfiguration();
         // General Naming Convention for the database objects
         builder.UseSnakeCaseNamingConvention();
     }
