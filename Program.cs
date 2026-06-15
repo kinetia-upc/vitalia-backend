@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.OpenApi;
 using VitaliaBackend.Resources.Errors;
+
+//Shared Bounded Context
 using VitaliaBackend.Resources.Shared;
 using VitaliaBackend.Shared.Domain.Repositories;
 using VitaliaBackend.Shared.Infrastructure.Interfaces.AspNetCore.Configuration;
@@ -13,12 +15,34 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repos
 using VitaliaBackend.Shared.Infrastructure.Pipeline.Middleware.Extensions;
 using ProblemDetailsFactory = VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails.ProblemDetailsFactory;
 
+//Scheduling Bounded Context
+using VitaliaBackend.Scheduling.Application.CommandServices;
+using VitaliaBackend.Scheduling.Application.Internal.CommandServices;
+using VitaliaBackend.Scheduling.Application.Internal.QueryServices;
+using VitaliaBackend.Scheduling.Application.QueryServices;
+using VitaliaBackend.Scheduling.Domain.Repositories;
+using VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options => options.Conventions.Add(new KebabCaseRouteNamingConvention()))
     .AddDataAnnotationsLocalization();
 builder.Services.AddProblemDetails();
+
+
+//Builders Scheduling Bounded Context
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
+
+builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
+builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
+
+builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService>();
+builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
+
+//-----------------------
+
 
 builder.Services.AddCors(options =>
 {
@@ -82,6 +106,12 @@ builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCom
 builder.Services.AddCortexMediator([typeof(Program)]);
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+}
 
 app.UseGlobalExceptionHandler();
 
