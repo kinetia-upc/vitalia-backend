@@ -120,6 +120,16 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     context.Database.Migrate();
+
+    if (!context.Set<VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine>().Any())
+    {
+        context.Set<VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine>().AddRange(
+            new VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine("Paracetamol", 500, "mg", 5.50m, 100),
+            new VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine("Ibuprofen", 400, "mg", 7.20m, 50),
+            new VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine("Amoxicillin", 250, "mg", 12.00m, 200)
+        );
+        context.SaveChanges();
+    }
 }
 
 app.UseGlobalExceptionHandler();
@@ -132,11 +142,8 @@ var localizationOptions = new RequestLocalizationOptions()
 
 app.UseRequestLocalization(localizationOptions);
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowAllPolicy");
 app.UseHttpsRedirection();
