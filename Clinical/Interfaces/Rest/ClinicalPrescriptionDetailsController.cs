@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
 using VitaliaBackend.Clinical.Domain.Model;
+using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
@@ -41,6 +42,18 @@ public class ClinicalPrescriptionDetailsController(
                 PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(foundPrescriptionDetail)));
     }
 
+    [HttpGet("prescriptions/{prescriptionId:int}")]
+    public async Task<IActionResult> GetPrescriptionDetailsByPrescriptionId(
+        [FromRoute] int prescriptionId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetPrescriptionDetailsByPrescriptionIdQuery(prescriptionId);
+        var prescriptionDetails = await prescriptionDetailQueryService.Handle(query, cancellationToken);
+        var resources = prescriptionDetails.Select(PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity);
+
+        return Ok(resources);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreatePrescriptionDetail(
         [FromBody] CreatePrescriptionDetailResource resource,
@@ -58,5 +71,41 @@ public class ClinicalPrescriptionDetailsController(
                 nameof(GetPrescriptionDetailById),
                 new { prescriptionDetailId = createdPrescriptionDetail.Id },
                 PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(createdPrescriptionDetail)));
+    }
+
+    [HttpPut("{prescriptionDetailId:int}")]
+    public async Task<IActionResult> UpdatePrescriptionDetail(
+        [FromRoute] int prescriptionDetailId,
+        [FromBody] UpdatePrescriptionDetailResource resource,
+        CancellationToken cancellationToken)
+    {
+        var command = UpdatePrescriptionDetailCommandFromResourceAssembler.ToCommandFromResource(
+            prescriptionDetailId,
+            resource);
+        var result = await prescriptionDetailCommandService.Handle(command, cancellationToken);
+
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedPrescriptionDetail => Ok(
+                PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(updatedPrescriptionDetail)));
+    }
+
+    [HttpDelete("{prescriptionDetailId:int}")]
+    public async Task<IActionResult> DeletePrescriptionDetail(
+        [FromRoute] int prescriptionDetailId,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeletePrescriptionDetailCommand(prescriptionDetailId);
+        var result = await prescriptionDetailCommandService.Handle(command, cancellationToken);
+
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }

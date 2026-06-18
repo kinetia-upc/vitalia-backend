@@ -8,4 +8,5 @@ public interface ITreatmentCommandService
 {
     Task<Result<Treatment>> Handle(CreateTreatmentCommand command, CancellationToken cancellationToken);
     Task<Result<Treatment>> Handle(UpdateTreatmentDescriptionCommand command, CancellationToken cancellationToken);
+    Task<Result> Handle(DeleteTreatmentCommand command, CancellationToken cancellationToken);
 }

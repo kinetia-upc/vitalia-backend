@@ -11,4 +11,11 @@ public class PrescriptionQueryService(IPrescriptionRepository prescriptionReposi
     {
         return await prescriptionRepository.FindByIdAsync(query.PrescriptionId, cancellationToken);
     }
+
+    public async Task<IEnumerable<Prescription>> Handle(
+        GetPrescriptionsByMedicalRecordIdQuery query,
+        CancellationToken cancellationToken)
+    {
+        return await prescriptionRepository.FindAllByMedicalRecordIdAsync(query.MedicalRecordId, cancellationToken);
+    }
 }

@@ -11,4 +11,11 @@ public class DiagnosisQueryService(IDiagnosisRepository diagnosisRepository) : I
     {
         return await diagnosisRepository.FindByIdAsync(query.DiagnosisId, cancellationToken);
     }
+
+    public async Task<IEnumerable<Diagnosis>> Handle(
+        GetDiagnosesByMedicalRecordIdQuery query,
+        CancellationToken cancellationToken)
+    {
+        return await diagnosisRepository.FindAllByMedicalRecordIdAsync(query.MedicalRecordId, cancellationToken);
+    }
 }

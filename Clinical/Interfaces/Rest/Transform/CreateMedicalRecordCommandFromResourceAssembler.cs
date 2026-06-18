@@ -7,8 +7,6 @@ public static class CreateMedicalRecordCommandFromResourceAssembler
 {
     public static CreateClinicalRecordCommand ToCommandFromResource(CreateMedicalRecordResource resource)
     {
-        return new CreateClinicalRecordCommand(
-            resource.PatientId,
-            resource.AppointmentId);
+        return new CreateClinicalRecordCommand(resource.AppointmentId);
     }
 }

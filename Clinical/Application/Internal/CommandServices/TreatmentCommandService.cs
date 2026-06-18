@@ -13,6 +13,7 @@ namespace VitaliaBackend.Clinical.Application.Internal.CommandServices;
 
 public class TreatmentCommandService(
     ITreatmentRepository treatmentRepository,
+    IMedicalRecordRepository medicalRecordRepository,
     IUnitOfWork unitOfWork,
     IStringLocalizer<ErrorMessages> localizer)
     : ITreatmentCommandService
@@ -23,6 +24,15 @@ public class TreatmentCommandService(
             return Result<Treatment>.Failure(
                 ClinicalError.InvalidTreatmentDescription,
                 localizer[nameof(ClinicalError.InvalidTreatmentDescription)]);
+
+        var medicalRecordExists = await medicalRecordRepository.ExistsByCodeAsync(
+            command.MedicalRecordId,
+            cancellationToken);
+
+        if (!medicalRecordExists)
+            return Result<Treatment>.Failure(
+                ClinicalError.MedicalRecordNotFound,
+                localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
         var treatment = new Treatment(command.MedicalRecordId, command.Description);
 
@@ -81,6 +91,35 @@ public class TreatmentCommandService(
         catch (Exception)
         {
             return Result<Treatment>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
+        }
+    }
+
+    public async Task<Result> Handle(DeleteTreatmentCommand command, CancellationToken cancellationToken)
+    {
+        var treatment = await treatmentRepository.FindByIdAsync(command.TreatmentId, cancellationToken);
+
+        if (treatment is null)
+            return Result.Failure(
+                ClinicalError.TreatmentNotFound,
+                localizer[nameof(ClinicalError.TreatmentNotFound)]);
+
+        try
+        {
+            treatmentRepository.Remove(treatment);
+            await unitOfWork.CompleteAsync(cancellationToken);
+            return Result.Success();
+        }
+        catch (OperationCanceledException)
+        {
+            return Result.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
+        }
+        catch (DbUpdateException)
+        {
+            return Result.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
+        }
+        catch (Exception)
+        {
+            return Result.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
         }
     }
 

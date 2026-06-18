@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
 using VitaliaBackend.Clinical.Domain.Model;
+using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
@@ -38,6 +39,18 @@ public class ClinicalTreatmentsController(
             errorLocalizer,
             problemDetailsFactory,
             foundTreatment => Ok(TreatmentResourceFromEntityAssembler.ToResourceFromEntity(foundTreatment)));
+    }
+
+    [HttpGet("medical-records/{medicalRecordId}")]
+    public async Task<IActionResult> GetTreatmentsByMedicalRecordId(
+        [FromRoute] string medicalRecordId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetTreatmentsByMedicalRecordIdQuery(medicalRecordId);
+        var treatments = await treatmentQueryService.Handle(query, cancellationToken);
+        var resources = treatments.Select(TreatmentResourceFromEntityAssembler.ToResourceFromEntity);
+
+        return Ok(resources);
     }
 
     [HttpPost]
@@ -76,5 +89,21 @@ public class ClinicalTreatmentsController(
             errorLocalizer,
             problemDetailsFactory,
             updatedTreatment => Ok(TreatmentResourceFromEntityAssembler.ToResourceFromEntity(updatedTreatment)));
+    }
+
+    [HttpDelete("{treatmentId:int}")]
+    public async Task<IActionResult> DeleteTreatment(
+        [FromRoute] int treatmentId,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteTreatmentCommand(treatmentId);
+        var result = await treatmentCommandService.Handle(command, cancellationToken);
+
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }

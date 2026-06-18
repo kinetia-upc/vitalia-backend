@@ -1,5 +1,4 @@
 using VitaliaBackend.Clinical.Domain.Model.ValueObjects;
-using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Shared.Domain.Model.Entities;
 
 namespace VitaliaBackend.Clinical.Domain.Model.Aggregates;
@@ -35,5 +34,19 @@ public class PrescriptionDetail : IAuditableEntity
         Dose = dose;
         Frequency = frequency;
         Duration = duration;
+    }
+
+    public void UpdateDetails(
+        int? medicineId,
+        string? medicineName,
+        Dose dose,
+        string frequency,
+        string duration)
+    {
+        MedicineId = medicineId;
+        MedicineName = medicineName?.Trim();
+        Dose = dose;
+        Frequency = frequency.Trim();
+        Duration = duration.Trim();
     }
 }

@@ -13,6 +13,8 @@ namespace VitaliaBackend.Clinical.Application.Internal.CommandServices;
 
 public class PrescriptionCommandService(
     IPrescriptionRepository prescriptionRepository,
+    IPrescriptionDetailRepository prescriptionDetailRepository,
+    IMedicalRecordRepository medicalRecordRepository,
     IUnitOfWork unitOfWork,
     IStringLocalizer<ErrorMessages> localizer)
     : IPrescriptionCommandService
@@ -23,6 +25,15 @@ public class PrescriptionCommandService(
             return Result<Prescription>.Failure(
                 ClinicalError.InvalidPrescriptionData,
                 localizer[nameof(ClinicalError.InvalidPrescriptionData)]);
+
+        var medicalRecordExists = await medicalRecordRepository.ExistsByCodeAsync(
+            command.MedicalRecordId,
+            cancellationToken);
+
+        if (!medicalRecordExists)
+            return Result<Prescription>.Failure(
+                ClinicalError.MedicalRecordNotFound,
+                localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
         var prescription = new Prescription(command.MedicalRecordId.Trim());
 
@@ -43,6 +54,43 @@ public class PrescriptionCommandService(
         catch (Exception)
         {
             return Result<Prescription>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
+        }
+    }
+
+    public async Task<Result> Handle(DeletePrescriptionCommand command, CancellationToken cancellationToken)
+    {
+        var prescription = await prescriptionRepository.FindByIdAsync(command.PrescriptionId, cancellationToken);
+
+        if (prescription is null)
+            return Result.Failure(
+                ClinicalError.PrescriptionNotFound,
+                localizer[nameof(ClinicalError.PrescriptionNotFound)]);
+
+        var prescriptionDetails = await prescriptionDetailRepository.FindAllByPrescriptionIdAsync(
+            command.PrescriptionId,
+            cancellationToken);
+
+        try
+        {
+            foreach (var prescriptionDetail in prescriptionDetails)
+                prescriptionDetailRepository.Remove(prescriptionDetail);
+
+            prescriptionRepository.Remove(prescription);
+            await unitOfWork.CompleteAsync(cancellationToken);
+
+            return Result.Success();
+        }
+        catch (OperationCanceledException)
+        {
+            return Result.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
+        }
+        catch (DbUpdateException)
+        {
+            return Result.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
+        }
+        catch (Exception)
+        {
+            return Result.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
         }
     }
 }

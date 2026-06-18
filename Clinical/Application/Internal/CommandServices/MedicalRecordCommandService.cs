@@ -4,6 +4,7 @@ using VitaliaBackend.Clinical.Domain.Model.Aggregates;
 using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Repositories;
 using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Scheduling.Domain.Repositories;
 using VitaliaBackend.Shared.Application.Model;
 using VitaliaBackend.Shared.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace VitaliaBackend.Clinical.Application.Internal.CommandServices;
 
 public class MedicalRecordCommandService(
     IMedicalRecordRepository medicalRecordRepository,
+    IAppointmentRepository appointmentRepository,
     IUnitOfWork unitOfWork,
     IStringLocalizer<ErrorMessages> localizer)
     : IMedicalRecordCommandService
@@ -21,7 +23,14 @@ public class MedicalRecordCommandService(
         CreateClinicalRecordCommand command,
         CancellationToken cancellationToken)
     {
-        if (!IsValid(command.patientId, command.appointmentId))
+        if (!IsValid(command.appointmentId))
+            return Result<MedicalRecord>.Failure(
+                ClinicalError.InvalidMedicalRecordData,
+                localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
+
+        var appointment = await appointmentRepository.FindByPublicIdAsync(command.appointmentId, cancellationToken);
+
+        if (appointment is null)
             return Result<MedicalRecord>.Failure(
                 ClinicalError.InvalidMedicalRecordData,
                 localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
@@ -39,7 +48,7 @@ public class MedicalRecordCommandService(
 
         for (var attempt = 0; attempt < maxCodeGenerationAttempts; attempt++)
         {
-            var medicalRecord = new MedicalRecord(command.appointmentId, command.patientId);
+            var medicalRecord = new MedicalRecord(command.appointmentId, appointment.PatientId);
             var codeAlreadyExists = await medicalRecordRepository.ExistsByCodeAsync(
                 medicalRecord.Code,
                 cancellationToken);
@@ -79,9 +88,8 @@ public class MedicalRecordCommandService(
             localizer[nameof(ClinicalError.MedicalRecordCodeGenerationFailed)]);
     }
 
-    private static bool IsValid(string patientId, string appointmentId)
+    private static bool IsValid(string appointmentId)
     {
-        return !string.IsNullOrWhiteSpace(patientId)
-               && !string.IsNullOrWhiteSpace(appointmentId);
+        return !string.IsNullOrWhiteSpace(appointmentId);
     }
 }

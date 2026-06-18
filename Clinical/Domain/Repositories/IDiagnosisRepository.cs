@@ -5,4 +5,7 @@ namespace VitaliaBackend.Clinical.Domain.Repositories;
 
 public interface IDiagnosisRepository : IBaseRepository<Diagnosis>
 {
+    Task<IEnumerable<Diagnosis>> FindAllByMedicalRecordIdAsync(
+        string medicalRecordId,
+        CancellationToken cancellationToken = default);
 }

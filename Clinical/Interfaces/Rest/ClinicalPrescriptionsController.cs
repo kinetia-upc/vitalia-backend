@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
 using VitaliaBackend.Clinical.Domain.Model;
+using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
@@ -40,6 +41,18 @@ public class ClinicalPrescriptionsController(
             foundPrescription => Ok(PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(foundPrescription)));
     }
 
+    [HttpGet("medical-records/{medicalRecordId}")]
+    public async Task<IActionResult> GetPrescriptionsByMedicalRecordId(
+        [FromRoute] string medicalRecordId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetPrescriptionsByMedicalRecordIdQuery(medicalRecordId);
+        var prescriptions = await prescriptionQueryService.Handle(query, cancellationToken);
+        var resources = prescriptions.Select(PrescriptionResourceFromEntityAssembler.ToResourceFromEntity);
+
+        return Ok(resources);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreatePrescription(
         [FromBody] CreatePrescriptionResource resource,
@@ -57,5 +70,21 @@ public class ClinicalPrescriptionsController(
                 nameof(GetPrescriptionById),
                 new { prescriptionId = createdPrescription.Id },
                 PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(createdPrescription)));
+    }
+
+    [HttpDelete("{prescriptionId:int}")]
+    public async Task<IActionResult> DeletePrescription(
+        [FromRoute] int prescriptionId,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeletePrescriptionCommand(prescriptionId);
+        var result = await prescriptionCommandService.Handle(command, cancellationToken);
+
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }

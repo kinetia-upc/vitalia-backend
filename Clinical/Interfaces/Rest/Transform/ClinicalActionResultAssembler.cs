@@ -41,6 +41,21 @@ public static class ClinicalActionResultAssembler
         return problemDetailsFactory.CreateProblemDetails(controller, statusCode, result.Error, result.Message);
     }
 
+    public static IActionResult ToActionResultFromResult(
+        ControllerBase controller,
+        Result result,
+        IStringLocalizer<ErrorMessages> errorLocalizer,
+        ProblemDetailsFactory problemDetailsFactory,
+        Func<IActionResult> successAction)
+    {
+        if (result.IsSuccess)
+            return successAction();
+
+        var error = (ClinicalError)result.Error!;
+        var statusCode = ToStatusCodeFromClinicalError(error);
+        return problemDetailsFactory.CreateProblemDetails(controller, statusCode, result.Error, result.Message);
+    }
+
     public static IActionResult ToActionResultFromNullable<T>(
         ControllerBase controller,
         T? entity,
