@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -10,47 +11,16 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Confi
 namespace VitaliaBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260617170359_AddClinicalMedicalRecords")]
+    partial class AddClinicalMedicalRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Diagnosis", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("medical_record_id");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("p_k_diagnoses");
-
-                    b.ToTable("diagnoses");
-                });
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.MedicalRecord", b =>
                 {
@@ -96,112 +66,6 @@ namespace VitaliaBackend.Migrations
                         .HasDatabaseName("i_x_medical_records_patient_id_appointment_id");
 
                     b.ToTable("medical_records");
-                });
-
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Prescription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("medical_record_id");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("p_k_prescriptions");
-
-                    b.ToTable("prescriptions");
-                });
-
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.PrescriptionDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Duration")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("duration");
-
-                    b.Property<string>("Frequency")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("frequency");
-
-                    b.Property<int?>("MedicineId")
-                        .HasColumnType("int")
-                        .HasColumnName("medicine_id");
-
-                    b.Property<string>("MedicineName")
-                        .HasMaxLength(120)
-                        .HasColumnType("varchar(120)")
-                        .HasColumnName("medicine_name");
-
-                    b.Property<int>("PrescriptionId")
-                        .HasColumnType("int")
-                        .HasColumnName("prescription_id");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("p_k_prescription_details");
-
-                    b.ToTable("prescription_details");
-                });
-
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Treatment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("medical_record_id");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("p_k_treatments");
-
-                    b.ToTable("treatments");
                 });
 
             modelBuilder.Entity("VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine", b =>
@@ -384,38 +248,6 @@ namespace VitaliaBackend.Migrations
                         .HasDatabaseName("i_x_availability_slots_doctor_id_branch_id_date_start_time");
 
                     b.ToTable("availability_slots");
-                });
-
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.PrescriptionDetail", b =>
-                {
-                    b.OwnsOne("VitaliaBackend.Clinical.Domain.Model.ValueObjects.Dose", "Dose", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .HasColumnType("int")
-                                .HasColumnName("id");
-
-                            b1.Property<int>("Amount")
-                                .HasColumnType("int")
-                                .HasColumnName("dose");
-
-                            b1.Property<string>("Unit")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("varchar(20)")
-                                .HasColumnName("dose_unit_type");
-
-                            b1.HasKey("Id")
-                                .HasName("p_k_prescription_details");
-
-                            b1.ToTable("prescription_details");
-
-                            b1.WithOwner()
-                                .HasForeignKey("Id")
-                                .HasConstraintName("f_k_prescription_details_prescription_details_id");
-                        });
-
-                    b.Navigation("Dose")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

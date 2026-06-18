@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -10,9 +11,11 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Confi
 namespace VitaliaBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260618001722_AddClinicalPrescriptionEndpoints")]
+    partial class AddClinicalPrescriptionEndpoints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +38,6 @@ namespace VitaliaBackend.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("varchar(300)")
                         .HasColumnName("description");
-
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("medical_record_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetime")
@@ -153,6 +150,7 @@ namespace VitaliaBackend.Migrations
                         .HasColumnName("medicine_id");
 
                     b.Property<string>("MedicineName")
+                        .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("varchar(120)")
                         .HasColumnName("medicine_name");
@@ -187,12 +185,6 @@ namespace VitaliaBackend.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("varchar(300)")
                         .HasColumnName("description");
-
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("medical_record_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetime")
