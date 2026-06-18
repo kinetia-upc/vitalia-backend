@@ -1,12 +1,16 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Scheduling.Application.CommandServices;
 using VitaliaBackend.Scheduling.Application.QueryServices;
+using VitaliaBackend.Scheduling.Domain.Model;
 using VitaliaBackend.Scheduling.Domain.Model.Commands;
 using VitaliaBackend.Scheduling.Domain.Model.Queries;
 using VitaliaBackend.Scheduling.Interfaces.Rest.Resources;
 using VitaliaBackend.Scheduling.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Scheduling.Interfaces.Rest;
 
@@ -16,7 +20,9 @@ namespace VitaliaBackend.Scheduling.Interfaces.Rest;
 [SwaggerTag("Scheduling appointments endpoints")]
 public class SchedulingAppointmentsController(
     IAppointmentQueryService appointmentQueryService,
-    IAppointmentCommandService appointmentCommandService)
+    IAppointmentCommandService appointmentCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory)
     : ControllerBase
 {
     [HttpGet]
@@ -42,10 +48,13 @@ public class SchedulingAppointmentsController(
         var query = new GetAppointmentByIdQuery(appointmentId);
         var appointment = await appointmentQueryService.Handle(query, cancellationToken);
 
-        if (appointment is null)
-            return NotFound();
-
-        return Ok(AppointmentResourceFromEntityAssembler.ToResourceFromEntity(appointment));
+        return SchedulingActionResultAssembler.ToActionResultFromNullable(
+            this,
+            appointment,
+            SchedulingError.AppointmentNotFoundError,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundAppointment => Ok(AppointmentResourceFromEntityAssembler.ToResourceFromEntity(foundAppointment)));
     }
 
     [HttpPost]
@@ -54,17 +63,17 @@ public class SchedulingAppointmentsController(
         CancellationToken cancellationToken)
     {
         var command = CreateAppointmentCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var appointment = await appointmentCommandService.Handle(command, cancellationToken);
+        var result = await appointmentCommandService.Handle(command, cancellationToken);
 
-        if (appointment is null)
-            return BadRequest();
-
-        var appointmentResource = AppointmentResourceFromEntityAssembler.ToResourceFromEntity(appointment);
-
-        return CreatedAtAction(
-            nameof(GetAppointmentById),
-            new { appointmentId = appointment.PublicId },
-            appointmentResource);
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdAppointment => CreatedAtAction(
+                nameof(GetAppointmentById),
+                new { appointmentId = createdAppointment.PublicId },
+                AppointmentResourceFromEntityAssembler.ToResourceFromEntity(createdAppointment)));
     }
 
     [HttpPatch("{appointmentId}")]
@@ -74,12 +83,14 @@ public class SchedulingAppointmentsController(
         CancellationToken cancellationToken)
     {
         var command = UpdateAppointmentCommandFromResourceAssembler.ToCommandFromResource(appointmentId, resource);
-        var appointment = await appointmentCommandService.Handle(command, cancellationToken);
+        var result = await appointmentCommandService.Handle(command, cancellationToken);
 
-        if (appointment is null)
-            return BadRequest();
-
-        return Ok(AppointmentResourceFromEntityAssembler.ToResourceFromEntity(appointment));
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedAppointment => Ok(AppointmentResourceFromEntityAssembler.ToResourceFromEntity(updatedAppointment)));
     }
 
     [HttpDelete("{appointmentId}")]
@@ -88,11 +99,13 @@ public class SchedulingAppointmentsController(
         CancellationToken cancellationToken)
     {
         var command = new DeleteAppointmentCommand(appointmentId);
-        var deleted = await appointmentCommandService.Handle(command, cancellationToken);
+        var result = await appointmentCommandService.Handle(command, cancellationToken);
 
-        if (!deleted)
-            return NotFound();
-
-        return NoContent();
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }

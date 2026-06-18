@@ -107,4 +107,40 @@
     <data name="InternalServerError" xml:space="preserve">
     <value>An unexpected internal error occurred.</value>
   </data>
+    <data name="MedicineCreationError" xml:space="preserve">
+    <value>Error creating medicine.</value>
+  </data>
+    <data name="MedicineUpdateError" xml:space="preserve">
+    <value>Error updating medicine.</value>
+  </data>
+    <data name="MedicineDeletionError" xml:space="preserve">
+    <value>Error deleting medicine.</value>
+  </data>
+    <data name="MedicineNotFoundError" xml:space="preserve">
+    <value>Medicine not found.</value>
+  </data>
+    <data name="AppointmentCreationError" xml:space="preserve">
+    <value>Error creating appointment.</value>
+  </data>
+    <data name="AppointmentUpdateError" xml:space="preserve">
+    <value>Error updating appointment.</value>
+  </data>
+    <data name="AppointmentDeletionError" xml:space="preserve">
+    <value>Error deleting appointment.</value>
+  </data>
+    <data name="AppointmentNotFoundError" xml:space="preserve">
+    <value>Appointment not found.</value>
+  </data>
+    <data name="AvailabilitySlotCreationError" xml:space="preserve">
+    <value>Error creating availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotUpdateError" xml:space="preserve">
+    <value>Error updating availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotDeletionError" xml:space="preserve">
+    <value>Error deleting availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
+    <value>Availability slot not found.</value>
+  </data>
 </root>

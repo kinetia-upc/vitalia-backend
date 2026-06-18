@@ -1,22 +1,28 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Scheduling.Application.CommandServices;
 using VitaliaBackend.Scheduling.Application.QueryServices;
+using VitaliaBackend.Scheduling.Domain.Model;
 using VitaliaBackend.Scheduling.Domain.Model.Commands;
 using VitaliaBackend.Scheduling.Domain.Model.Queries;
 using VitaliaBackend.Scheduling.Interfaces.Rest.Resources;
 using VitaliaBackend.Scheduling.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Scheduling.Interfaces.Rest;
 
 [ApiController]
-[Route("api/v1/scheduling/availability-slots")]
+[Route("api/v1/scheduling/availabilitySlots")]
 [Produces(MediaTypeNames.Application.Json)]
 [SwaggerTag("Scheduling availability slots endpoints")]
 public class SchedulingAvailabilitySlotsController(
     IAvailabilitySlotQueryService availabilitySlotQueryService,
-    IAvailabilitySlotCommandService availabilitySlotCommandService)
+    IAvailabilitySlotCommandService availabilitySlotCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory)
     : ControllerBase
 {
     [HttpGet]
@@ -41,10 +47,13 @@ public class SchedulingAvailabilitySlotsController(
         var query = new GetAvailabilitySlotByIdQuery(availabilitySlotId);
         var slot = await availabilitySlotQueryService.Handle(query, cancellationToken);
 
-        if (slot is null)
-            return NotFound();
-
-        return Ok(AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(slot));
+        return SchedulingActionResultAssembler.ToActionResultFromNullable(
+            this,
+            slot,
+            SchedulingError.AvailabilitySlotNotFoundError,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundSlot => Ok(AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(foundSlot)));
     }
 
     [HttpPost]
@@ -53,17 +62,17 @@ public class SchedulingAvailabilitySlotsController(
         CancellationToken cancellationToken)
     {
         var command = CreateAvailabilitySlotCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var slot = await availabilitySlotCommandService.Handle(command, cancellationToken);
+        var result = await availabilitySlotCommandService.Handle(command, cancellationToken);
 
-        if (slot is null)
-            return BadRequest();
-
-        var slotResource = AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(slot);
-
-        return CreatedAtAction(
-            nameof(GetAvailabilitySlotById),
-            new { availabilitySlotId = slot.PublicId },
-            slotResource);
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdSlot => CreatedAtAction(
+                nameof(GetAvailabilitySlotById),
+                new { availabilitySlotId = createdSlot.PublicId },
+                AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(createdSlot)));
     }
 
     [HttpPatch("{availabilitySlotId}")]
@@ -76,12 +85,14 @@ public class SchedulingAvailabilitySlotsController(
             availabilitySlotId,
             resource);
 
-        var slot = await availabilitySlotCommandService.Handle(command, cancellationToken);
+        var result = await availabilitySlotCommandService.Handle(command, cancellationToken);
 
-        if (slot is null)
-            return BadRequest();
-
-        return Ok(AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(slot));
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedSlot => Ok(AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(updatedSlot)));
     }
 
     [HttpDelete("{availabilitySlotId}")]
@@ -90,11 +101,13 @@ public class SchedulingAvailabilitySlotsController(
         CancellationToken cancellationToken)
     {
         var command = new DeleteAvailabilitySlotCommand(availabilitySlotId);
-        var deleted = await availabilitySlotCommandService.Handle(command, cancellationToken);
+        var result = await availabilitySlotCommandService.Handle(command, cancellationToken);
 
-        if (!deleted)
-            return NotFound();
-
-        return NoContent();
+        return SchedulingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }

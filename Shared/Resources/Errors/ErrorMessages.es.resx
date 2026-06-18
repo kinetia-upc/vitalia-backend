@@ -107,4 +107,40 @@
     <data name="InternalServerError" xml:space="preserve">
     <value>Ocurrió un error interno inesperado.</value>
   </data>
+    <data name="MedicineCreationError" xml:space="preserve">
+    <value>Error al crear el medicamento.</value>
+  </data>
+    <data name="MedicineUpdateError" xml:space="preserve">
+    <value>Error al actualizar el medicamento.</value>
+  </data>
+    <data name="MedicineDeletionError" xml:space="preserve">
+    <value>Error al eliminar el medicamento.</value>
+  </data>
+    <data name="MedicineNotFoundError" xml:space="preserve">
+    <value>Medicamento no encontrado.</value>
+  </data>
+    <data name="AppointmentCreationError" xml:space="preserve">
+    <value>Error al crear la cita.</value>
+  </data>
+    <data name="AppointmentUpdateError" xml:space="preserve">
+    <value>Error al actualizar la cita.</value>
+  </data>
+    <data name="AppointmentDeletionError" xml:space="preserve">
+    <value>Error al eliminar la cita.</value>
+  </data>
+    <data name="AppointmentNotFoundError" xml:space="preserve">
+    <value>Cita no encontrada.</value>
+  </data>
+    <data name="AvailabilitySlotCreationError" xml:space="preserve">
+    <value>Error al crear el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotUpdateError" xml:space="preserve">
+    <value>Error al actualizar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotDeletionError" xml:space="preserve">
+    <value>Error al eliminar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
+    <value>Horario de disponibilidad no encontrado.</value>
+  </data>
 </root>

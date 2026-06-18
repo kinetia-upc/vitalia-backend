@@ -15,7 +15,7 @@ using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
 [ApiController]
-[Route("api/v1/prescription-details")]
+[Route("api/v1/prescriptionDetails")]
 [Produces(MediaTypeNames.Application.Json)]
 [SwaggerTag("Clinical prescription details endpoints")]
 public class ClinicalPrescriptionDetailsController(

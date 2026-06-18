@@ -14,7 +14,7 @@ using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
 [ApiController]
-[Route("api/v1/medical-records")]
+[Route("api/v1/medicalRecords")]
 [Produces(MediaTypeNames.Application.Json)]
 [SwaggerTag("Clinical medical records endpoints")]
 public class ClinicalMedicalRecordsController(

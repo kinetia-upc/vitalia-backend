@@ -1,13 +1,16 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Pharmacy.Application.CommandServices;
 using VitaliaBackend.Pharmacy.Application.QueryServices;
+using VitaliaBackend.Pharmacy.Domain.Model;
 using VitaliaBackend.Pharmacy.Domain.Model.Commands;
-using VitaliaBackend.Pharmacy.Domain.Model.Errors;
 using VitaliaBackend.Pharmacy.Domain.Model.Queries;
 using VitaliaBackend.Pharmacy.Interfaces.Rest.Resources;
 using VitaliaBackend.Pharmacy.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Pharmacy.Interfaces.Rest;
 
@@ -17,7 +20,9 @@ namespace VitaliaBackend.Pharmacy.Interfaces.Rest;
 [SwaggerTag("Pharmacy medicines endpoints")]
 public class PharmacyMedicinesController(
     IMedicineQueryService medicineQueryService,
-    IMedicineCommandService medicineCommandService) : ControllerBase
+    IMedicineCommandService medicineCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetMedicines(
@@ -39,10 +44,13 @@ public class PharmacyMedicinesController(
         var query = new GetMedicineByIdQuery(medicineId);
         var medicine = await medicineQueryService.Handle(query, cancellationToken);
 
-        if (medicine is null)
-            return NotFound(PharmacyErrors.MedicineNotFoundError);
-
-        return Ok(MedicineResourceFromEntityAssembler.ToResourceFromEntity(medicine));
+        return PharmacyActionResultAssembler.ToActionResultFromNullable(
+            this,
+            medicine,
+            PharmacyError.MedicineNotFoundError,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundMedicine => Ok(MedicineResourceFromEntityAssembler.ToResourceFromEntity(foundMedicine)));
     }
 
     [HttpPost]
@@ -51,17 +59,17 @@ public class PharmacyMedicinesController(
         CancellationToken cancellationToken)
     {
         var command = CreateMedicineCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var medicine = await medicineCommandService.Handle(command, cancellationToken);
+        var result = await medicineCommandService.Handle(command, cancellationToken);
 
-        if (medicine is null)
-            return BadRequest(PharmacyErrors.MedicineCreationError);
-
-        var medicineResource = MedicineResourceFromEntityAssembler.ToResourceFromEntity(medicine);
-
-        return CreatedAtAction(
-            nameof(GetMedicineById),
-            new { medicineId = medicine.Id },
-            medicineResource);
+        return PharmacyActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdMedicine => CreatedAtAction(
+                nameof(GetMedicineById),
+                new { medicineId = createdMedicine.Id },
+                MedicineResourceFromEntityAssembler.ToResourceFromEntity(createdMedicine)));
     }
 
     [HttpPut("{medicineId:int}")]
@@ -71,12 +79,14 @@ public class PharmacyMedicinesController(
         CancellationToken cancellationToken)
     {
         var command = UpdateMedicineCommandFromResourceAssembler.ToCommandFromResource(medicineId, resource);
-        var medicine = await medicineCommandService.Handle(command, cancellationToken);
+        var result = await medicineCommandService.Handle(command, cancellationToken);
 
-        if (medicine is null)
-            return BadRequest(PharmacyErrors.MedicineUpdateError);
-
-        return Ok(MedicineResourceFromEntityAssembler.ToResourceFromEntity(medicine));
+        return PharmacyActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedMedicine => Ok(MedicineResourceFromEntityAssembler.ToResourceFromEntity(updatedMedicine)));
     }
 
     [HttpDelete("{medicineId:int}")]
@@ -85,11 +95,13 @@ public class PharmacyMedicinesController(
         CancellationToken cancellationToken)
     {
         var command = new DeleteMedicineCommand(medicineId);
-        var deleted = await medicineCommandService.Handle(command, cancellationToken);
+        var result = await medicineCommandService.Handle(command, cancellationToken);
 
-        if (!deleted)
-            return NotFound(PharmacyErrors.MedicineNotFoundError);
-
-        return NoContent();
+        return PharmacyActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            NoContent);
     }
 }
