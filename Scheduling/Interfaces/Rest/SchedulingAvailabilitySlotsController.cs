@@ -26,6 +26,10 @@ public class SchedulingAvailabilitySlotsController(
     : ControllerBase
 {
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "List availability slots",
+        Description = "Returns all availability slots. Optional query parameters can be used to filter the results by doctor, branch, or date."
+    )]
     public async Task<IActionResult> GetAvailabilitySlots(
         [FromQuery] string? doctorId,
         [FromQuery] string? branchId,
@@ -40,6 +44,10 @@ public class SchedulingAvailabilitySlotsController(
     }
 
     [HttpGet("{availabilitySlotId}")]
+    [SwaggerOperation(
+        Summary = "Get an availability slot by id",
+        Description = "Returns a single availability slot using its public identifier."
+    )]
     public async Task<IActionResult> GetAvailabilitySlotById(
         [FromRoute] string availabilitySlotId,
         CancellationToken cancellationToken)
@@ -57,6 +65,10 @@ public class SchedulingAvailabilitySlotsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create an availability slot",
+        Description = "Creates a new availability slot for a doctor at a specific branch, date, and time when no conflicting slot already exists."
+    )]
     public async Task<IActionResult> CreateAvailabilitySlot(
         [FromBody] CreateAvailabilitySlotResource resource,
         CancellationToken cancellationToken)
@@ -76,6 +88,10 @@ public class SchedulingAvailabilitySlotsController(
     }
 
     [HttpPatch("{availabilitySlotId}")]
+    [SwaggerOperation(
+        Summary = "Update an availability slot",
+        Description = "Updates the status of an existing availability slot using its public identifier."
+    )]
     public async Task<IActionResult> UpdateAvailabilitySlotStatus(
         [FromRoute] string availabilitySlotId,
         [FromBody] UpdateAvailabilitySlotResource resource,
@@ -96,6 +112,10 @@ public class SchedulingAvailabilitySlotsController(
     }
 
     [HttpDelete("{availabilitySlotId}")]
+    [SwaggerOperation(
+        Summary = "Delete an availability slot",
+        Description = "Deletes an existing availability slot using its public identifier."
+    )]
     public async Task<IActionResult> DeleteAvailabilitySlot(
         [FromRoute] string availabilitySlotId,
         CancellationToken cancellationToken)

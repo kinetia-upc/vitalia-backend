@@ -25,6 +25,10 @@ public class PharmacyMedicinesController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "List medicines",
+        Description = "Returns all medicines. An optional search parameter can be used to filter by medicine name or unit type."
+    )]
     public async Task<IActionResult> GetMedicines(
         [FromQuery] string? search,
         CancellationToken cancellationToken)
@@ -37,6 +41,10 @@ public class PharmacyMedicinesController(
     }
 
     [HttpGet("{medicineId:int}")]
+    [SwaggerOperation(
+        Summary = "Get a medicine by id",
+        Description = "Returns a single medicine using its numeric identifier."
+    )]
     public async Task<IActionResult> GetMedicineById(
         [FromRoute] int medicineId,
         CancellationToken cancellationToken)
@@ -54,6 +62,10 @@ public class PharmacyMedicinesController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a medicine",
+        Description = "Creates a new medicine record when the name and presentation are valid and do not duplicate an existing medicine."
+    )]
     public async Task<IActionResult> CreateMedicine(
         [FromBody] CreateMedicineResource resource,
         CancellationToken cancellationToken)
@@ -73,6 +85,10 @@ public class PharmacyMedicinesController(
     }
 
     [HttpPut("{medicineId:int}")]
+    [SwaggerOperation(
+        Summary = "Update a medicine",
+        Description = "Updates the details of an existing medicine using its numeric identifier."
+    )]
     public async Task<IActionResult> UpdateMedicine(
         [FromRoute] int medicineId,
         [FromBody] UpdateMedicineResource resource,
@@ -90,6 +106,10 @@ public class PharmacyMedicinesController(
     }
 
     [HttpDelete("{medicineId:int}")]
+    [SwaggerOperation(
+        Summary = "Delete a medicine",
+        Description = "Deletes an existing medicine using its numeric identifier."
+    )]
     public async Task<IActionResult> DeleteMedicine(
         [FromRoute] int medicineId,
         CancellationToken cancellationToken)

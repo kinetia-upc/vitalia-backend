@@ -26,6 +26,10 @@ public class SchedulingAppointmentsController(
     : ControllerBase
 {
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "List appointments",
+        Description = "Returns all appointments. Optional query parameters can be used to filter the results by doctor, patient, branch, or scheduled date."
+    )]
     public async Task<IActionResult> GetAppointments(
         [FromQuery] string? doctorId,
         [FromQuery] string? patientId,
@@ -41,6 +45,10 @@ public class SchedulingAppointmentsController(
     }
 
     [HttpGet("{appointmentId}")]
+    [SwaggerOperation(
+        Summary = "Get an appointment by id",
+        Description = "Returns a single appointment using its public identifier."
+    )]
     public async Task<IActionResult> GetAppointmentById(
         [FromRoute] string appointmentId,
         CancellationToken cancellationToken)
@@ -58,6 +66,10 @@ public class SchedulingAppointmentsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create an appointment",
+        Description = "Creates a new appointment when the requested doctor, date, and time do not conflict with another active appointment."
+    )]
     public async Task<IActionResult> CreateAppointment(
         [FromBody] CreateAppointmentResource resource,
         CancellationToken cancellationToken)
@@ -77,6 +89,10 @@ public class SchedulingAppointmentsController(
     }
 
     [HttpPatch("{appointmentId}")]
+    [SwaggerOperation(
+        Summary = "Update an appointment",
+        Description = "Updates the schedule or status of an existing appointment using its public identifier."
+    )]
     public async Task<IActionResult> UpdateAppointment(
         [FromRoute] string appointmentId,
         [FromBody] UpdateAppointmentResource resource,
@@ -94,6 +110,10 @@ public class SchedulingAppointmentsController(
     }
 
     [HttpDelete("{appointmentId}")]
+    [SwaggerOperation(
+        Summary = "Delete an appointment",
+        Description = "Deletes an existing appointment using its public identifier."
+    )]
     public async Task<IActionResult> DeleteAppointment(
         [FromRoute] string appointmentId,
         CancellationToken cancellationToken)
