@@ -21,8 +21,8 @@ public class MedicalRecord : IAuditableEntity
     public MedicalRecord(string appointmentId, string patientId)
     {
         Code = GenerateCode();
-        AppointmentId = appointmentId.Trim();
-        PatientId = patientId.Trim();
+        AppointmentId = appointmentId;
+        PatientId = patientId;
     }
 
     private static string GenerateCode()

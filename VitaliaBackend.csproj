@@ -64,7 +64,6 @@
     <Folder Include="Clinical\Domain\Model\Errors\" />
     <Folder Include="Clinical\Domain\Model\Events\" />
     <Folder Include="Clinical\Domain\Model\Queries\" />
-    <Folder Include="Clinical\Domain\Model\ValueObjects\" />
     <Folder Include="Clinical\Domain\Repositories\" />
     <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
     <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />

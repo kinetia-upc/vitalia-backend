@@ -50,16 +50,28 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+builder.Services.AddScoped<IPrescriptionDetailRepository, PrescriptionDetailRepository>();
 
 builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
 builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
 builder.Services.AddScoped<IMedicineQueryService, MedicineQueryService>();
 builder.Services.AddScoped<IMedicalRecordQueryService, MedicalRecordQueryService>();
+builder.Services.AddScoped<IDiagnosisQueryService, DiagnosisQueryService>();
+builder.Services.AddScoped<ITreatmentQueryService, TreatmentQueryService>();
+builder.Services.AddScoped<IPrescriptionQueryService, PrescriptionQueryService>();
+builder.Services.AddScoped<IPrescriptionDetailQueryService, PrescriptionDetailQueryService>();
 
 builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService>();
 builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
 builder.Services.AddScoped<IMedicineCommandService, MedicineCommandService>();
 builder.Services.AddScoped<IMedicalRecordCommandService, MedicalRecordCommandService>();
+builder.Services.AddScoped<IDiagnosisCommandService, DiagnosisCommandService>();
+builder.Services.AddScoped<ITreatmentCommandService, TreatmentCommandService>();
+builder.Services.AddScoped<IPrescriptionCommandService, PrescriptionCommandService>();
+builder.Services.AddScoped<IPrescriptionDetailCommandService, PrescriptionDetailCommandService>();
 
 //-----------------------
 

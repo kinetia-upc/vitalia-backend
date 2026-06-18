@@ -1,0 +1,9 @@
+using VitaliaBackend.Clinical.Domain.Model.Aggregates;
+using VitaliaBackend.Clinical.Domain.Model.Queries;
+
+namespace VitaliaBackend.Clinical.Application.QueryServices;
+
+public interface IPrescriptionQueryService
+{
+    Task<Prescription?> Handle(GetPrescriptionByIdQuery query, CancellationToken cancellationToken);
+}

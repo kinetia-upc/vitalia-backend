@@ -23,6 +23,10 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<AvailabilitySlot> AvailabilitySlots { get; set; }
     public DbSet<Medicine> Medicines { get; set; }
     public DbSet<MedicalRecord> MedicalRecords { get; set; }
+    public DbSet<Diagnosis> Diagnoses { get; set; }
+    public DbSet<Treatment> Treatments { get; set; }
+    public DbSet<Prescription> Prescriptions { get; set; }
+    public DbSet<PrescriptionDetail> PrescriptionDetails { get; set; }
     /// <inheritdoc />
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
