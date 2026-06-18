@@ -9,6 +9,7 @@ public static class TreatmentResourceFromEntityAssembler
     {
         return new TreatmentResource(
             entity.Id,
+            entity.MedicalRecordId,
             entity.Description,
             entity.CreatedAt,
             entity.UpdatedAt);

@@ -1,25 +1,87 @@
 using VitaliaBackend.Clinical.Application.CommandServices;
+using VitaliaBackend.Clinical.Domain.Model;
 using VitaliaBackend.Clinical.Domain.Model.Aggregates;
 using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Repositories;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Application.Model;
 using VitaliaBackend.Shared.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace VitaliaBackend.Clinical.Application.Internal.CommandServices;
 
-public class DiagnosisCommandService(IDiagnosisRepository diagnosisRepository, IUnitOfWork unitOfWork)
+public class DiagnosisCommandService(
+    IDiagnosisRepository diagnosisRepository,
+    IUnitOfWork unitOfWork,
+    IStringLocalizer<ErrorMessages> localizer)
     : IDiagnosisCommandService
 {
-    public async Task<Diagnosis?> Handle(CreateDiagnosisCommand command, CancellationToken cancellationToken)
+    public async Task<Result<Diagnosis>> Handle(CreateDiagnosisCommand command, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(command.MedicalRecordId) || !HasValidDescription(command.Description))
+            return Result<Diagnosis>.Failure(
+                ClinicalError.InvalidDiagnosisDescription,
+                localizer[nameof(ClinicalError.InvalidDiagnosisDescription)]);
+
+        var diagnosis = new Diagnosis(command.MedicalRecordId, command.Description);
+
+        try
+        {
+            await diagnosisRepository.AddAsync(diagnosis, cancellationToken);
+            await unitOfWork.CompleteAsync(cancellationToken);
+            return Result<Diagnosis>.Success(diagnosis);
+        }
+        catch (OperationCanceledException)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
+        }
+        catch (DbUpdateException)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
+        }
+        catch (Exception)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
+        }
+    }
+
+    public async Task<Result<Diagnosis>> Handle(
+        UpdateDiagnosisDescriptionCommand command,
+        CancellationToken cancellationToken)
     {
         if (!HasValidDescription(command.Description))
-            return null;
+            return Result<Diagnosis>.Failure(
+                ClinicalError.InvalidDiagnosisDescription,
+                localizer[nameof(ClinicalError.InvalidDiagnosisDescription)]);
 
-        var diagnosis = new Diagnosis(command.Description.Trim());
+        var diagnosis = await diagnosisRepository.FindByIdAsync(command.DiagnosisId, cancellationToken);
 
-        await diagnosisRepository.AddAsync(diagnosis, cancellationToken);
-        await unitOfWork.CompleteAsync(cancellationToken);
+        if (diagnosis is null)
+            return Result<Diagnosis>.Failure(
+                ClinicalError.DiagnosisNotFound,
+                localizer[nameof(ClinicalError.DiagnosisNotFound)]);
 
-        return diagnosis;
+        diagnosis.UpdateDescription(command.Description);
+
+        try
+        {
+            diagnosisRepository.Update(diagnosis);
+            await unitOfWork.CompleteAsync(cancellationToken);
+            return Result<Diagnosis>.Success(diagnosis);
+        }
+        catch (OperationCanceledException)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
+        }
+        catch (DbUpdateException)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
+        }
+        catch (Exception)
+        {
+            return Result<Diagnosis>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
+        }
     }
 
     private static bool HasValidDescription(string description)

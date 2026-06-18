@@ -1,12 +1,15 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
-using VitaliaBackend.Clinical.Domain.Model.Errors;
+using VitaliaBackend.Clinical.Domain.Model;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
@@ -16,7 +19,9 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [SwaggerTag("Clinical diagnoses endpoints")]
 public class ClinicalDiagnosesController(
     IDiagnosisQueryService diagnosisQueryService,
-    IDiagnosisCommandService diagnosisCommandService) : ControllerBase
+    IDiagnosisCommandService diagnosisCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{diagnosisId:int}")]
     public async Task<IActionResult> GetDiagnosisById(
@@ -26,10 +31,13 @@ public class ClinicalDiagnosesController(
         var query = new GetDiagnosisByIdQuery(diagnosisId);
         var diagnosis = await diagnosisQueryService.Handle(query, cancellationToken);
 
-        if (diagnosis is null)
-            return NotFound(ClinicalErrors.DiagnosisNotFoundError);
-
-        return Ok(DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(diagnosis));
+        return ClinicalActionResultAssembler.ToActionResultFromNullable(
+            this,
+            diagnosis,
+            ClinicalError.DiagnosisNotFound,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundDiagnosis => Ok(DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(foundDiagnosis)));
     }
 
     [HttpPost]
@@ -38,16 +46,35 @@ public class ClinicalDiagnosesController(
         CancellationToken cancellationToken)
     {
         var command = CreateDiagnosisCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var diagnosis = await diagnosisCommandService.Handle(command, cancellationToken);
+        var result = await diagnosisCommandService.Handle(command, cancellationToken);
 
-        if (diagnosis is null)
-            return BadRequest(ClinicalErrors.DiagnosisCreationError);
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdDiagnosis => CreatedAtAction(
+                nameof(GetDiagnosisById),
+                new { diagnosisId = createdDiagnosis.Id },
+                DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(createdDiagnosis)));
+    }
 
-        var diagnosisResource = DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(diagnosis);
+    [HttpPatch("{diagnosisId:int}")]
+    public async Task<IActionResult> UpdateDiagnosisDescription(
+        [FromRoute] int diagnosisId,
+        [FromBody] UpdateDescriptionResource resource,
+        CancellationToken cancellationToken)
+    {
+        var command = UpdateDiagnosisDescriptionCommandFromResourceAssembler.ToCommandFromResource(
+            diagnosisId,
+            resource);
+        var result = await diagnosisCommandService.Handle(command, cancellationToken);
 
-        return CreatedAtAction(
-            nameof(GetDiagnosisById),
-            new { diagnosisId = diagnosis.Id },
-            diagnosisResource);
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedDiagnosis => Ok(DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(updatedDiagnosis)));
     }
 }

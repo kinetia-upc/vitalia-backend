@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Domain.Model.Commands;
 
-public record CreateDiagnosisCommand(string Description);
+public record CreateDiagnosisCommand(string MedicalRecordId, string Description);

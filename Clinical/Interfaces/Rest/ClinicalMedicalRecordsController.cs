@@ -1,12 +1,15 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
-using VitaliaBackend.Clinical.Domain.Model.Errors;
+using VitaliaBackend.Clinical.Domain.Model;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
@@ -16,7 +19,9 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [SwaggerTag("Clinical medical records endpoints")]
 public class ClinicalMedicalRecordsController(
     IMedicalRecordQueryService medicalRecordQueryService,
-    IMedicalRecordCommandService medicalRecordCommandService) : ControllerBase
+    IMedicalRecordCommandService medicalRecordCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{code}")]
     public async Task<IActionResult> GetMedicalRecordByCode(
@@ -26,10 +31,13 @@ public class ClinicalMedicalRecordsController(
         var query = new GetMedicalRecordByCodeQuery(code);
         var medicalRecord = await medicalRecordQueryService.Handle(query, cancellationToken);
 
-        if (medicalRecord is null)
-            return NotFound(ClinicalErrors.MedicalRecordNotFoundError);
-
-        return Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(medicalRecord));
+        return ClinicalActionResultAssembler.ToActionResultFromNullable(
+            this,
+            medicalRecord,
+            ClinicalError.MedicalRecordNotFound,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundMedicalRecord => Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(foundMedicalRecord)));
     }
 
     [HttpGet("patients/{patientId}")]
@@ -52,10 +60,13 @@ public class ClinicalMedicalRecordsController(
         var query = new GetMedicalRecordByAppointmentIdQuery(appointmentId);
         var medicalRecord = await medicalRecordQueryService.Handle(query, cancellationToken);
 
-        if (medicalRecord is null)
-            return NotFound(ClinicalErrors.MedicalRecordNotFoundError);
-
-        return Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(medicalRecord));
+        return ClinicalActionResultAssembler.ToActionResultFromNullable(
+            this,
+            medicalRecord,
+            ClinicalError.MedicalRecordNotFound,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundMedicalRecord => Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(foundMedicalRecord)));
     }
 
     [HttpPost]
@@ -64,16 +75,16 @@ public class ClinicalMedicalRecordsController(
         CancellationToken cancellationToken)
     {
         var command = CreateMedicalRecordCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var medicalRecord = await medicalRecordCommandService.Handle(command, cancellationToken);
+        var result = await medicalRecordCommandService.Handle(command, cancellationToken);
 
-        if (medicalRecord is null)
-            return BadRequest(ClinicalErrors.MedicalRecordCreationError);
-
-        var medicalRecordResource = MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(medicalRecord);
-
-        return CreatedAtAction(
-            nameof(GetMedicalRecordByCode),
-            new { code = medicalRecord.Code },
-            medicalRecordResource);
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdMedicalRecord => CreatedAtAction(
+                nameof(GetMedicalRecordByCode),
+                new { code = createdMedicalRecord.Code },
+                MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(createdMedicalRecord)));
     }
 }

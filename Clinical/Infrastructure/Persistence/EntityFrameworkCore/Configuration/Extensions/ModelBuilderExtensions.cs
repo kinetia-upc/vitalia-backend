@@ -19,10 +19,12 @@ public static class ModelBuilderExtensions
 
         builder.Entity<Diagnosis>().HasKey(diagnosis => diagnosis.Id);
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.MedicalRecordId).IsRequired().HasMaxLength(50);
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Description).IsRequired().HasMaxLength(300);
 
         builder.Entity<Treatment>().HasKey(treatment => treatment.Id);
         builder.Entity<Treatment>().Property(treatment => treatment.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Treatment>().Property(treatment => treatment.MedicalRecordId).IsRequired().HasMaxLength(50);
         builder.Entity<Treatment>().Property(treatment => treatment.Description).IsRequired().HasMaxLength(300);
 
         builder.Entity<Prescription>().HasKey(prescription => prescription.Id);

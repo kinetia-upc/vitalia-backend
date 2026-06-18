@@ -1,12 +1,15 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Clinical.Application.CommandServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
-using VitaliaBackend.Clinical.Domain.Model.Errors;
+using VitaliaBackend.Clinical.Domain.Model;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
@@ -16,7 +19,9 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [SwaggerTag("Clinical prescriptions endpoints")]
 public class ClinicalPrescriptionsController(
     IPrescriptionQueryService prescriptionQueryService,
-    IPrescriptionCommandService prescriptionCommandService) : ControllerBase
+    IPrescriptionCommandService prescriptionCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{prescriptionId:int}")]
     public async Task<IActionResult> GetPrescriptionById(
@@ -26,10 +31,13 @@ public class ClinicalPrescriptionsController(
         var query = new GetPrescriptionByIdQuery(prescriptionId);
         var prescription = await prescriptionQueryService.Handle(query, cancellationToken);
 
-        if (prescription is null)
-            return NotFound(ClinicalErrors.PrescriptionNotFoundError);
-
-        return Ok(PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(prescription));
+        return ClinicalActionResultAssembler.ToActionResultFromNullable(
+            this,
+            prescription,
+            ClinicalError.PrescriptionNotFound,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundPrescription => Ok(PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(foundPrescription)));
     }
 
     [HttpPost]
@@ -38,16 +46,16 @@ public class ClinicalPrescriptionsController(
         CancellationToken cancellationToken)
     {
         var command = CreatePrescriptionCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var prescription = await prescriptionCommandService.Handle(command, cancellationToken);
+        var result = await prescriptionCommandService.Handle(command, cancellationToken);
 
-        if (prescription is null)
-            return BadRequest(ClinicalErrors.PrescriptionCreationError);
-
-        var prescriptionResource = PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(prescription);
-
-        return CreatedAtAction(
-            nameof(GetPrescriptionById),
-            new { prescriptionId = prescription.Id },
-            prescriptionResource);
+        return ClinicalActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdPrescription => CreatedAtAction(
+                nameof(GetPrescriptionById),
+                new { prescriptionId = createdPrescription.Id },
+                PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(createdPrescription)));
     }
 }
