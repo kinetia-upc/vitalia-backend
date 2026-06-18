@@ -25,6 +25,10 @@ public class ClinicalPrescriptionDetailsController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{prescriptionDetailId:int}")]
+    [SwaggerOperation(
+        Summary = "Get a prescription detail by id",
+        Description = "Returns a single prescription detail using its numeric identifier."
+    )]
     public async Task<IActionResult> GetPrescriptionDetailById(
         [FromRoute] int prescriptionDetailId,
         CancellationToken cancellationToken)
@@ -43,6 +47,10 @@ public class ClinicalPrescriptionDetailsController(
     }
 
     [HttpGet("prescriptions/{prescriptionId:int}")]
+    [SwaggerOperation(
+        Summary = "List prescription details by prescription",
+        Description = "Returns all prescription details associated with the specified prescription identifier."
+    )]
     public async Task<IActionResult> GetPrescriptionDetailsByPrescriptionId(
         [FromRoute] int prescriptionId,
         CancellationToken cancellationToken)
@@ -55,6 +63,10 @@ public class ClinicalPrescriptionDetailsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a prescription detail",
+        Description = "Creates a new prescription detail entry for the specified prescription."
+    )]
     public async Task<IActionResult> CreatePrescriptionDetail(
         [FromBody] CreatePrescriptionDetailResource resource,
         CancellationToken cancellationToken)
@@ -74,6 +86,10 @@ public class ClinicalPrescriptionDetailsController(
     }
 
     [HttpPut("{prescriptionDetailId:int}")]
+    [SwaggerOperation(
+        Summary = "Update a prescription detail",
+        Description = "Updates an existing prescription detail using its numeric identifier."
+    )]
     public async Task<IActionResult> UpdatePrescriptionDetail(
         [FromRoute] int prescriptionDetailId,
         [FromBody] UpdatePrescriptionDetailResource resource,
@@ -94,6 +110,10 @@ public class ClinicalPrescriptionDetailsController(
     }
 
     [HttpDelete("{prescriptionDetailId:int}")]
+    [SwaggerOperation(
+        Summary = "Delete a prescription detail",
+        Description = "Deletes an existing prescription detail using its numeric identifier."
+    )]
     public async Task<IActionResult> DeletePrescriptionDetail(
         [FromRoute] int prescriptionDetailId,
         CancellationToken cancellationToken)

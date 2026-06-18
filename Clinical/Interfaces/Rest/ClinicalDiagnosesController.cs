@@ -25,6 +25,10 @@ public class ClinicalDiagnosesController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{diagnosisId:int}")]
+    [SwaggerOperation(
+        Summary = "Get a diagnosis by id",
+        Description = "Returns a single diagnosis using its numeric identifier."
+    )]
     public async Task<IActionResult> GetDiagnosisById(
         [FromRoute] int diagnosisId,
         CancellationToken cancellationToken)
@@ -42,6 +46,10 @@ public class ClinicalDiagnosesController(
     }
 
     [HttpGet("medical-records/{medicalRecordId}")]
+    [SwaggerOperation(
+        Summary = "List diagnoses by medical record",
+        Description = "Returns all diagnoses associated with the specified medical record identifier."
+    )]
     public async Task<IActionResult> GetDiagnosesByMedicalRecordId(
         [FromRoute] string medicalRecordId,
         CancellationToken cancellationToken)
@@ -54,6 +62,10 @@ public class ClinicalDiagnosesController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a diagnosis",
+        Description = "Creates a new diagnosis entry for the specified medical record."
+    )]
     public async Task<IActionResult> CreateDiagnosis(
         [FromBody] CreateDiagnosisResource resource,
         CancellationToken cancellationToken)
@@ -73,6 +85,10 @@ public class ClinicalDiagnosesController(
     }
 
     [HttpPatch("{diagnosisId:int}")]
+    [SwaggerOperation(
+        Summary = "Update a diagnosis description",
+        Description = "Updates the description of an existing diagnosis using its numeric identifier."
+    )]
     public async Task<IActionResult> UpdateDiagnosisDescription(
         [FromRoute] int diagnosisId,
         [FromBody] UpdateDescriptionResource resource,
@@ -92,6 +108,10 @@ public class ClinicalDiagnosesController(
     }
 
     [HttpDelete("{diagnosisId:int}")]
+    [SwaggerOperation(
+        Summary = "Delete a diagnosis",
+        Description = "Deletes an existing diagnosis using its numeric identifier."
+    )]
     public async Task<IActionResult> DeleteDiagnosis(
         [FromRoute] int diagnosisId,
         CancellationToken cancellationToken)

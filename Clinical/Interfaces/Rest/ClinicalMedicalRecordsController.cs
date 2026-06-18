@@ -24,6 +24,10 @@ public class ClinicalMedicalRecordsController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{code}")]
+    [SwaggerOperation(
+        Summary = "Get a medical record by code",
+        Description = "Returns a single medical record using its unique medical record code."
+    )]
     public async Task<IActionResult> GetMedicalRecordByCode(
         [FromRoute] string code,
         CancellationToken cancellationToken)
@@ -41,6 +45,10 @@ public class ClinicalMedicalRecordsController(
     }
 
     [HttpGet("patients/{patientId}")]
+    [SwaggerOperation(
+        Summary = "List medical records by patient",
+        Description = "Returns all medical records associated with the specified patient identifier."
+    )]
     public async Task<IActionResult> GetMedicalRecordsByPatientId(
         [FromRoute] string patientId,
         CancellationToken cancellationToken)
@@ -53,6 +61,10 @@ public class ClinicalMedicalRecordsController(
     }
 
     [HttpGet("appointments/{appointmentId}")]
+    [SwaggerOperation(
+        Summary = "Get a medical record by appointment",
+        Description = "Returns the medical record associated with the specified appointment identifier."
+    )]
     public async Task<IActionResult> GetMedicalRecordByAppointmentId(
         [FromRoute] string appointmentId,
         CancellationToken cancellationToken)
@@ -70,6 +82,10 @@ public class ClinicalMedicalRecordsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a medical record",
+        Description = "Creates a new medical record for a patient and optionally links it to an appointment."
+    )]
     public async Task<IActionResult> CreateMedicalRecord(
         [FromBody] CreateMedicalRecordResource resource,
         CancellationToken cancellationToken)

@@ -25,6 +25,10 @@ public class ClinicalPrescriptionsController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{prescriptionId:int}")]
+    [SwaggerOperation(
+        Summary = "Get a prescription by id",
+        Description = "Returns a single prescription using its numeric identifier."
+    )]
     public async Task<IActionResult> GetPrescriptionById(
         [FromRoute] int prescriptionId,
         CancellationToken cancellationToken)
@@ -42,6 +46,10 @@ public class ClinicalPrescriptionsController(
     }
 
     [HttpGet("medical-records/{medicalRecordId}")]
+    [SwaggerOperation(
+        Summary = "List prescriptions by medical record",
+        Description = "Returns all prescriptions associated with the specified medical record identifier."
+    )]
     public async Task<IActionResult> GetPrescriptionsByMedicalRecordId(
         [FromRoute] string medicalRecordId,
         CancellationToken cancellationToken)
@@ -54,6 +62,10 @@ public class ClinicalPrescriptionsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a prescription",
+        Description = "Creates a new prescription for the specified medical record."
+    )]
     public async Task<IActionResult> CreatePrescription(
         [FromBody] CreatePrescriptionResource resource,
         CancellationToken cancellationToken)
@@ -73,6 +85,10 @@ public class ClinicalPrescriptionsController(
     }
 
     [HttpDelete("{prescriptionId:int}")]
+    [SwaggerOperation(
+        Summary = "Delete a prescription",
+        Description = "Deletes an existing prescription using its numeric identifier."
+    )]
     public async Task<IActionResult> DeletePrescription(
         [FromRoute] int prescriptionId,
         CancellationToken cancellationToken)

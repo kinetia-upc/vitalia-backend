@@ -25,6 +25,10 @@ public class ClinicalTreatmentsController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet("{treatmentId:int}")]
+    [SwaggerOperation(
+        Summary = "Get a treatment by id",
+        Description = "Returns a single treatment using its numeric identifier."
+    )]
     public async Task<IActionResult> GetTreatmentById(
         [FromRoute] int treatmentId,
         CancellationToken cancellationToken)
@@ -42,6 +46,10 @@ public class ClinicalTreatmentsController(
     }
 
     [HttpGet("medical-records/{medicalRecordId}")]
+    [SwaggerOperation(
+        Summary = "List treatments by medical record",
+        Description = "Returns all treatments associated with the specified medical record identifier."
+    )]
     public async Task<IActionResult> GetTreatmentsByMedicalRecordId(
         [FromRoute] string medicalRecordId,
         CancellationToken cancellationToken)
@@ -54,6 +62,10 @@ public class ClinicalTreatmentsController(
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create a treatment",
+        Description = "Creates a new treatment entry for the specified medical record."
+    )]
     public async Task<IActionResult> CreateTreatment(
         [FromBody] CreateTreatmentResource resource,
         CancellationToken cancellationToken)
@@ -73,6 +85,10 @@ public class ClinicalTreatmentsController(
     }
 
     [HttpPatch("{treatmentId:int}")]
+    [SwaggerOperation(
+        Summary = "Update a treatment description",
+        Description = "Updates the description of an existing treatment using its numeric identifier."
+    )]
     public async Task<IActionResult> UpdateTreatmentDescription(
         [FromRoute] int treatmentId,
         [FromBody] UpdateDescriptionResource resource,
@@ -92,6 +108,10 @@ public class ClinicalTreatmentsController(
     }
 
     [HttpDelete("{treatmentId:int}")]
+    [SwaggerOperation(
+        Summary = "Delete a treatment",
+        Description = "Deletes an existing treatment using its numeric identifier."
+    )]
     public async Task<IActionResult> DeleteTreatment(
         [FromRoute] int treatmentId,
         CancellationToken cancellationToken)
