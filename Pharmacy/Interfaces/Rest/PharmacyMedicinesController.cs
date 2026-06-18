@@ -26,8 +26,8 @@ public class PharmacyMedicinesController(
 {
     [HttpGet]
     [SwaggerOperation(
-        Summary = "List medicines",
-        Description = "Returns all medicines. An optional search parameter can be used to filter by medicine name or unit type."
+        Summary = "Get medicines",
+        Description = "Retrieves a list of all medicines, optionally filtered by a search query on the medicine name."
     )]
     public async Task<IActionResult> GetMedicines(
         [FromQuery] string? search,
@@ -43,7 +43,7 @@ public class PharmacyMedicinesController(
     [HttpGet("{medicineId:int}")]
     [SwaggerOperation(
         Summary = "Get a medicine by id",
-        Description = "Returns a single medicine using its numeric identifier."
+        Description = "Retrieves details of a single medicine using its numeric identifier."
     )]
     public async Task<IActionResult> GetMedicineById(
         [FromRoute] int medicineId,
@@ -64,7 +64,7 @@ public class PharmacyMedicinesController(
     [HttpPost]
     [SwaggerOperation(
         Summary = "Create a medicine",
-        Description = "Creates a new medicine record when the name and presentation are valid and do not duplicate an existing medicine."
+        Description = "Creates a new medicine record in the pharmacy inventory."
     )]
     public async Task<IActionResult> CreateMedicine(
         [FromBody] CreateMedicineResource resource,
@@ -87,7 +87,7 @@ public class PharmacyMedicinesController(
     [HttpPut("{medicineId:int}")]
     [SwaggerOperation(
         Summary = "Update a medicine",
-        Description = "Updates the details of an existing medicine using its numeric identifier."
+        Description = "Updates details of an existing medicine record in the inventory using its numeric identifier."
     )]
     public async Task<IActionResult> UpdateMedicine(
         [FromRoute] int medicineId,
@@ -108,7 +108,7 @@ public class PharmacyMedicinesController(
     [HttpDelete("{medicineId:int}")]
     [SwaggerOperation(
         Summary = "Delete a medicine",
-        Description = "Deletes an existing medicine using its numeric identifier."
+        Description = "Removes an existing medicine record from the pharmacy inventory using its numeric identifier."
     )]
     public async Task<IActionResult> DeleteMedicine(
         [FromRoute] int medicineId,

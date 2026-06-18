@@ -9,4 +9,7 @@ public interface IPrescriptionDetailQueryService
     Task<IEnumerable<PrescriptionDetail>> Handle(
         GetPrescriptionDetailsByPrescriptionIdQuery query,
         CancellationToken cancellationToken);
+    Task<IEnumerable<PrescriptionDetail>> Handle(
+        GetAllPrescriptionDetailsQuery query,
+        CancellationToken cancellationToken);
 }

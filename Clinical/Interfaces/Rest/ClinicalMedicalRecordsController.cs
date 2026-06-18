@@ -23,6 +23,19 @@ public class ClinicalMedicalRecordsController(
     IStringLocalizer<ErrorMessages> errorLocalizer,
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
+    [HttpGet]
+    [SwaggerOperation(
+        Summary = "List all medical records",
+        Description = "Retrieves a list of all medical records available in the system."
+    )]
+    public async Task<IActionResult> GetMedicalRecords(CancellationToken cancellationToken)
+    {
+        var query = new GetAllMedicalRecordsQuery();
+        var medicalRecords = await medicalRecordQueryService.Handle(query, cancellationToken);
+        var resources = medicalRecords.Select(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity);
+        return Ok(resources);
+    }
+
     [HttpGet("{code}")]
     [SwaggerOperation(
         Summary = "Get a medical record by code",

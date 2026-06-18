@@ -7,4 +7,5 @@ public interface ITreatmentQueryService
 {
     Task<Treatment?> Handle(GetTreatmentByIdQuery query, CancellationToken cancellationToken);
     Task<IEnumerable<Treatment>> Handle(GetTreatmentsByMedicalRecordIdQuery query, CancellationToken cancellationToken);
+    Task<IEnumerable<Treatment>> Handle(GetAllTreatmentsQuery query, CancellationToken cancellationToken);
 }

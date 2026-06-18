@@ -24,6 +24,19 @@ public class ClinicalTreatmentsController(
     IStringLocalizer<ErrorMessages> errorLocalizer,
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
+    [HttpGet]
+    [SwaggerOperation(
+        Summary = "List all treatments",
+        Description = "Retrieves a list of all treatments available in the system."
+    )]
+    public async Task<IActionResult> GetTreatments(CancellationToken cancellationToken)
+    {
+        var query = new GetAllTreatmentsQuery();
+        var treatments = await treatmentQueryService.Handle(query, cancellationToken);
+        var resources = treatments.Select(TreatmentResourceFromEntityAssembler.ToResourceFromEntity);
+        return Ok(resources);
+    }
+
     [HttpGet("{treatmentId:int}")]
     [SwaggerOperation(
         Summary = "Get a treatment by id",

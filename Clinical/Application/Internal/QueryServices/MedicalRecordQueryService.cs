@@ -28,4 +28,11 @@ public class MedicalRecordQueryService(IMedicalRecordRepository medicalRecordRep
     {
         return await medicalRecordRepository.FindAllByPatientIdAsync(query.PatientId, cancellationToken);
     }
+
+    public async Task<IEnumerable<MedicalRecord>> Handle(
+        GetAllMedicalRecordsQuery query,
+        CancellationToken cancellationToken)
+    {
+        return await medicalRecordRepository.ListAsync(cancellationToken);
+    }
 }

@@ -18,4 +18,11 @@ public class TreatmentQueryService(ITreatmentRepository treatmentRepository) : I
     {
         return await treatmentRepository.FindAllByMedicalRecordIdAsync(query.MedicalRecordId, cancellationToken);
     }
+
+    public async Task<IEnumerable<Treatment>> Handle(
+        GetAllTreatmentsQuery query,
+        CancellationToken cancellationToken)
+    {
+        return await treatmentRepository.ListAsync(cancellationToken);
+    }
 }
