@@ -1,1349 +1,1173 @@
 {
-  "users": [
-    {
-      "id": "usr-doctor-001",
-      "healthcareCenterId": "hc-001",
-      "name": "Valeria",
-      "paternalSurname": "Rivas",
-      "maternalSurname": "Montoya",
-      "identityType": "DNI",
-      "identityNumber": "72841396",
-      "dateBirth": "1988-08-16",
-      "email": "valeria.rivas@vitalia.pe",
-      "phone": "+51 999 884 221",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. Guardia Civil 245, San Borja",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-admin-001",
-      "healthcareCenterId": "hc-001",
-      "name": "Camila",
-      "paternalSurname": "Torres",
-      "maternalSurname": "Salazar",
-      "identityType": "DNI",
-      "identityNumber": "73618294",
-      "dateBirth": "1985-11-09",
-      "email": "camila.torres@vitalia.pe",
-      "phone": "+51 977 318 642",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. Javier Prado 1520, San Isidro",
-      "role": "admin"
-    },
-    {
-      "id": "usr-patient-001",
-      "healthcareCenterId": "hc-001",
-      "name": "Alex",
-      "paternalSurname": "Mercer",
-      "maternalSurname": "Reed",
-      "identityType": "DNI",
-      "identityNumber": "70421835",
-      "dateBirth": "1993-04-22",
-      "email": "alex.mercer@gmail.com",
-      "phone": "+51 999 999 999",
-      "gender": "M",
-      "isActive": true,
-      "address": "742 Highfield Sanctuary, Apt 4B, San Isidro",
-      "role": "patient"
-    },
-    {
-      "id": "usr-doctor-002",
-      "healthcareCenterId": "hc-001",
-      "name": "Marcus",
-      "paternalSurname": "Liao",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "71234562",
-      "dateBirth": "1983-03-10",
-      "email": "marcus.liao@vitalia.pe",
-      "phone": "+51 955 100 202",
-      "gender": "M",
-      "isActive": true,
-      "address": "Av. Primavera 410, Surco",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-003",
-      "healthcareCenterId": "hc-001",
-      "name": "Sarah",
-      "paternalSurname": "Weaver",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "71234563",
-      "dateBirth": "1990-06-19",
-      "email": "sarah.weaver@vitalia.pe",
-      "phone": "+51 955 100 203",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. La Marina 870, Pueblo Libre",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-004",
-      "healthcareCenterId": "hc-001",
-      "name": "James",
-      "paternalSurname": "Peterson",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "71234564",
-      "dateBirth": "1979-12-02",
-      "email": "james.peterson@vitalia.pe",
-      "phone": "+51 955 100 204",
-      "gender": "M",
-      "isActive": true,
-      "address": "Av. Arequipa 2210, Lince",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-005",
-      "healthcareCenterId": "hc-001",
-      "name": "Elena",
-      "paternalSurname": "Vargas",
-      "maternalSurname": "Flores",
-      "identityType": "DNI",
-      "identityNumber": "71234565",
-      "dateBirth": "1986-09-25",
-      "email": "elena.vargas@vitalia.pe",
-      "phone": "+51 955 100 205",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. Benavides 1540, Miraflores",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-006",
-      "healthcareCenterId": "hc-001",
-      "name": "Diego",
-      "paternalSurname": "Ramirez",
-      "maternalSurname": "Soto",
-      "identityType": "DNI",
-      "identityNumber": "71234566",
-      "dateBirth": "1981-02-18",
-      "email": "diego.ramirez@vitalia.pe",
-      "phone": "+51 955 100 206",
-      "gender": "M",
-      "isActive": true,
-      "address": "Calle Los Robles 388, San Isidro",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-007",
-      "healthcareCenterId": "hc-001",
-      "name": "Lucia",
-      "paternalSurname": "Herrera",
-      "maternalSurname": "Nuñez",
-      "identityType": "DNI",
-      "identityNumber": "71234567",
-      "dateBirth": "1984-07-12",
-      "email": "lucia.herrera@vitalia.pe",
-      "phone": "+51 955 100 207",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. Republica de Panama 3210, San Isidro",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-doctor-008",
-      "healthcareCenterId": "hc-001",
-      "name": "Mateo",
-      "paternalSurname": "Castillo",
-      "maternalSurname": "Paredes",
-      "identityType": "DNI",
-      "identityNumber": "71234568",
-      "dateBirth": "1987-05-03",
-      "email": "mateo.castillo@vitalia.pe",
-      "phone": "+51 955 100 208",
-      "gender": "M",
-      "isActive": true,
-      "address": "Av. Caminos del Inca 1024, Surco",
-      "role": "doctor"
-    },
-    {
-      "id": "usr-patient-002",
-      "healthcareCenterId": "hc-001",
-      "name": "Sarah",
-      "paternalSurname": "Jenkins",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234562",
-      "dateBirth": "1991-01-14",
-      "email": "sarah.jenkins@example.com",
-      "phone": "+51 944 100 302",
-      "gender": "F",
-      "isActive": true,
-      "address": "Calle Las Flores 120, Miraflores",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-003",
-      "healthcareCenterId": "hc-001",
-      "name": "Mark",
-      "paternalSurname": "Thompson",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234563",
-      "dateBirth": "1986-09-08",
-      "email": "mark.thompson@example.com",
-      "phone": "+51 944 100 303",
-      "gender": "M",
-      "isActive": true,
-      "address": "Jr. Los Cedros 455, San Miguel",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-004",
-      "healthcareCenterId": "hc-001",
-      "name": "James",
-      "paternalSurname": "Chen",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234564",
-      "dateBirth": "1989-04-27",
-      "email": "james.chen@example.com",
-      "phone": "+51 944 100 304",
-      "gender": "M",
-      "isActive": true,
-      "address": "Av. Brasil 980, Jesus Maria",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-005",
-      "healthcareCenterId": "hc-001",
-      "name": "Eleanor",
-      "paternalSurname": "Vance",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234565",
-      "dateBirth": "1978-10-21",
-      "email": "eleanor.vance@example.com",
-      "phone": "+51 944 100 305",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. Canada 515, La Victoria",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-006",
-      "healthcareCenterId": "hc-001",
-      "name": "Arthur",
-      "paternalSurname": "Miller",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234566",
-      "dateBirth": "1969-07-11",
-      "email": "arthur.miller@example.com",
-      "phone": "+51 944 100 306",
-      "gender": "M",
-      "isActive": true,
-      "address": "Av. Salaverry 1400, Jesus Maria",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-007",
-      "healthcareCenterId": "hc-001",
-      "name": "Julian",
-      "paternalSurname": "Brooks",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234567",
-      "dateBirth": "1995-02-18",
-      "email": "julian.brooks@example.com",
-      "phone": "+51 944 100 307",
-      "gender": "M",
-      "isActive": true,
-      "address": "Calle Los Nogales 330, San Borja",
-      "role": "patient"
-    },
-    {
-      "id": "usr-patient-008",
-      "healthcareCenterId": "hc-001",
-      "name": "Clara",
-      "paternalSurname": "Oswald",
-      "maternalSurname": "",
-      "identityType": "DNI",
-      "identityNumber": "80234568",
-      "dateBirth": "1992-05-05",
-      "email": "clara.oswald@example.com",
-      "phone": "+51 944 100 308",
-      "gender": "F",
-      "isActive": true,
-      "address": "Av. El Polo 712, Surco",
-      "role": "patient"
-    }
-  ],
-  "patients": [
-    {
-      "id": "pat-001",
-      "userId": "usr-patient-001",
-      "insuranceProvider": "BlueShield Sanctuary Elite",
-      "policyNumber": "BS-8892-X-2024",
-      "activeThru": "2026-02-02",
-      "emergencyContactName": "Maya Reed",
-      "emergencyContactPhone": "+51 988 441 220"
-    },
-    {
-      "id": "pat-002",
-      "userId": "usr-patient-002",
-      "insuranceProvider": "HealthPlus",
-      "policyNumber": "HP-2002",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-003",
-      "userId": "usr-patient-003",
-      "insuranceProvider": "MediCare",
-      "policyNumber": "MC-2003",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-004",
-      "userId": "usr-patient-004",
-      "insuranceProvider": "MediCare",
-      "policyNumber": "MC-2004",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-005",
-      "userId": "usr-patient-005",
-      "insuranceProvider": "HealthPlus",
-      "policyNumber": "HP-2005",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-006",
-      "userId": "usr-patient-006",
-      "insuranceProvider": "MediCare",
-      "policyNumber": "MC-2006",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-007",
-      "userId": "usr-patient-007",
-      "insuranceProvider": "CareOne",
-      "policyNumber": "CO-2007",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    },
-    {
-      "id": "pat-008",
-      "userId": "usr-patient-008",
-      "insuranceProvider": "HealthPlus",
-      "policyNumber": "HP-2008",
-      "activeThru": "2026-12-31",
-      "emergencyContactName": "",
-      "emergencyContactPhone": ""
-    }
-  ],
-  "specialities": [
-    {
-      "id": "spec-001",
-      "description": "General Medicine"
-    },
-    {
-      "id": "spec-002",
-      "description": "Cardiology"
-    },
-    {
-      "id": "spec-003",
-      "description": "Pediatrics"
-    }
-  ],
-  "doctorSpecialities": [
-    {
-      "id": "ds-001",
-      "doctorId": "doc-001",
-      "specialityId": "spec-002"
-    },
-    {
-      "id": "ds-002",
-      "doctorId": "doc-005",
-      "specialityId": "spec-001"
-    },
-    {
-      "id": "ds-003",
-      "doctorId": "doc-006",
-      "specialityId": "spec-003"
-    },
-    {
-      "id": "ds-004",
-      "doctorId": "doc-007",
-      "specialityId": "spec-002"
-    },
-    {
-      "id": "ds-005",
-      "doctorId": "doc-008",
-      "specialityId": "spec-001"
-    },
-    {
-      "id": "ds-006",
-      "doctorId": "doc-002",
-      "specialityId": "spec-001"
-    },
-    {
-      "id": "ds-007",
-      "doctorId": "doc-003",
-      "specialityId": "spec-002"
-    },
-    {
-      "id": "ds-008",
-      "doctorId": "doc-004",
-      "specialityId": "spec-003"
-    }
-  ],
-  "healthcareCenters": [
-    {
-      "id": "hc-001",
-      "allianceStartDate": "2024-01-15",
-      "allianceFinishDate": "2027-01-15",
-      "rucNumber": 20611457892,
-      "healthcareCenterName": "Vitalia Medical Center"
-    }
-  ],
-  "branches": [
-    {
-      "id": "branch-001",
-      "healthcareCenterId": "hc-001",
-      "addressId": "addr-001",
-      "branchName": "Sede San Borja",
-      "address": "Av. Guardia Civil 245, San Borja"
-    }
-  ],
-  "appointmentFees": [
-    {
-      "id": "fee-001",
-      "branchId": "branch-001",
-      "specialityId": "spec-001",
-      "price": 180
-    },
-    {
-      "id": "fee-216245b5-a3b3-4e9d-9e6a-539033e98cd9",
-      "branchId": "branch-001",
-      "specialityId": "spec-002",
-      "price": 150
-    },
-    {
-      "id": "fee-8bf1d9dc-0849-44bb-898a-1fe3a2e616b6",
-      "branchId": "branch-001",
-      "specialityId": "spec-003",
-      "price": 120
-    }
-  ],
-  "doctors": [
-    {
-      "id": "doc-001",
-      "userId": "usr-doctor-001",
-      "licNumber": "LIC-PE-44829",
-      "cmpNumber": "CMPN-071284"
-    },
-    {
-      "id": "doc-002",
-      "userId": "usr-doctor-002",
-      "licNumber": "LIC-PE-44830",
-      "cmpNumber": "CMPN-071285"
-    },
-    {
-      "id": "doc-003",
-      "userId": "usr-doctor-003",
-      "licNumber": "LIC-PE-44831",
-      "cmpNumber": "CMPN-071286"
-    },
-    {
-      "id": "doc-004",
-      "userId": "usr-doctor-004",
-      "licNumber": "LIC-PE-44832",
-      "cmpNumber": "CMPN-071287"
-    },
-    {
-      "id": "doc-005",
-      "userId": "usr-doctor-005",
-      "licNumber": "LIC-PE-44833",
-      "cmpNumber": "CMPN-071288"
-    },
-    {
-      "id": "doc-006",
-      "userId": "usr-doctor-006",
-      "licNumber": "LIC-PE-44834",
-      "cmpNumber": "CMPN-071289"
-    },
-    {
-      "id": "doc-007",
-      "userId": "usr-doctor-007",
-      "licNumber": "LIC-PE-44835",
-      "cmpNumber": "CMPN-071290"
-    },
-    {
-      "id": "doc-008",
-      "userId": "usr-doctor-008",
-      "licNumber": "LIC-PE-44836",
-      "cmpNumber": "CMPN-071291"
-    }
-  ],
-  "medicalRecords": [
-    {
-      "id": "mr-101",
-      "code": "HCE-90210",
-      "patientId": "pat-005",
-      "appointmentId": "apt-101",
-      "updatedAt": "2026-05-11T08:42:00",
-      "createdAt": "2026-05-11T08:30:00"
-    },
-    {
-      "id": "mr-102",
-      "code": "HCE-88211",
-      "patientId": "pat-006",
-      "appointmentId": "apt-102",
-      "updatedAt": "2026-05-11T09:58:00",
-      "createdAt": "2026-05-11T09:45:00"
-    },
-    {
-      "id": "mr-103",
-      "code": "HCE-45129",
-      "patientId": "pat-007",
-      "appointmentId": "apt-103",
-      "updatedAt": "2026-05-11T11:30:00",
-      "createdAt": "2026-05-11T11:20:00"
-    },
-    {
-      "id": "mr-104",
-      "code": "HCE-11200",
-      "patientId": "pat-008",
-      "appointmentId": "apt-104",
-      "updatedAt": "2026-05-11T15:22:00",
-      "createdAt": "2026-05-11T15:10:00"
-    },
-    {
-      "id": "mr-095",
-      "code": "HCE-90210-2024",
-      "patientId": "pat-001",
-      "appointmentId": "apt-001",
-      "updatedAt": "2024-02-15T10:15:00",
-      "createdAt": "2024-02-15T09:50:00"
-    },
-    {
-      "id": "mr-096",
-      "code": "HCE-90210-2025",
-      "patientId": "pat-001",
-      "appointmentId": null,
-      "updatedAt": "2025-01-18T09:20:00",
-      "createdAt": "2025-01-18T09:00:00"
-    },
-    {
-      "id": "mr-098",
-      "code": "HCE-90210-NEURO",
-      "patientId": "pat-001",
-      "appointmentId": "apt-004",
-      "updatedAt": "2026-04-27T11:22:00",
-      "createdAt": "2026-04-27T11:00:00"
-    },
-    {
-      "id": "mr-099",
-      "code": "HCE-90210-WELLNESS",
-      "patientId": "pat-001",
-      "appointmentId": "apt-005",
-      "updatedAt": "2026-06-10T15:42:00",
-      "createdAt": "2026-06-10T15:30:00"
-    },
-    {
-      "id": "mr-097",
-      "code": "HCE-88211-2025",
-      "patientId": "pat-006",
-      "appointmentId": null,
-      "updatedAt": "2025-09-04T12:30:00",
-      "createdAt": "2025-09-04T12:00:00"
-    }
-  ],
-  "diagnoses": [
-    {
-      "id": "diag-101",
-      "medicalRecordId": "mr-101",
-      "description": "Critical follow-up",
-      "createdAt": "2026-05-11T08:42:00",
-      "updatedAt": "2026-05-11T08:42:00"
-    },
-    {
-      "id": "diag-102",
-      "medicalRecordId": "mr-102",
-      "description": "Stable",
-      "createdAt": "2026-05-11T09:58:00",
-      "updatedAt": "2026-05-11T09:58:00"
-    },
-    {
-      "id": "diag-103",
-      "medicalRecordId": "mr-103",
-      "description": "Post-op review",
-      "createdAt": "2026-05-11T11:30:00",
-      "updatedAt": "2026-05-11T11:30:00"
-    },
-    {
-      "id": "diag-104",
-      "medicalRecordId": "mr-104",
-      "description": "Medication adjustment",
-      "createdAt": "2026-05-11T15:22:00",
-      "updatedAt": "2026-05-11T15:22:00"
-    },
-    {
-      "id": "diag-095",
-      "medicalRecordId": "mr-095",
-      "description": "Cardiology control",
-      "createdAt": "2024-02-15T10:15:00",
-      "updatedAt": "2024-02-15T10:15:00"
-    },
-    {
-      "id": "diag-096",
-      "medicalRecordId": "mr-096",
-      "description": "Hypertension follow-up",
-      "createdAt": "2025-01-18T09:20:00",
-      "updatedAt": "2025-01-18T09:20:00"
-    },
-    {
-      "id": "diag-097",
-      "medicalRecordId": "mr-097",
-      "description": "Stable blood pressure",
-      "createdAt": "2025-09-04T12:30:00",
-      "updatedAt": "2025-09-04T12:30:00"
-    },
-    {
-      "id": "diag-098",
-      "medicalRecordId": "mr-098",
-      "description": "Neurological screening without acute findings",
-      "createdAt": "2026-04-27T11:22:00",
-      "updatedAt": "2026-04-27T11:22:00"
-    },
-    {
-      "id": "diag-099",
-      "medicalRecordId": "mr-099",
-      "description": "General wellness follow-up",
-      "createdAt": "2026-06-10T15:42:00",
-      "updatedAt": "2026-06-10T15:42:00"
-    }
-  ],
-  "treatments": [
-    {
-      "id": "treat-101",
-      "medicalRecordId": "mr-101",
-      "description": "Review labs and update care plan",
-      "createdAt": "2026-05-11T08:42:00",
-      "updatedAt": "2026-05-11T08:42:00"
-    },
-    {
-      "id": "treat-102",
-      "medicalRecordId": "mr-102",
-      "description": "Routine medication control",
-      "createdAt": "2026-05-11T09:58:00",
-      "updatedAt": "2026-05-11T09:58:00"
-    },
-    {
-      "id": "treat-103",
-      "medicalRecordId": "mr-103",
-      "description": "Surgical wound progress check",
-      "createdAt": "2026-05-11T11:30:00",
-      "updatedAt": "2026-05-11T11:30:00"
-    },
-    {
-      "id": "treat-104",
-      "medicalRecordId": "mr-104",
-      "description": "Medication adherence review",
-      "createdAt": "2026-05-11T15:22:00",
-      "updatedAt": "2026-05-11T15:22:00"
-    },
-    {
-      "id": "treat-095",
-      "medicalRecordId": "mr-095",
-      "description": "Electrocardiogram review and lifestyle plan",
-      "createdAt": "2024-02-15T10:15:00",
-      "updatedAt": "2024-02-15T10:15:00"
-    },
-    {
-      "id": "treat-096",
-      "medicalRecordId": "mr-096",
-      "description": "Continue antihypertensive treatment",
-      "createdAt": "2025-01-18T09:20:00",
-      "updatedAt": "2025-01-18T09:20:00"
-    },
-    {
-      "id": "treat-097",
-      "medicalRecordId": "mr-097",
-      "description": "Routine medication control",
-      "createdAt": "2025-09-04T12:30:00",
-      "updatedAt": "2025-09-04T12:30:00"
-    },
-    {
-      "id": "treat-098",
-      "medicalRecordId": "mr-098",
-      "description": "Observation and follow-up if symptoms continue",
-      "createdAt": "2026-04-27T11:22:00",
-      "updatedAt": "2026-04-27T11:22:00"
-    },
-    {
-      "id": "treat-099",
-      "medicalRecordId": "mr-099",
-      "description": "Lifestyle plan and preventive check in six months",
-      "createdAt": "2026-06-10T15:42:00",
-      "updatedAt": "2026-06-10T15:42:00"
-    }
-  ],
-  "prescriptions": [
-    {
-      "id": "rx-101",
-      "medicalRecordId": "mr-101",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rx-102",
-      "medicalRecordId": "mr-102",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rx-103",
-      "medicalRecordId": "mr-103",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rx-095",
-      "medicalRecordId": "mr-095",
-      "createdAt": "2024-02-15T00:00:00",
-      "updatedAt": "2024-02-15T00:00:00"
-    },
-    {
-      "id": "rx-096",
-      "medicalRecordId": "mr-096",
-      "createdAt": "2025-01-18T00:00:00",
-      "updatedAt": "2025-01-18T00:00:00"
-    },
-    {
-      "id": "rx-099",
-      "medicalRecordId": "mr-099",
-      "createdAt": "2026-06-10T00:00:00",
-      "updatedAt": "2026-06-10T00:00:00"
-    }
-  ],
-  "prescriptionDetails": [
-    {
-      "id": "rxd-101",
-      "prescriptionId": "rx-101",
-      "medicineId": 1,
-      "medicineName": "Paracetamol",
-      "doseAmount": 500,
-      "doseUnit": "mg",
-      "frequency": "1 cada 8 horas",
-      "duration": "5 dias",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rxd-102",
-      "prescriptionId": "rx-101",
-      "medicineId": 2,
-      "medicineName": "Ibuprofeno",
-      "doseAmount": 400,
-      "doseUnit": "mg",
-      "frequency": "1 cada 12 horas",
-      "duration": "3 dias",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rxd-103",
-      "prescriptionId": "rx-102",
-      "medicineId": 4,
-      "medicineName": "Losartan",
-      "doseAmount": 50,
-      "doseUnit": "mg",
-      "frequency": "1 diaria",
-      "duration": "30 dias",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rxd-104",
-      "prescriptionId": "rx-103",
-      "medicineId": 5,
-      "medicineName": "Omeprazol",
-      "doseAmount": 20,
-      "doseUnit": "mg",
-      "frequency": "1 en ayunas",
-      "duration": "14 dias",
-      "createdAt": "2026-05-11T00:00:00",
-      "updatedAt": "2026-05-11T00:00:00"
-    },
-    {
-      "id": "rxd-108",
-      "prescriptionId": "rx-108",
-      "medicineId": 5,
-      "medicineName": "Omeprazol",
-      "doseAmount": 20,
-      "doseUnit": "mg",
-      "frequency": "1 en ayunas",
-      "duration": "14 dias",
-      "createdAt": null,
-      "updatedAt": null
-    },
-    {
-      "id": "rxd-109",
-      "prescriptionId": "rx-108",
-      "medicineId": 1,
-      "medicineName": "Paracetamol",
-      "doseAmount": 500,
-      "doseUnit": "mg",
-      "frequency": "1 cada 8 horas",
-      "duration": "3 dias",
-      "createdAt": null,
-      "updatedAt": null
-    },
-    {
-      "id": "rxd-095",
-      "prescriptionId": "rx-095",
-      "medicineId": 6,
-      "medicineName": "Atorvastatina",
-      "doseAmount": 20,
-      "doseUnit": "mg",
-      "frequency": "1 diaria",
-      "duration": "30 dias",
-      "createdAt": "2024-02-15T00:00:00",
-      "updatedAt": "2024-02-15T00:00:00"
-    },
-    {
-      "id": "rxd-096",
-      "prescriptionId": "rx-096",
-      "medicineId": 4,
-      "medicineName": "Losartan",
-      "doseAmount": 50,
-      "doseUnit": "mg",
-      "frequency": "1 diaria",
-      "duration": "30 dias",
-      "createdAt": "2025-01-18T00:00:00",
-      "updatedAt": "2025-01-18T00:00:00"
-    },
-    {
-      "id": "rxd-099",
-      "prescriptionId": "rx-099",
-      "medicineId": null,
-      "medicineName": "Vitamina D",
-      "doseAmount": 1000,
-      "doseUnit": "IU",
-      "frequency": "1 diaria",
-      "duration": "60 dias",
-      "createdAt": "2026-06-10T00:00:00",
-      "updatedAt": "2026-06-10T00:00:00"
-    },
-    {
-      "id": "rxd-p001-01",
-      "prescriptionId": "rx-095",
-      "medicineId": 7,
-      "medicineName": "Metformina",
-      "doseAmount": 500,
-      "doseUnit": "mg",
-      "frequency": "2 veces al día",
-      "duration": "30 días",
-      "createdAt": "2024-02-15T00:00:00",
-      "updatedAt": "2024-02-15T00:00:00"
-    }
-  ],
-  "medicines": [
-    {
-      "id": 1,
-      "name": "Paracetamol",
-      "unitQuantity": 500,
-      "unitType": "mg",
-      "price": 5.5,
-      "stock": 100
-    },
-    {
-      "id": 2,
-      "name": "Ibuprofeno",
-      "unitQuantity": 400,
-      "unitType": "mg",
-      "price": 7.2,
-      "stock": 50
-    },
-    {
-      "id": 3,
-      "name": "Amoxicilina",
-      "unitQuantity": 500,
-      "unitType": "mg",
-      "price": 12,
-      "stock": 30
-    },
-    {
-      "id": 4,
-      "name": "Losartán",
-      "unitQuantity": 50,
-      "unitType": "mg",
-      "price": 15,
-      "stock": 45
-    },
-    {
-      "id": 5,
-      "name": "Omeprazol",
-      "unitQuantity": 20,
-      "unitType": "mg",
-      "price": 8.5,
-      "stock": 60
-    },
-    {
-      "id": 6,
-      "name": "Atorvastatina",
-      "unitQuantity": 20,
-      "unitType": "mg",
-      "price": 18,
-      "stock": 25
-    },
-    {
-      "id": 7,
-      "name": "Metformina",
-      "unitQuantity": 850,
-      "unitType": "mg",
-      "price": 10,
-      "stock": 80
-    },
-    {
-      "id": 8,
-      "name": "Salbutamol",
-      "unitQuantity": 100,
-      "unitType": "mcg",
-      "price": 22,
-      "stock": 15
-    }
-  ],
-  "billingClaims": [
-    {
-      "id": "clm-001",
-      "claimCode": "CLM-92301",
-      "insuranceProvider": "Medicare Part B",
-      "patientName": "Elena Soros",
-      "providerName": "Dr. Julian Vance",
-      "value": 12450,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-002",
-      "claimCode": "CLM-92288",
-      "insuranceProvider": "Blue Cross PPO",
-      "patientName": "Marcus Reed",
-      "providerName": "Dr. Sarah Chen",
-      "value": 4120.5,
-      "clinicalCompliance": "pendingSign",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-003",
-      "claimCode": "CLM-92250",
-      "insuranceProvider": "Aetna Global",
-      "patientName": "Linda Aoki",
-      "providerName": "Dr. Julian Vance",
-      "value": 820,
-      "clinicalCompliance": "missingIcd10",
-      "cycleStatus": "Rejected"
-    },
-    {
-      "id": "clm-004",
-      "claimCode": "CLM-92241",
-      "insuranceProvider": "UnitedHealth",
-      "patientName": "David Wright",
-      "providerName": "Dr. Sarah Chen",
-      "value": 22900,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "Funds Released"
-    },
-    {
-      "id": "clm-005",
-      "claimCode": "CLM-92198",
-      "insuranceProvider": "Cigna HMO",
-      "patientName": "Rachel Torres",
-      "providerName": "Dr. Aris Thorne",
-      "value": 8740.25,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-006",
-      "claimCode": "CLM-92175",
-      "insuranceProvider": "Medicare Part A",
-      "patientName": "Samuel Okafor",
-      "providerName": "Dr. Julian Vance",
-      "value": 31200,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "Funds Released"
-    },
-    {
-      "id": "clm-007",
-      "claimCode": "CLM-92160",
-      "insuranceProvider": "Blue Shield",
-      "patientName": "Ingrid Larsson",
-      "providerName": "Dr. Sarah Chen",
-      "value": 5670.8,
-      "clinicalCompliance": "pendingSign",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-008",
-      "claimCode": "CLM-92144",
-      "insuranceProvider": "Humana Gold",
-      "patientName": "Carlos Mendez",
-      "providerName": "Dr. Aris Thorne",
-      "value": 15300,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-009",
-      "claimCode": "CLM-92130",
-      "insuranceProvider": "Anthem PPO",
-      "patientName": "Yuki Tanaka",
-      "providerName": "Dr. Julian Vance",
-      "value": 2450.75,
-      "clinicalCompliance": "missingIcd10",
-      "cycleStatus": "Rejected"
-    },
-    {
-      "id": "clm-010",
-      "claimCode": "CLM-92112",
-      "insuranceProvider": "Kaiser Permanente",
-      "patientName": "Nina Petrovic",
-      "providerName": "Dr. Sarah Chen",
-      "value": 9880,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "Funds Released"
-    },
-    {
-      "id": "clm-011",
-      "claimCode": "CLM-92098",
-      "insuranceProvider": "Aetna Global",
-      "patientName": "Thomas Brennan",
-      "providerName": "Dr. Aris Thorne",
-      "value": 6240,
-      "clinicalCompliance": "pendingSign",
-      "cycleStatus": "In Clearinghouse"
-    },
-    {
-      "id": "clm-012",
-      "claimCode": "CLM-92085",
-      "insuranceProvider": "UnitedHealth",
-      "patientName": "Amara Diallo",
-      "providerName": "Dr. Julian Vance",
-      "value": 18750.5,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
-    }
-  ],
-  "availabilitySlots": [
-    {
-      "id": "slot-003",
-      "doctorId": "doc-003",
-      "branchId": "branch-001",
-      "date": "2026-06-10",
-      "startTime": "15:15",
-      "endTime": "15:45",
-      "status": "available"
-    },
-    {
-      "id": "slot-004",
-      "doctorId": "doc-001",
-      "branchId": "branch-001",
-      "date": "2026-05-12",
-      "startTime": "16:00",
-      "endTime": "16:30",
-      "status": "booked"
-    },
-    {
-      "id": "slot-005",
-      "doctorId": "doc-002",
-      "branchId": "branch-001",
-      "date": "2026-05-14",
-      "startTime": "10:30",
-      "endTime": "11:00",
-      "status": "available"
-    },
-    {
-      "id": "slot-006",
-      "doctorId": "doc-003",
-      "branchId": "branch-001",
-      "date": "2026-05-15",
-      "startTime": "09:00",
-      "endTime": "09:30",
-      "status": "available"
-    },
-    {
-      "id": "8a1b163d-a15d-40f9-a136-730a4dd2bae9",
-      "doctorId": "doc-004",
-      "branchId": "branch-001",
-      "date": "2026-05-12",
-      "startTime": "08:00",
-      "endTime": "08:30",
-      "status": "available"
-    },
-    {
-      "id": "c0d6ceee-f26e-441c-af28-c002466e3310",
-      "doctorId": "doc-004",
-      "branchId": "branch-001",
-      "date": "2026-05-12",
-      "startTime": "09:00",
-      "endTime": "09:30",
-      "status": "available"
-    },
-    {
-      "id": "087b303d-5231-4554-9415-086a0171af97",
-      "doctorId": "doc-001",
-      "branchId": "branch-001",
-      "date": "2026-04-24",
-      "startTime": "11:00",
-      "endTime": "11:30",
-      "status": "booked"
-    },
-    {
-      "id": "a145580e-c559-47d2-b321-b630295d1d57",
-      "doctorId": "doc-003",
-      "branchId": "branch-001",
-      "date": "2026-05-12",
-      "startTime": "12:00",
-      "endTime": "12:30",
-      "status": "available"
-    },
-    {
-      "id": "519f6cf7-73b5-41f9-a664-29b748601ce1",
-      "doctorId": "doc-003",
-      "branchId": "branch-001",
-      "date": "2026-05-12",
-      "startTime": "13:00",
-      "endTime": "13:30",
-      "status": "available"
-    },
-    {
-      "id": "c79caf3c-c323-4c37-82c5-67c78db90c33",
-      "doctorId": "doc-001",
-      "branchId": "branch-001",
-      "date": "2026-05-11",
-      "startTime": "12:20",
-      "endTime": "12:50",
-      "status": "booked"
-    },
-    {
-      "id": "46f5fe5f-e71f-486f-aed7-faa8f2b0a56d",
-      "doctorId": "doc-001",
-      "branchId": "branch-001",
-      "date": "2026-05-11",
-      "startTime": "10:15",
-      "endTime": "10:45",
-      "status": "booked"
-    }
-  ],
-  "appointments": [
-    {
-      "id": "apt-001",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T09:30:00",
-      "reason": "Advanced Cardiology Consultation",
-      "status": "cancelled",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-002",
-      "doctorId": "doc-001",
-      "patientId": "pat-002",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T11:00:00",
-      "reason": "Diabetes Screening",
-      "status": "released",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-003",
-      "doctorId": "doc-001",
-      "patientId": "pat-003",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T14:00:00",
-      "reason": "Cardiology Review",
-      "status": "arrived",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-004",
-      "doctorId": "doc-002",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-14T10:30:00",
-      "reason": "Neurological Screening",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "apt-005",
-      "doctorId": "doc-003",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-06-10T15:15:00",
-      "reason": "General Wellness Check",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "apt-006",
-      "doctorId": "doc-004",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-06-12T09:00:00",
-      "reason": "Physical Therapy",
-      "status": "cancelled",
-      "paymentStatus": "refunded"
-    },
-    {
-      "id": "1856ba33-0768-4189-b8c7-e61412e12c13",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T09:30:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "80246866-4aed-4675-99d1-d03b89654dc0",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T09:30:00",
-      "reason": "General consultation",
-      "status": "released",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "67443c08-d81b-4458-9bc1-a3142ef7b714",
-      "doctorId": "doc-003",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-15T09:00:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "02caea11-7484-41ee-8015-3da5e7a8905e",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-12T16:00:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "56580f78-5343-49e5-828a-5a4aa9c9673c",
-      "doctorId": "doc-004",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-12T08:00:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "e3791da4-280a-49b0-a314-609cd94d758c",
-      "doctorId": "doc-002",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-14T10:30:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "d51fe3d0-467b-4e98-8cce-6b120ea23eed",
-      "doctorId": "doc-003",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-12T13:00:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "apt-101",
-      "doctorId": "doc-001",
-      "patientId": "pat-005",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-11T08:30:00",
-      "reason": "Critical follow-up",
-      "status": "cancelled",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-102",
-      "doctorId": "doc-001",
-      "patientId": "pat-006",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-11T10:15:00",
-      "reason": "Blood pressure control",
-      "status": "arrived",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-103",
-      "doctorId": "doc-001",
-      "patientId": "pat-007",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-11T12:20:00",
-      "reason": "Post-op review",
-      "status": "scheduled",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "apt-104",
-      "doctorId": "doc-001",
-      "patientId": "pat-008",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-11T15:10:00",
-      "reason": "Medication adjustment",
-      "status": "confirmed",
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "96884e23-b8cf-4949-b24e-10c276354fa1",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T09:30:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "c20e6c27-5a97-4d73-9f20-a18ffa6577ee",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-04-24T09:30:00",
-      "reason": "General consultation",
-      "status": "cancelled",
-      "paymentStatus": "pending"
-    },
-    {
-      "id": "554837ab-c030-4ad0-83bf-fb57c7155926",
-      "doctorId": "doc-001",
-      "patientId": "pat-001",
-      "branchId": "branch-001",
-      "scheduledAt": "2026-05-12T16:00:00",
-      "reason": "General consultation",
-      "status": "scheduled",
-      "paymentStatus": "pending"
-    }
-  ]
+    "users": [
+        {
+            "id": "usr-doctor-001",
+            "healthcareCenterId": "hc-001",
+            "name": "Valeria",
+            "paternalSurname": "Rivas",
+            "maternalSurname": "Montoya",
+            "identityType": "DNI",
+            "identityNumber": "72841396",
+            "dateBirth": "1988-08-16",
+            "email": "valeria.rivas@vitalia.pe",
+            "phone": "+51 999 884 221",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. Guardia Civil 245, San Borja",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-admin-001",
+            "healthcareCenterId": "hc-001",
+            "name": "Camila",
+            "paternalSurname": "Torres",
+            "maternalSurname": "Salazar",
+            "identityType": "DNI",
+            "identityNumber": "73618294",
+            "dateBirth": "1985-11-09",
+            "email": "camila.torres@vitalia.pe",
+            "phone": "+51 977 318 642",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. Javier Prado 1520, San Isidro",
+            "role": "admin"
+        },
+        {
+            "id": "usr-patient-001",
+            "healthcareCenterId": "hc-001",
+            "name": "Alex",
+            "paternalSurname": "Mercer",
+            "maternalSurname": "Reed",
+            "identityType": "DNI",
+            "identityNumber": "70421835",
+            "dateBirth": "1993-04-22",
+            "email": "alex.mercer@gmail.com",
+            "phone": "+51 999 999 999",
+            "gender": "M",
+            "isActive": true,
+            "address": "742 Highfield Sanctuary, Apt 4B, San Isidro",
+            "role": "patient"
+        },
+        {
+            "id": "usr-doctor-002",
+            "healthcareCenterId": "hc-001",
+            "name": "Marcus",
+            "paternalSurname": "Liao",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "71234562",
+            "dateBirth": "1983-03-10",
+            "email": "marcus.liao@vitalia.pe",
+            "phone": "+51 955 100 202",
+            "gender": "M",
+            "isActive": true,
+            "address": "Av. Primavera 410, Surco",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-003",
+            "healthcareCenterId": "hc-001",
+            "name": "Sarah",
+            "paternalSurname": "Weaver",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "71234563",
+            "dateBirth": "1990-06-19",
+            "email": "sarah.weaver@vitalia.pe",
+            "phone": "+51 955 100 203",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. La Marina 870, Pueblo Libre",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-004",
+            "healthcareCenterId": "hc-001",
+            "name": "James",
+            "paternalSurname": "Peterson",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "71234564",
+            "dateBirth": "1979-12-02",
+            "email": "james.peterson@vitalia.pe",
+            "phone": "+51 955 100 204",
+            "gender": "M",
+            "isActive": true,
+            "address": "Av. Arequipa 2210, Lince",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-005",
+            "healthcareCenterId": "hc-001",
+            "name": "Elena",
+            "paternalSurname": "Vargas",
+            "maternalSurname": "Flores",
+            "identityType": "DNI",
+            "identityNumber": "71234565",
+            "dateBirth": "1986-09-25",
+            "email": "elena.vargas@vitalia.pe",
+            "phone": "+51 955 100 205",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. Benavides 1540, Miraflores",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-006",
+            "healthcareCenterId": "hc-001",
+            "name": "Diego",
+            "paternalSurname": "Ramirez",
+            "maternalSurname": "Soto",
+            "identityType": "DNI",
+            "identityNumber": "71234566",
+            "dateBirth": "1981-02-18",
+            "email": "diego.ramirez@vitalia.pe",
+            "phone": "+51 955 100 206",
+            "gender": "M",
+            "isActive": true,
+            "address": "Calle Los Robles 388, San Isidro",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-007",
+            "healthcareCenterId": "hc-001",
+            "name": "Lucia",
+            "paternalSurname": "Herrera",
+            "maternalSurname": "NuÃ±ez",
+            "identityType": "DNI",
+            "identityNumber": "71234567",
+            "dateBirth": "1984-07-12",
+            "email": "lucia.herrera@vitalia.pe",
+            "phone": "+51 955 100 207",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. Republica de Panama 3210, San Isidro",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-doctor-008",
+            "healthcareCenterId": "hc-001",
+            "name": "Mateo",
+            "paternalSurname": "Castillo",
+            "maternalSurname": "Paredes",
+            "identityType": "DNI",
+            "identityNumber": "71234568",
+            "dateBirth": "1987-05-03",
+            "email": "mateo.castillo@vitalia.pe",
+            "phone": "+51 955 100 208",
+            "gender": "M",
+            "isActive": true,
+            "address": "Av. Caminos del Inca 1024, Surco",
+            "role": "doctor"
+        },
+        {
+            "id": "usr-patient-002",
+            "healthcareCenterId": "hc-001",
+            "name": "Sarah",
+            "paternalSurname": "Jenkins",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234562",
+            "dateBirth": "1991-01-14",
+            "email": "sarah.jenkins@example.com",
+            "phone": "+51 944 100 302",
+            "gender": "F",
+            "isActive": true,
+            "address": "Calle Las Flores 120, Miraflores",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-003",
+            "healthcareCenterId": "hc-001",
+            "name": "Mark",
+            "paternalSurname": "Thompson",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234563",
+            "dateBirth": "1986-09-08",
+            "email": "mark.thompson@example.com",
+            "phone": "+51 944 100 303",
+            "gender": "M",
+            "isActive": true,
+            "address": "Jr. Los Cedros 455, San Miguel",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-004",
+            "healthcareCenterId": "hc-001",
+            "name": "James",
+            "paternalSurname": "Chen",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234564",
+            "dateBirth": "1989-04-27",
+            "email": "james.chen@example.com",
+            "phone": "+51 944 100 304",
+            "gender": "M",
+            "isActive": true,
+            "address": "Av. Brasil 980, Jesus Maria",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-005",
+            "healthcareCenterId": "hc-001",
+            "name": "Eleanor",
+            "paternalSurname": "Vance",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234565",
+            "dateBirth": "1978-10-21",
+            "email": "eleanor.vance@example.com",
+            "phone": "+51 944 100 305",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. Canada 515, La Victoria",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-006",
+            "healthcareCenterId": "hc-001",
+            "name": "Arthur",
+            "paternalSurname": "Miller",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234566",
+            "dateBirth": "1969-07-11",
+            "email": "arthur.miller@example.com",
+            "phone": "+51 944 100 306",
+            "gender": "M",
+            "isActive": true,
+            "address": "Av. Salaverry 1400, Jesus Maria",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-007",
+            "healthcareCenterId": "hc-001",
+            "name": "Julian",
+            "paternalSurname": "Brooks",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234567",
+            "dateBirth": "1995-02-18",
+            "email": "julian.brooks@example.com",
+            "phone": "+51 944 100 307",
+            "gender": "M",
+            "isActive": true,
+            "address": "Calle Los Nogales 330, San Borja",
+            "role": "patient"
+        },
+        {
+            "id": "usr-patient-008",
+            "healthcareCenterId": "hc-001",
+            "name": "Clara",
+            "paternalSurname": "Oswald",
+            "maternalSurname": "",
+            "identityType": "DNI",
+            "identityNumber": "80234568",
+            "dateBirth": "1992-05-05",
+            "email": "clara.oswald@example.com",
+            "phone": "+51 944 100 308",
+            "gender": "F",
+            "isActive": true,
+            "address": "Av. El Polo 712, Surco",
+            "role": "patient"
+        }
+    ],
+    "patients": [
+        {
+            "id": "pat-001",
+            "userId": "usr-patient-001",
+            "insuranceProvider": "BlueShield Sanctuary Elite",
+            "policyNumber": "BS-8892-X-2024",
+            "activeThru": "2026-02-02",
+            "emergencyContactName": "Maya Reed",
+            "emergencyContactPhone": "+51 988 441 220"
+        },
+        {
+            "id": "pat-002",
+            "userId": "usr-patient-002",
+            "insuranceProvider": "HealthPlus",
+            "policyNumber": "HP-2002",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-003",
+            "userId": "usr-patient-003",
+            "insuranceProvider": "MediCare",
+            "policyNumber": "MC-2003",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-004",
+            "userId": "usr-patient-004",
+            "insuranceProvider": "MediCare",
+            "policyNumber": "MC-2004",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-005",
+            "userId": "usr-patient-005",
+            "insuranceProvider": "HealthPlus",
+            "policyNumber": "HP-2005",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-006",
+            "userId": "usr-patient-006",
+            "insuranceProvider": "MediCare",
+            "policyNumber": "MC-2006",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-007",
+            "userId": "usr-patient-007",
+            "insuranceProvider": "CareOne",
+            "policyNumber": "CO-2007",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        },
+        {
+            "id": "pat-008",
+            "userId": "usr-patient-008",
+            "insuranceProvider": "HealthPlus",
+            "policyNumber": "HP-2008",
+            "activeThru": "2026-12-31",
+            "emergencyContactName": "",
+            "emergencyContactPhone": ""
+        }
+    ],
+    "specialities": [
+        {
+            "id": "spec-001",
+            "description": "General Medicine"
+        },
+        {
+            "id": "spec-002",
+            "description": "Cardiology"
+        },
+        {
+            "id": "spec-003",
+            "description": "Pediatrics"
+        }
+    ],
+    "doctorSpecialities": [
+        {
+            "id": "ds-001",
+            "doctorId": "doc-001",
+            "specialityId": "spec-002"
+        },
+        {
+            "id": "ds-002",
+            "doctorId": "doc-005",
+            "specialityId": "spec-001"
+        },
+        {
+            "id": "ds-003",
+            "doctorId": "doc-006",
+            "specialityId": "spec-003"
+        },
+        {
+            "id": "ds-004",
+            "doctorId": "doc-007",
+            "specialityId": "spec-002"
+        },
+        {
+            "id": "ds-005",
+            "doctorId": "doc-008",
+            "specialityId": "spec-001"
+        },
+        {
+            "id": "ds-006",
+            "doctorId": "doc-002",
+            "specialityId": "spec-001"
+        },
+        {
+            "id": "ds-007",
+            "doctorId": "doc-003",
+            "specialityId": "spec-002"
+        },
+        {
+            "id": "ds-008",
+            "doctorId": "doc-004",
+            "specialityId": "spec-003"
+        }
+    ],
+    "healthcareCenters": [
+        {
+            "id": "hc-001",
+            "allianceStartDate": "2024-01-15",
+            "allianceFinishDate": "2027-01-15",
+            "rucNumber": 20611457892,
+            "healthcareCenterName": "Vitalia Medical Center"
+        }
+    ],
+    "branches": [
+        {
+            "id": "branch-001",
+            "healthcareCenterId": "hc-001",
+            "addressId": "addr-001",
+            "branchName": "Sede San Borja",
+            "address": "Av. Guardia Civil 245, San Borja"
+        }
+    ],
+    "appointmentFees": [
+        {
+            "id": "fee-001",
+            "branchId": "branch-001",
+            "specialityId": "spec-001",
+            "price": 180
+        },
+        {
+            "id": "fee-216245b5-a3b3-4e9d-9e6a-539033e98cd9",
+            "branchId": "branch-001",
+            "specialityId": "spec-002",
+            "price": 150
+        },
+        {
+            "id": "fee-8bf1d9dc-0849-44bb-898a-1fe3a2e616b6",
+            "branchId": "branch-001",
+            "specialityId": "spec-003",
+            "price": 120
+        }
+    ],
+    "doctors": [
+        {
+            "id": "doc-001",
+            "userId": "usr-doctor-001",
+            "licNumber": "LIC-PE-44829",
+            "cmpNumber": "CMPN-071284"
+        },
+        {
+            "id": "doc-002",
+            "userId": "usr-doctor-002",
+            "licNumber": "LIC-PE-44830",
+            "cmpNumber": "CMPN-071285"
+        },
+        {
+            "id": "doc-003",
+            "userId": "usr-doctor-003",
+            "licNumber": "LIC-PE-44831",
+            "cmpNumber": "CMPN-071286"
+        },
+        {
+            "id": "doc-004",
+            "userId": "usr-doctor-004",
+            "licNumber": "LIC-PE-44832",
+            "cmpNumber": "CMPN-071287"
+        },
+        {
+            "id": "doc-005",
+            "userId": "usr-doctor-005",
+            "licNumber": "LIC-PE-44833",
+            "cmpNumber": "CMPN-071288"
+        },
+        {
+            "id": "doc-006",
+            "userId": "usr-doctor-006",
+            "licNumber": "LIC-PE-44834",
+            "cmpNumber": "CMPN-071289"
+        },
+        {
+            "id": "doc-007",
+            "userId": "usr-doctor-007",
+            "licNumber": "LIC-PE-44835",
+            "cmpNumber": "CMPN-071290"
+        },
+        {
+            "id": "doc-008",
+            "userId": "usr-doctor-008",
+            "licNumber": "LIC-PE-44836",
+            "cmpNumber": "CMPN-071291"
+        }
+    ],
+    "medicalRecords": [
+        {
+            "id": "mr-101",
+            "code": "HCE-90210",
+            "patientId": "pat-005",
+            "appointmentId": "apt-101",
+            "updatedAt": "2026-05-11T08:42:00",
+            "createdAt": "2026-05-11T08:30:00"
+        },
+        {
+            "id": "mr-102",
+            "code": "HCE-88211",
+            "patientId": "pat-006",
+            "appointmentId": "apt-102",
+            "updatedAt": "2026-05-11T09:58:00",
+            "createdAt": "2026-05-11T09:45:00"
+        },
+        {
+            "id": "mr-103",
+            "code": "HCE-45129",
+            "patientId": "pat-007",
+            "appointmentId": "apt-103",
+            "updatedAt": "2026-05-11T11:30:00",
+            "createdAt": "2026-05-11T11:20:00"
+        },
+        {
+            "id": "mr-104",
+            "code": "HCE-11200",
+            "patientId": "pat-008",
+            "appointmentId": "apt-104",
+            "updatedAt": "2026-05-11T15:22:00",
+            "createdAt": "2026-05-11T15:10:00"
+        },
+        {
+            "id": "mr-095",
+            "code": "HCE-90210-2024",
+            "patientId": "pat-001",
+            "appointmentId": "apt-001",
+            "updatedAt": "2024-02-15T10:15:00",
+            "createdAt": "2024-02-15T09:50:00"
+        },
+        {
+            "id": "mr-096",
+            "code": "HCE-90210-2025",
+            "patientId": "pat-001",
+            "appointmentId": null,
+            "updatedAt": "2025-01-18T09:20:00",
+            "createdAt": "2025-01-18T09:00:00"
+        },
+        {
+            "id": "mr-098",
+            "code": "HCE-90210-NEURO",
+            "patientId": "pat-001",
+            "appointmentId": "apt-004",
+            "updatedAt": "2026-04-27T11:22:00",
+            "createdAt": "2026-04-27T11:00:00"
+        }
+    ],
+    "diagnoses": [
+        {
+            "id": "diag-101",
+            "medicalRecordId": "mr-101",
+            "description": "Critical follow-up",
+            "createdAt": "2026-05-11T08:42:00",
+            "updatedAt": "2026-05-11T08:42:00"
+        },
+        {
+            "id": "diag-102",
+            "medicalRecordId": "mr-102",
+            "description": "Stable",
+            "createdAt": "2026-05-11T09:58:00",
+            "updatedAt": "2026-05-11T09:58:00"
+        },
+        {
+            "id": "diag-103",
+            "medicalRecordId": "mr-103",
+            "description": "Post-op review",
+            "createdAt": "2026-05-11T11:30:00",
+            "updatedAt": "2026-05-11T11:30:00"
+        },
+        {
+            "id": "diag-104",
+            "medicalRecordId": "mr-104",
+            "description": "Medication adjustment",
+            "createdAt": "2026-05-11T15:22:00",
+            "updatedAt": "2026-05-11T15:22:00"
+        },
+        {
+            "id": "diag-095",
+            "medicalRecordId": "mr-095",
+            "description": "Cardiology control",
+            "createdAt": "2024-02-15T10:15:00",
+            "updatedAt": "2024-02-15T10:15:00"
+        },
+        {
+            "id": "diag-096",
+            "medicalRecordId": "mr-096",
+            "description": "Hypertension follow-up",
+            "createdAt": "2025-01-18T09:20:00",
+            "updatedAt": "2025-01-18T09:20:00"
+        },
+        {
+            "id": "diag-097",
+            "medicalRecordId": "mr-097",
+            "description": "Stable blood pressure",
+            "createdAt": "2025-09-04T12:30:00",
+            "updatedAt": "2025-09-04T12:30:00"
+        },
+        {
+            "id": "diag-098",
+            "medicalRecordId": "mr-098",
+            "description": "Neurological screening without acute findings",
+            "createdAt": "2026-04-27T11:22:00",
+            "updatedAt": "2026-04-27T11:22:00"
+        }
+    ],
+    "treatments": [
+        {
+            "id": "treat-101",
+            "medicalRecordId": "mr-101",
+            "description": "Review labs and update care plan",
+            "createdAt": "2026-05-11T08:42:00",
+            "updatedAt": "2026-05-11T08:42:00"
+        },
+        {
+            "id": "treat-102",
+            "medicalRecordId": "mr-102",
+            "description": "Routine medication control",
+            "createdAt": "2026-05-11T09:58:00",
+            "updatedAt": "2026-05-11T09:58:00"
+        },
+        {
+            "id": "treat-103",
+            "medicalRecordId": "mr-103",
+            "description": "Surgical wound progress check",
+            "createdAt": "2026-05-11T11:30:00",
+            "updatedAt": "2026-05-11T11:30:00"
+        },
+        {
+            "id": "treat-104",
+            "medicalRecordId": "mr-104",
+            "description": "Medication adherence review",
+            "createdAt": "2026-05-11T15:22:00",
+            "updatedAt": "2026-05-11T15:22:00"
+        },
+        {
+            "id": "treat-095",
+            "medicalRecordId": "mr-095",
+            "description": "Electrocardiogram review and lifestyle plan",
+            "createdAt": "2024-02-15T10:15:00",
+            "updatedAt": "2024-02-15T10:15:00"
+        },
+        {
+            "id": "treat-096",
+            "medicalRecordId": "mr-096",
+            "description": "Continue antihypertensive treatment",
+            "createdAt": "2025-01-18T09:20:00",
+            "updatedAt": "2025-01-18T09:20:00"
+        },
+        {
+            "id": "treat-097",
+            "medicalRecordId": "mr-097",
+            "description": "Routine medication control",
+            "createdAt": "2025-09-04T12:30:00",
+            "updatedAt": "2025-09-04T12:30:00"
+        },
+        {
+            "id": "treat-098",
+            "medicalRecordId": "mr-098",
+            "description": "Observation and follow-up if symptoms continue",
+            "createdAt": "2026-04-27T11:22:00",
+            "updatedAt": "2026-04-27T11:22:00"
+        }
+    ],
+    "prescriptions": [
+        {
+            "id": "rx-101",
+            "medicalRecordId": "mr-101",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rx-102",
+            "medicalRecordId": "mr-102",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rx-103",
+            "medicalRecordId": "mr-103",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rx-095",
+            "medicalRecordId": "mr-095",
+            "createdAt": "2024-02-15T00:00:00",
+            "updatedAt": "2024-02-15T00:00:00"
+        },
+        {
+            "id": "rx-096",
+            "medicalRecordId": "mr-096",
+            "createdAt": "2025-01-18T00:00:00",
+            "updatedAt": "2025-01-18T00:00:00"
+        }
+    ],
+    "prescriptionDetails": [
+        {
+            "id": "rxd-101",
+            "prescriptionId": "rx-101",
+            "medicineId": 1,
+            "medicineName": "Paracetamol",
+            "doseAmount": 500,
+            "doseUnit": "mg",
+            "frequency": "1 cada 8 horas",
+            "duration": "5 dias",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rxd-102",
+            "prescriptionId": "rx-101",
+            "medicineId": 2,
+            "medicineName": "Ibuprofeno",
+            "doseAmount": 400,
+            "doseUnit": "mg",
+            "frequency": "1 cada 12 horas",
+            "duration": "3 dias",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rxd-103",
+            "prescriptionId": "rx-102",
+            "medicineId": 4,
+            "medicineName": "Losartan",
+            "doseAmount": 50,
+            "doseUnit": "mg",
+            "frequency": "1 diaria",
+            "duration": "30 dias",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rxd-104",
+            "prescriptionId": "rx-103",
+            "medicineId": 5,
+            "medicineName": "Omeprazol",
+            "doseAmount": 20,
+            "doseUnit": "mg",
+            "frequency": "1 en ayunas",
+            "duration": "14 dias",
+            "createdAt": "2026-05-11T00:00:00",
+            "updatedAt": "2026-05-11T00:00:00"
+        },
+        {
+            "id": "rxd-108",
+            "prescriptionId": "rx-108",
+            "medicineId": 5,
+            "medicineName": "Omeprazol",
+            "doseAmount": 20,
+            "doseUnit": "mg",
+            "frequency": "1 en ayunas",
+            "duration": "14 dias",
+            "createdAt": null,
+            "updatedAt": null
+        },
+        {
+            "id": "rxd-109",
+            "prescriptionId": "rx-108",
+            "medicineId": 1,
+            "medicineName": "Paracetamol",
+            "doseAmount": 500,
+            "doseUnit": "mg",
+            "frequency": "1 cada 8 horas",
+            "duration": "3 dias",
+            "createdAt": null,
+            "updatedAt": null
+        },
+        {
+            "id": "rxd-095",
+            "prescriptionId": "rx-095",
+            "medicineId": 6,
+            "medicineName": "Atorvastatina",
+            "doseAmount": 20,
+            "doseUnit": "mg",
+            "frequency": "1 diaria",
+            "duration": "30 dias",
+            "createdAt": "2024-02-15T00:00:00",
+            "updatedAt": "2024-02-15T00:00:00"
+        },
+        {
+            "id": "rxd-096",
+            "prescriptionId": "rx-096",
+            "medicineId": 4,
+            "medicineName": "Losartan",
+            "doseAmount": 50,
+            "doseUnit": "mg",
+            "frequency": "1 diaria",
+            "duration": "30 dias",
+            "createdAt": "2025-01-18T00:00:00",
+            "updatedAt": "2025-01-18T00:00:00"
+        },
+        {
+            "id": "rxd-p001-01",
+            "prescriptionId": "rx-095",
+            "medicineId": 7,
+            "medicineName": "Metformina",
+            "doseAmount": 500,
+            "doseUnit": "mg",
+            "frequency": "2 veces al dÃ­a",
+            "duration": "30 dÃ­as",
+            "createdAt": "2024-02-15T00:00:00",
+            "updatedAt": "2024-02-15T00:00:00"
+        }
+    ],
+    "medicines": [
+        {
+            "id": 1,
+            "name": "Paracetamol",
+            "unitQuantity": 500,
+            "unitType": "mg",
+            "price": 5.5,
+            "stock": 100
+        },
+        {
+            "id": 2,
+            "name": "Ibuprofeno",
+            "unitQuantity": 400,
+            "unitType": "mg",
+            "price": 7.2,
+            "stock": 50
+        },
+        {
+            "id": 3,
+            "name": "Amoxicilina",
+            "unitQuantity": 500,
+            "unitType": "mg",
+            "price": 12,
+            "stock": 30
+        },
+        {
+            "id": 4,
+            "name": "LosartÃ¡n",
+            "unitQuantity": 50,
+            "unitType": "mg",
+            "price": 15,
+            "stock": 45
+        },
+        {
+            "id": 5,
+            "name": "Omeprazol",
+            "unitQuantity": 20,
+            "unitType": "mg",
+            "price": 8.5,
+            "stock": 60
+        },
+        {
+            "id": 6,
+            "name": "Atorvastatina",
+            "unitQuantity": 20,
+            "unitType": "mg",
+            "price": 18,
+            "stock": 25
+        },
+        {
+            "id": 7,
+            "name": "Metformina",
+            "unitQuantity": 850,
+            "unitType": "mg",
+            "price": 10,
+            "stock": 80
+        },
+        {
+            "id": 8,
+            "name": "Salbutamol",
+            "unitQuantity": 100,
+            "unitType": "mcg",
+            "price": 22,
+            "stock": 15
+        }
+    ],
+    "billingClaims": [
+        {
+            "id": "clm-001",
+            "claimCode": "CLM-92301",
+            "insuranceProvider": "Medicare Part B",
+            "patientName": "Elena Soros",
+            "providerName": "Dr. Julian Vance",
+            "value": 12450,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-002",
+            "claimCode": "CLM-92288",
+            "insuranceProvider": "Blue Cross PPO",
+            "patientName": "Marcus Reed",
+            "providerName": "Dr. Sarah Chen",
+            "value": 4120.5,
+            "clinicalCompliance": "pendingSign",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-003",
+            "claimCode": "CLM-92250",
+            "insuranceProvider": "Aetna Global",
+            "patientName": "Linda Aoki",
+            "providerName": "Dr. Julian Vance",
+            "value": 820,
+            "clinicalCompliance": "missingIcd10",
+            "cycleStatus": "Rejected"
+        },
+        {
+            "id": "clm-004",
+            "claimCode": "CLM-92241",
+            "insuranceProvider": "UnitedHealth",
+            "patientName": "David Wright",
+            "providerName": "Dr. Sarah Chen",
+            "value": 22900,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "Funds Released"
+        },
+        {
+            "id": "clm-005",
+            "claimCode": "CLM-92198",
+            "insuranceProvider": "Cigna HMO",
+            "patientName": "Rachel Torres",
+            "providerName": "Dr. Aris Thorne",
+            "value": 8740.25,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-006",
+            "claimCode": "CLM-92175",
+            "insuranceProvider": "Medicare Part A",
+            "patientName": "Samuel Okafor",
+            "providerName": "Dr. Julian Vance",
+            "value": 31200,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "Funds Released"
+        },
+        {
+            "id": "clm-007",
+            "claimCode": "CLM-92160",
+            "insuranceProvider": "Blue Shield",
+            "patientName": "Ingrid Larsson",
+            "providerName": "Dr. Sarah Chen",
+            "value": 5670.8,
+            "clinicalCompliance": "pendingSign",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-008",
+            "claimCode": "CLM-92144",
+            "insuranceProvider": "Humana Gold",
+            "patientName": "Carlos Mendez",
+            "providerName": "Dr. Aris Thorne",
+            "value": 15300,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-009",
+            "claimCode": "CLM-92130",
+            "insuranceProvider": "Anthem PPO",
+            "patientName": "Yuki Tanaka",
+            "providerName": "Dr. Julian Vance",
+            "value": 2450.75,
+            "clinicalCompliance": "missingIcd10",
+            "cycleStatus": "Rejected"
+        },
+        {
+            "id": "clm-010",
+            "claimCode": "CLM-92112",
+            "insuranceProvider": "Kaiser Permanente",
+            "patientName": "Nina Petrovic",
+            "providerName": "Dr. Sarah Chen",
+            "value": 9880,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "Funds Released"
+        },
+        {
+            "id": "clm-011",
+            "claimCode": "CLM-92098",
+            "insuranceProvider": "Aetna Global",
+            "patientName": "Thomas Brennan",
+            "providerName": "Dr. Aris Thorne",
+            "value": 6240,
+            "clinicalCompliance": "pendingSign",
+            "cycleStatus": "In Clearinghouse"
+        },
+        {
+            "id": "clm-012",
+            "claimCode": "CLM-92085",
+            "insuranceProvider": "UnitedHealth",
+            "patientName": "Amara Diallo",
+            "providerName": "Dr. Julian Vance",
+            "value": 18750.5,
+            "clinicalCompliance": "verified",
+            "cycleStatus": "In Clearinghouse"
+        }
+    ],
+    "availabilitySlots": [
+        {
+            "id": "slot-004",
+            "doctorId": "doc-001",
+            "branchId": "branch-001",
+            "date": "2026-05-12",
+            "startTime": "16:00",
+            "endTime": "16:30",
+            "status": "booked"
+        },
+        {
+            "id": "slot-005",
+            "doctorId": "doc-002",
+            "branchId": "branch-001",
+            "date": "2026-05-14",
+            "startTime": "10:30",
+            "endTime": "11:00",
+            "status": "available"
+        },
+        {
+            "id": "slot-006",
+            "doctorId": "doc-003",
+            "branchId": "branch-001",
+            "date": "2026-05-15",
+            "startTime": "09:00",
+            "endTime": "09:30",
+            "status": "available"
+        },
+        {
+            "id": "8a1b163d-a15d-40f9-a136-730a4dd2bae9",
+            "doctorId": "doc-004",
+            "branchId": "branch-001",
+            "date": "2026-05-12",
+            "startTime": "08:00",
+            "endTime": "08:30",
+            "status": "available"
+        },
+        {
+            "id": "c0d6ceee-f26e-441c-af28-c002466e3310",
+            "doctorId": "doc-004",
+            "branchId": "branch-001",
+            "date": "2026-05-12",
+            "startTime": "09:00",
+            "endTime": "09:30",
+            "status": "available"
+        },
+        {
+            "id": "a145580e-c559-47d2-b321-b630295d1d57",
+            "doctorId": "doc-003",
+            "branchId": "branch-001",
+            "date": "2026-05-12",
+            "startTime": "12:00",
+            "endTime": "12:30",
+            "status": "available"
+        },
+        {
+            "id": "519f6cf7-73b5-41f9-a664-29b748601ce1",
+            "doctorId": "doc-003",
+            "branchId": "branch-001",
+            "date": "2026-05-12",
+            "startTime": "13:00",
+            "endTime": "13:30",
+            "status": "available"
+        },
+        {
+            "id": "c79caf3c-c323-4c37-82c5-67c78db90c33",
+            "doctorId": "doc-001",
+            "branchId": "branch-001",
+            "date": "2026-05-11",
+            "startTime": "12:20",
+            "endTime": "12:50",
+            "status": "booked"
+        },
+        {
+            "id": "46f5fe5f-e71f-486f-aed7-faa8f2b0a56d",
+            "doctorId": "doc-001",
+            "branchId": "branch-001",
+            "date": "2026-05-11",
+            "startTime": "10:15",
+            "endTime": "10:45",
+            "status": "booked"
+        }
+    ],
+    "appointments": [
+        {
+            "id": "apt-004",
+            "doctorId": "doc-002",
+            "patientId": "pat-001",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-14T10:30:00",
+            "reason": "Neurological Screening",
+            "status": "cancelled",
+            "paymentStatus": "pending"
+        },
+        {
+            "id": "apt-101",
+            "doctorId": "doc-001",
+            "patientId": "pat-005",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-11T08:30:00",
+            "reason": "Critical follow-up",
+            "status": "cancelled",
+            "paymentStatus": "paid"
+        },
+        {
+            "id": "apt-102",
+            "doctorId": "doc-001",
+            "patientId": "pat-006",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-11T10:15:00",
+            "reason": "Blood pressure control",
+            "status": "arrived",
+            "paymentStatus": "paid"
+        },
+        {
+            "id": "apt-103",
+            "doctorId": "doc-001",
+            "patientId": "pat-007",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-11T12:20:00",
+            "reason": "Post-op review",
+            "status": "scheduled",
+            "paymentStatus": "paid"
+        },
+        {
+            "id": "apt-104",
+            "doctorId": "doc-001",
+            "patientId": "pat-008",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-11T15:10:00",
+            "reason": "Medication adjustment",
+            "status": "confirmed",
+            "paymentStatus": "paid"
+        },
+        {
+            "id": "apt-105",
+            "doctorId": "doc-003",
+            "patientId": "pat-001",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-15T09:00:00",
+            "reason": "General consultation",
+            "status": "cancelled",
+            "paymentStatus": "pending"
+        },
+        {
+            "id": "apt-106",
+            "doctorId": "doc-001",
+            "patientId": "pat-001",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-12T16:00:00",
+            "reason": "General consultation",
+            "status": "scheduled",
+            "paymentStatus": "pending"
+        },
+        {
+            "id": "apt-107",
+            "doctorId": "doc-004",
+            "patientId": "pat-001",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-12T08:00:00",
+            "reason": "General consultation",
+            "status": "cancelled",
+            "paymentStatus": "pending"
+        },
+        {
+            "id": "apt-108",
+            "doctorId": "doc-003",
+            "patientId": "pat-001",
+            "branchId": "branch-001",
+            "scheduledAt": "2026-05-12T13:00:00",
+            "reason": "General consultation",
+            "status": "cancelled",
+            "paymentStatus": "pending"
+        }
+    ]
 }
