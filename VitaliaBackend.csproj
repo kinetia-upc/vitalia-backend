@@ -1,0 +1,112 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <LangVersion>14</LangVersion>
+    <UserSecretsId>f98a8b6b-84c0-48d2-8990-5d4517760c1d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cortex.Mediator" Version="3.1.2" />
+    <PackageReference Include="Humanizer" Version="3.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Billing\Application\CommandServices\" />
+    <Folder Include="Billing\Application\Internal\" />
+    <Folder Include="Billing\Application\QueryServices\" />
+    <Folder Include="Billing\Domain\Model\Aggregates\" />
+    <Folder Include="Billing\Domain\Model\Commands\" />
+    <Folder Include="Billing\Domain\Model\Entities\" />
+    <Folder Include="Billing\Domain\Model\Errors\" />
+    <Folder Include="Billing\Domain\Model\Events\" />
+    <Folder Include="Billing\Domain\Model\Queries\" />
+    <Folder Include="Billing\Domain\Model\ValueObjects\" />
+    <Folder Include="Billing\Domain\Repositories\" />
+    <Folder Include="Billing\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Billing\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Billing\Interfaces\ACL\" />
+    <Folder Include="Billing\Interfaces\Rest\Resources\" />
+    <Folder Include="Billing\Interfaces\Rest\Transform\" />
+    <Folder Include="Billing\Resources\" />
+    <Folder Include="Clinical\Application\CommandServices\" />
+    <Folder Include="Clinical\Application\Internal\" />
+    <Folder Include="Clinical\Application\QueryServices\" />
+    <Folder Include="Clinical\Domain\Model\Aggregates\" />
+    <Folder Include="Clinical\Domain\Model\Commands\" />
+    <Folder Include="Clinical\Domain\Model\Entities\" />
+    <Folder Include="Clinical\Domain\Model\Errors\" />
+    <Folder Include="Clinical\Domain\Model\Events\" />
+    <Folder Include="Clinical\Domain\Model\Queries\" />
+    <Folder Include="Clinical\Domain\Repositories\" />
+    <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Clinical\Interfaces\ACL\" />
+    <Folder Include="Clinical\Interfaces\Rest\Resources\" />
+    <Folder Include="Clinical\Interfaces\Rest\Transform\" />
+    <Folder Include="Clinical\Resources\" />
+    <Folder Include="Pharmacy\Application\CommandServices\" />
+    <Folder Include="Pharmacy\Application\Internal\" />
+    <Folder Include="Pharmacy\Application\QueryServices\" />
+    <Folder Include="Pharmacy\Domain\Model\Aggregates\" />
+    <Folder Include="Pharmacy\Domain\Model\Commands\" />
+    <Folder Include="Pharmacy\Domain\Model\Entities\" />
+    <Folder Include="Pharmacy\Domain\Model\Errors\" />
+    <Folder Include="Pharmacy\Domain\Model\Events\" />
+    <Folder Include="Pharmacy\Domain\Model\Queries\" />
+    <Folder Include="Pharmacy\Domain\Model\ValueObjects\" />
+    <Folder Include="Pharmacy\Domain\Repositories\" />
+    <Folder Include="Pharmacy\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Pharmacy\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Pharmacy\Interfaces\ACL\" />
+    <Folder Include="Pharmacy\Interfaces\Rest\Resources\" />
+    <Folder Include="Pharmacy\Interfaces\Rest\Transform\" />
+    <Folder Include="Pharmacy\Resources\" />
+    <Folder Include="Shared\" />
+    <Folder Include="Tenant\Application\CommandServices\" />
+    <Folder Include="Tenant\Application\Internal\" />
+    <Folder Include="Tenant\Application\QueryServices\" />
+    <Folder Include="Tenant\Domain\Model\Aggregates\" />
+    <Folder Include="Tenant\Domain\Model\Commands\" />
+    <Folder Include="Tenant\Domain\Model\Entities\" />
+    <Folder Include="Tenant\Domain\Model\Errors\" />
+    <Folder Include="Tenant\Domain\Model\Events\" />
+    <Folder Include="Tenant\Domain\Model\Queries\" />
+    <Folder Include="Tenant\Domain\Model\ValueObjects\" />
+    <Folder Include="Tenant\Domain\Repositories\" />
+    <Folder Include="Tenant\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
+    <Folder Include="Tenant\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
+    <Folder Include="Tenant\Interfaces\ACL\" />
+    <Folder Include="Tenant\Interfaces\Rest\Resources\" />
+    <Folder Include="Tenant\Interfaces\Rest\Transform\" />
+    <Folder Include="Tenant\Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Scheduling\Resources\SchedulingMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Scheduling\Resources\SchedulingMessages.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingMessages.es.Designer.cs</LastGenOutput>
+      <DependentUpon>SchedulingMessages.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="db.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

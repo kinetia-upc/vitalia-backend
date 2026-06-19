@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <data name="GenericError" xml:space="preserve">
+    <value>Ocurrió un error.</value>
+  </data>
+    <data name="OperationCancelled" xml:space="preserve">
+    <value>La operación fue cancelada.</value>
+  </data>
+    <data name="IamError.UserNotFound" xml:space="preserve">
+    <value>Usuario no encontrado.</value>
+  </data>
+    <data name="IamError.UsernameAlreadyTaken" xml:space="preserve">
+    <value>El nombre de usuario {0} ya está en uso.</value>
+  </data>
+    <data name="IamError.InvalidCredentials" xml:space="preserve">
+    <value>Nombre de usuario o contraseña inválidos.</value>
+  </data>
+    <data name="IamError.OperationCancelled" xml:space="preserve">
+    <value>La operación de usuario fue cancelada.</value>
+  </data>
+    <data name="IamError.DatabaseError" xml:space="preserve">
+    <value>Ocurrió un error de base de datos durante la operación IAM.</value>
+  </data>
+    <data name="IamError.InternalServerError" xml:space="preserve">
+    <value>Ocurrió un error interno inesperado en IAM.</value>
+  </data>
+    <data name="IamError.ExternalServiceError" xml:space="preserve">
+    <value>Ocurrió un error de servicio externo en IAM.</value>
+  </data>
+
+    <data name="ProfilesError.ProfileNotFound" xml:space="preserve">
+    <value>Perfil no encontrado.</value>
+  </data>
+    <data name="ProfilesError.EmailAlreadyRegistered" xml:space="preserve">
+    <value>La dirección de correo electrónico {0} ya está registrada.</value>
+  </data>
+    <data name="ProfilesError.InvalidProfileData" xml:space="preserve">
+    <value>Datos de perfil inválidos proporcionados.</value>
+  </data>
+    <data name="ProfilesError.OperationCancelled" xml:space="preserve">
+    <value>La operación de perfil fue cancelada.</value>
+  </data>
+    <data name="ProfilesError.DatabaseError" xml:space="preserve">
+    <value>Ocurrió un error de base de datos durante la operación de perfil.</value>
+  </data>
+    <data name="ProfilesError.InternalServerError" xml:space="preserve">
+    <value>Ocurrió un error interno inesperado en Perfiles.</value>
+  </data>
+
+    <data name="PublishingError.CategoryNotFound" xml:space="preserve">
+    <value>Categoría no encontrada.</value>
+  </data>
+    <data name="PublishingError.TutorialNotFound" xml:space="preserve">
+    <value>Tutorial no encontrado.</value>
+  </data>
+    <data name="PublishingError.DuplicateTutorialTitle" xml:space="preserve">
+    <value>Ya existe un tutorial con el título {0}.</value>
+  </data>
+    <data name="PublishingError.OperationCancelled" xml:space="preserve">
+    <value>La operación de publicación fue cancelada.</value>
+  </data>
+    <data name="PublishingError.DatabaseError" xml:space="preserve">
+    <value>Ocurrió un error de base de datos durante la operación de publicación.</value>
+  </data>
+    <data name="PublishingError.InternalServerError" xml:space="preserve">
+    <value>Ocurrió un error interno inesperado en Publicación.</value>
+  </data>
+    <data name="MedicalRecordNotFound" xml:space="preserve">
+    <value>Registro médico no encontrado.</value>
+  </data>
+    <data name="MedicalRecordAlreadyExistsForAppointment" xml:space="preserve">
+    <value>Ya existe un registro médico para esta cita.</value>
+  </data>
+    <data name="MedicalRecordCodeGenerationFailed" xml:space="preserve">
+    <value>No se pudo generar un código único para el registro médico.</value>
+  </data>
+    <data name="InvalidMedicalRecordData" xml:space="preserve">
+    <value>Datos inválidos para el registro médico.</value>
+  </data>
+    <data name="DiagnosisNotFound" xml:space="preserve">
+    <value>Diagnóstico no encontrado.</value>
+  </data>
+    <data name="InvalidDiagnosisDescription" xml:space="preserve">
+    <value>La descripción del diagnóstico debe tener al menos 5 caracteres.</value>
+  </data>
+    <data name="TreatmentNotFound" xml:space="preserve">
+    <value>Tratamiento no encontrado.</value>
+  </data>
+    <data name="InvalidTreatmentDescription" xml:space="preserve">
+    <value>La descripción del tratamiento debe tener al menos 5 caracteres.</value>
+  </data>
+    <data name="PrescriptionNotFound" xml:space="preserve">
+    <value>Prescripción no encontrada.</value>
+  </data>
+    <data name="InvalidPrescriptionData" xml:space="preserve">
+    <value>Datos inválidos para la prescripción.</value>
+  </data>
+    <data name="PrescriptionDetailNotFound" xml:space="preserve">
+    <value>Detalle de prescripción no encontrado.</value>
+  </data>
+    <data name="InvalidPrescriptionDetailData" xml:space="preserve">
+    <value>Datos inválidos para el detalle de prescripción.</value>
+  </data>
+    <data name="DatabaseError" xml:space="preserve">
+    <value>Ocurrió un error de base de datos durante la operación.</value>
+  </data>
+    <data name="InternalServerError" xml:space="preserve">
+    <value>Ocurrió un error interno inesperado.</value>
+  </data>
+    <data name="MedicineCreationError" xml:space="preserve">
+    <value>Error al crear el medicamento.</value>
+  </data>
+    <data name="MedicineUpdateError" xml:space="preserve">
+    <value>Error al actualizar el medicamento.</value>
+  </data>
+    <data name="MedicineDeletionError" xml:space="preserve">
+    <value>Error al eliminar el medicamento.</value>
+  </data>
+    <data name="MedicineNotFoundError" xml:space="preserve">
+    <value>Medicamento no encontrado.</value>
+  </data>
+    <data name="AppointmentCreationError" xml:space="preserve">
+    <value>Error al crear la cita.</value>
+  </data>
+    <data name="AppointmentUpdateError" xml:space="preserve">
+    <value>Error al actualizar la cita.</value>
+  </data>
+    <data name="AppointmentDeletionError" xml:space="preserve">
+    <value>Error al eliminar la cita.</value>
+  </data>
+    <data name="AppointmentNotFoundError" xml:space="preserve">
+    <value>Cita no encontrada.</value>
+  </data>
+    <data name="AvailabilitySlotCreationError" xml:space="preserve">
+    <value>Error al crear el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotUpdateError" xml:space="preserve">
+    <value>Error al actualizar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotDeletionError" xml:space="preserve">
+    <value>Error al eliminar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
+    <value>Horario de disponibilidad no encontrado.</value>
+  </data>
+  <data name="BillingClaimCreationError" xml:space="preserve">
+    <value>Error al crear la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimUpdateError" xml:space="preserve">
+    <value>Error al actualizar la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimDeletionError" xml:space="preserve">
+    <value>Error al eliminar la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimNotFoundError" xml:space="preserve">
+    <value>Reclamación de facturación no encontrada.</value>
+  </data>
+  <data name="HealthcareCenterCreationError" xml:space="preserve">
+    <value>Error al crear el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterUpdateError" xml:space="preserve">
+    <value>Error al actualizar el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterDeletionError" xml:space="preserve">
+    <value>Error al eliminar el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterNotFoundError" xml:space="preserve">
+    <value>Centro de salud no encontrado.</value>
+  </data>
+  <data name="BranchCreationError" xml:space="preserve">
+    <value>Error al crear la sucursal.</value>
+  </data>
+  <data name="BranchUpdateError" xml:space="preserve">
+    <value>Error al actualizar la sucursal.</value>
+  </data>
+  <data name="BranchDeletionError" xml:space="preserve">
+    <value>Error al eliminar la sucursal.</value>
+  </data>
+  <data name="BranchNotFoundError" xml:space="preserve">
+    <value>Sucursal no encontrada.</value>
+  </data>
+  <data name="AppointmentFeeCreationError" xml:space="preserve">
+    <value>Error al crear la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeUpdateError" xml:space="preserve">
+    <value>Error al actualizar la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeDeletionError" xml:space="preserve">
+    <value>Error al eliminar la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeNotFoundError" xml:space="preserve">
+    <value>Tarifa de cita no encontrada.</value>
+  </data>
+</root>

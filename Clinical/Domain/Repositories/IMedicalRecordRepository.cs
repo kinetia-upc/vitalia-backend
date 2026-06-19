@@ -1,0 +1,27 @@
+using VitaliaBackend.Clinical.Domain.Model.Aggregates;
+using VitaliaBackend.Shared.Domain.Repositories;
+
+namespace VitaliaBackend.Clinical.Domain.Repositories;
+
+public interface IMedicalRecordRepository : IBaseRepository<MedicalRecord>
+{
+    Task<MedicalRecord?> FindByCodeAsync(
+        string code,
+        CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<MedicalRecord>> FindAllByPatientIdAsync(
+        string patientId,
+        CancellationToken cancellationToken = default);
+
+    Task<MedicalRecord?> FindByAppointmentIdAsync(
+        string appointmentId,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByCodeAsync(
+        string code,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByAppointmentIdAsync(
+        string appointmentId,
+        CancellationToken cancellationToken = default);
+}

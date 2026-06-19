@@ -1,0 +1,13 @@
+@VitaliaBackend_HostAddress = http://localhost:5032
+
+### Get all medical records
+GET {{VitaliaBackend_HostAddress}}/api/v1/medicalRecords
+Accept: application/json
+
+### Get all diagnoses
+GET {{VitaliaBackend_HostAddress}}/api/v1/diagnoses
+Accept: application/json
+
+### Get all prescriptions
+GET {{VitaliaBackend_HostAddress}}/api/v1/prescriptions
+Accept: application/json
