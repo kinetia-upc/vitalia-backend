@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -64,7 +64,6 @@
     <Folder Include="Clinical\Domain\Model\Errors\" />
     <Folder Include="Clinical\Domain\Model\Events\" />
     <Folder Include="Clinical\Domain\Model\Queries\" />
-    <Folder Include="Clinical\Domain\Model\ValueObjects\" />
     <Folder Include="Clinical\Domain\Repositories\" />
     <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
     <Folder Include="Clinical\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
@@ -119,6 +118,12 @@
       <LastGenOutput>SchedulingMessages.es.Designer.cs</LastGenOutput>
       <DependentUpon>SchedulingMessages.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="db.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

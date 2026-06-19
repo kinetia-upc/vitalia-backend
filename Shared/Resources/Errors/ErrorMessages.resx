@@ -65,4 +65,82 @@
     <data name="PublishingError.InternalServerError" xml:space="preserve">
     <value>An unexpected internal error occurred in Publishing.</value>
   </data>
+    <data name="MedicalRecordNotFound" xml:space="preserve">
+    <value>Medical record not found.</value>
+  </data>
+    <data name="MedicalRecordAlreadyExistsForAppointment" xml:space="preserve">
+    <value>A medical record already exists for this appointment.</value>
+  </data>
+    <data name="MedicalRecordCodeGenerationFailed" xml:space="preserve">
+    <value>Could not generate a unique medical record code.</value>
+  </data>
+    <data name="InvalidMedicalRecordData" xml:space="preserve">
+    <value>Invalid medical record data provided.</value>
+  </data>
+    <data name="DiagnosisNotFound" xml:space="preserve">
+    <value>Diagnosis not found.</value>
+  </data>
+    <data name="InvalidDiagnosisDescription" xml:space="preserve">
+    <value>Diagnosis description must have at least 5 characters.</value>
+  </data>
+    <data name="TreatmentNotFound" xml:space="preserve">
+    <value>Treatment not found.</value>
+  </data>
+    <data name="InvalidTreatmentDescription" xml:space="preserve">
+    <value>Treatment description must have at least 5 characters.</value>
+  </data>
+    <data name="PrescriptionNotFound" xml:space="preserve">
+    <value>Prescription not found.</value>
+  </data>
+    <data name="InvalidPrescriptionData" xml:space="preserve">
+    <value>Invalid prescription data provided.</value>
+  </data>
+    <data name="PrescriptionDetailNotFound" xml:space="preserve">
+    <value>Prescription detail not found.</value>
+  </data>
+    <data name="InvalidPrescriptionDetailData" xml:space="preserve">
+    <value>Invalid prescription detail data provided.</value>
+  </data>
+    <data name="DatabaseError" xml:space="preserve">
+    <value>A database error occurred during the operation.</value>
+  </data>
+    <data name="InternalServerError" xml:space="preserve">
+    <value>An unexpected internal error occurred.</value>
+  </data>
+    <data name="MedicineCreationError" xml:space="preserve">
+    <value>Error creating medicine.</value>
+  </data>
+    <data name="MedicineUpdateError" xml:space="preserve">
+    <value>Error updating medicine.</value>
+  </data>
+    <data name="MedicineDeletionError" xml:space="preserve">
+    <value>Error deleting medicine.</value>
+  </data>
+    <data name="MedicineNotFoundError" xml:space="preserve">
+    <value>Medicine not found.</value>
+  </data>
+    <data name="AppointmentCreationError" xml:space="preserve">
+    <value>Error creating appointment.</value>
+  </data>
+    <data name="AppointmentUpdateError" xml:space="preserve">
+    <value>Error updating appointment.</value>
+  </data>
+    <data name="AppointmentDeletionError" xml:space="preserve">
+    <value>Error deleting appointment.</value>
+  </data>
+    <data name="AppointmentNotFoundError" xml:space="preserve">
+    <value>Appointment not found.</value>
+  </data>
+    <data name="AvailabilitySlotCreationError" xml:space="preserve">
+    <value>Error creating availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotUpdateError" xml:space="preserve">
+    <value>Error updating availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotDeletionError" xml:space="preserve">
+    <value>Error deleting availability slot.</value>
+  </data>
+    <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
+    <value>Availability slot not found.</value>
+  </data>
 </root>

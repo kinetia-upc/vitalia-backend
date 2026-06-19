@@ -65,4 +65,82 @@
     <data name="PublishingError.InternalServerError" xml:space="preserve">
     <value>Ocurrió un error interno inesperado en Publicación.</value>
   </data>
+    <data name="MedicalRecordNotFound" xml:space="preserve">
+    <value>Registro médico no encontrado.</value>
+  </data>
+    <data name="MedicalRecordAlreadyExistsForAppointment" xml:space="preserve">
+    <value>Ya existe un registro médico para esta cita.</value>
+  </data>
+    <data name="MedicalRecordCodeGenerationFailed" xml:space="preserve">
+    <value>No se pudo generar un código único para el registro médico.</value>
+  </data>
+    <data name="InvalidMedicalRecordData" xml:space="preserve">
+    <value>Datos inválidos para el registro médico.</value>
+  </data>
+    <data name="DiagnosisNotFound" xml:space="preserve">
+    <value>Diagnóstico no encontrado.</value>
+  </data>
+    <data name="InvalidDiagnosisDescription" xml:space="preserve">
+    <value>La descripción del diagnóstico debe tener al menos 5 caracteres.</value>
+  </data>
+    <data name="TreatmentNotFound" xml:space="preserve">
+    <value>Tratamiento no encontrado.</value>
+  </data>
+    <data name="InvalidTreatmentDescription" xml:space="preserve">
+    <value>La descripción del tratamiento debe tener al menos 5 caracteres.</value>
+  </data>
+    <data name="PrescriptionNotFound" xml:space="preserve">
+    <value>Prescripción no encontrada.</value>
+  </data>
+    <data name="InvalidPrescriptionData" xml:space="preserve">
+    <value>Datos inválidos para la prescripción.</value>
+  </data>
+    <data name="PrescriptionDetailNotFound" xml:space="preserve">
+    <value>Detalle de prescripción no encontrado.</value>
+  </data>
+    <data name="InvalidPrescriptionDetailData" xml:space="preserve">
+    <value>Datos inválidos para el detalle de prescripción.</value>
+  </data>
+    <data name="DatabaseError" xml:space="preserve">
+    <value>Ocurrió un error de base de datos durante la operación.</value>
+  </data>
+    <data name="InternalServerError" xml:space="preserve">
+    <value>Ocurrió un error interno inesperado.</value>
+  </data>
+    <data name="MedicineCreationError" xml:space="preserve">
+    <value>Error al crear el medicamento.</value>
+  </data>
+    <data name="MedicineUpdateError" xml:space="preserve">
+    <value>Error al actualizar el medicamento.</value>
+  </data>
+    <data name="MedicineDeletionError" xml:space="preserve">
+    <value>Error al eliminar el medicamento.</value>
+  </data>
+    <data name="MedicineNotFoundError" xml:space="preserve">
+    <value>Medicamento no encontrado.</value>
+  </data>
+    <data name="AppointmentCreationError" xml:space="preserve">
+    <value>Error al crear la cita.</value>
+  </data>
+    <data name="AppointmentUpdateError" xml:space="preserve">
+    <value>Error al actualizar la cita.</value>
+  </data>
+    <data name="AppointmentDeletionError" xml:space="preserve">
+    <value>Error al eliminar la cita.</value>
+  </data>
+    <data name="AppointmentNotFoundError" xml:space="preserve">
+    <value>Cita no encontrada.</value>
+  </data>
+    <data name="AvailabilitySlotCreationError" xml:space="preserve">
+    <value>Error al crear el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotUpdateError" xml:space="preserve">
+    <value>Error al actualizar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotDeletionError" xml:space="preserve">
+    <value>Error al eliminar el horario de disponibilidad.</value>
+  </data>
+    <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
+    <value>Horario de disponibilidad no encontrado.</value>
+  </data>
 </root>
