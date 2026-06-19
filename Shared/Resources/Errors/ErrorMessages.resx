@@ -143,4 +143,16 @@
     <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
     <value>Availability slot not found.</value>
   </data>
+  <data name="BillingClaimCreationError" xml:space="preserve">
+    <value>Error creating billing claim.</value>
+  </data>
+  <data name="BillingClaimUpdateError" xml:space="preserve">
+    <value>Error updating billing claim.</value>
+  </data>
+  <data name="BillingClaimDeletionError" xml:space="preserve">
+    <value>Error deleting billing claim.</value>
+  </data>
+  <data name="BillingClaimNotFoundError" xml:space="preserve">
+    <value>Billing claim not found.</value>
+  </data>
 </root>

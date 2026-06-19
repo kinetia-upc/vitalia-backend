@@ -155,7 +155,7 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     context.Database.Migrate();
 
-    DbSeeder.SeedAsync(context).GetAwaiter().GetResult();
+    DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
 }
 
 app.UseGlobalExceptionHandler();

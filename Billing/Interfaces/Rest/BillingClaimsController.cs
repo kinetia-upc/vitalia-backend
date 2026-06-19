@@ -1,13 +1,16 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Billing.Application.CommandServices;
 using VitaliaBackend.Billing.Application.QueryServices;
+using VitaliaBackend.Billing.Domain.Model;
 using VitaliaBackend.Billing.Domain.Model.Commands;
-using VitaliaBackend.Billing.Domain.Model.Errors;
 using VitaliaBackend.Billing.Domain.Model.Queries;
 using VitaliaBackend.Billing.Interfaces.Rest.Resources;
 using VitaliaBackend.Billing.Interfaces.Rest.Transform;
+using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
 namespace VitaliaBackend.Billing.Interfaces.Rest;
 
@@ -27,7 +30,9 @@ namespace VitaliaBackend.Billing.Interfaces.Rest;
 [SwaggerTag("Billing claims endpoints")]
 public class BillingClaimsController(
     IBillingClaimQueryService billingClaimQueryService,
-    IBillingClaimCommandService billingClaimCommandService) : ControllerBase
+    IBillingClaimCommandService billingClaimCommandService,
+    IStringLocalizer<ErrorMessages> errorLocalizer,
+    ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet]
     [SwaggerOperation(
@@ -62,10 +67,13 @@ public class BillingClaimsController(
         var query = new GetBillingClaimByIdQuery(billingClaimId);
         var billingClaim = await billingClaimQueryService.Handle(query, cancellationToken);
 
-        if (billingClaim is null)
-            return NotFound(BillingErrors.BillingClaimNotFoundError);
-
-        return Ok(BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(billingClaim));
+        return BillingActionResultAssembler.ToActionResultFromNullable(
+            this,
+            billingClaim,
+            BillingError.BillingClaimNotFoundError,
+            errorLocalizer,
+            problemDetailsFactory,
+            foundClaim => Ok(BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(foundClaim)));
     }
 
     [HttpPost]
@@ -82,17 +90,17 @@ public class BillingClaimsController(
         CancellationToken cancellationToken)
     {
         var command = CreateBillingClaimCommandFromResourceAssembler.ToCommandFromResource(resource);
-        var billingClaim = await billingClaimCommandService.Handle(command, cancellationToken);
+        var result = await billingClaimCommandService.Handle(command, cancellationToken);
 
-        if (billingClaim is null)
-            return BadRequest(BillingErrors.BillingClaimCreationError);
-
-        var billingClaimResource = BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(billingClaim);
-
-        return CreatedAtAction(
-            nameof(GetBillingClaimById),
-            new { billingClaimId = billingClaim.Id },
-            billingClaimResource);
+        return BillingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            createdClaim => CreatedAtAction(
+                nameof(GetBillingClaimById),
+                new { billingClaimId = createdClaim.Id },
+                BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(createdClaim)));
     }
 
     [HttpPut("{billingClaimId:int}")]
@@ -111,12 +119,14 @@ public class BillingClaimsController(
         CancellationToken cancellationToken)
     {
         var command = UpdateBillingClaimCommandFromResourceAssembler.ToCommandFromResource(billingClaimId, resource);
-        var billingClaim = await billingClaimCommandService.Handle(command, cancellationToken);
+        var result = await billingClaimCommandService.Handle(command, cancellationToken);
 
-        if (billingClaim is null)
-            return BadRequest(BillingErrors.BillingClaimUpdateError);
-
-        return Ok(BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(billingClaim));
+        return BillingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            updatedClaim => Ok(BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(updatedClaim)));
     }
 
     [HttpDelete("{billingClaimId:int}")]
@@ -131,11 +141,13 @@ public class BillingClaimsController(
         CancellationToken cancellationToken)
     {
         var command = new DeleteBillingClaimCommand(billingClaimId);
-        var deleted = await billingClaimCommandService.Handle(command, cancellationToken);
+        var result = await billingClaimCommandService.Handle(command, cancellationToken);
 
-        if (!deleted)
-            return NotFound(BillingErrors.BillingClaimNotFoundError);
-
-        return NoContent();
+        return BillingActionResultAssembler.ToActionResultFromResult(
+            this,
+            result,
+            errorLocalizer,
+            problemDetailsFactory,
+            () => NoContent());
     }
 }

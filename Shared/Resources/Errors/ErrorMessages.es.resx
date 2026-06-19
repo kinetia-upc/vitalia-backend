@@ -143,4 +143,16 @@
     <data name="AvailabilitySlotNotFoundError" xml:space="preserve">
     <value>Horario de disponibilidad no encontrado.</value>
   </data>
+  <data name="BillingClaimCreationError" xml:space="preserve">
+    <value>Error al crear la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimUpdateError" xml:space="preserve">
+    <value>Error al actualizar la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimDeletionError" xml:space="preserve">
+    <value>Error al eliminar la reclamación de facturación.</value>
+  </data>
+  <data name="BillingClaimNotFoundError" xml:space="preserve">
+    <value>Reclamación de facturación no encontrada.</value>
+  </data>
 </root>

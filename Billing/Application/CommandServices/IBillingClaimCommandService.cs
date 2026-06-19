@@ -1,5 +1,6 @@
 using VitaliaBackend.Billing.Domain.Model.Aggregates;
 using VitaliaBackend.Billing.Domain.Model.Commands;
+using VitaliaBackend.Shared.Application.Model;
 
 namespace VitaliaBackend.Billing.Application.CommandServices;
 
@@ -10,7 +11,7 @@ namespace VitaliaBackend.Billing.Application.CommandServices;
 /// </summary>
 public interface IBillingClaimCommandService
 {
-    Task<BillingClaim?> Handle(CreateBillingClaimCommand command, CancellationToken cancellationToken);
-    Task<BillingClaim?> Handle(UpdateBillingClaimCommand command, CancellationToken cancellationToken);
-    Task<bool> Handle(DeleteBillingClaimCommand command, CancellationToken cancellationToken);
+    Task<Result<BillingClaim>> Handle(CreateBillingClaimCommand command, CancellationToken cancellationToken);
+    Task<Result<BillingClaim>> Handle(UpdateBillingClaimCommand command, CancellationToken cancellationToken);
+    Task<Result> Handle(DeleteBillingClaimCommand command, CancellationToken cancellationToken);
 }

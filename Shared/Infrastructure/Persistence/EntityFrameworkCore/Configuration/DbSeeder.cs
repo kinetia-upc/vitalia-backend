@@ -10,6 +10,7 @@ using VitaliaBackend.Clinical.Domain.Model.ValueObjects;
 using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.ValueObjects;
+using VitaliaBackend.Billing.Domain.Model.Aggregates;
 
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -30,6 +31,7 @@ public static class DbSeeder
                 await context.Appointments.ExecuteDeleteAsync();
                 await context.AvailabilitySlots.ExecuteDeleteAsync();
                 await context.Medicines.ExecuteDeleteAsync();
+                await context.BillingClaims.ExecuteDeleteAsync();
                 Console.WriteLine("[DbSeeder] Existing data cleared.");
             }
 
@@ -260,6 +262,33 @@ public static class DbSeeder
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Prescription Details successfully.");
+            }
+
+            // Seed Billing Claims
+            if (!context.BillingClaims.Any() && root.TryGetProperty("billingClaims", out var billingClaimsProp))
+            {
+                Console.WriteLine("[DbSeeder] Seeding Billing Claims...");
+                foreach (var item in billingClaimsProp.EnumerateArray())
+                {
+                    var claimCode = item.GetProperty("claimCode").GetString() ?? "";
+                    var insuranceProvider = item.GetProperty("insuranceProvider").GetString() ?? "";
+                    var patientName = item.GetProperty("patientName").GetString() ?? "";
+                    var providerName = item.GetProperty("providerName").GetString() ?? "";
+                    var value = item.GetProperty("value").GetDecimal();
+                    var clinicalCompliance = item.GetProperty("clinicalCompliance").GetString() ?? "";
+                    var cycleStatus = item.GetProperty("cycleStatus").GetString() ?? "";
+
+                    context.BillingClaims.Add(new BillingClaim(
+                        claimCode,
+                        insuranceProvider,
+                        patientName,
+                        providerName,
+                        value,
+                        clinicalCompliance,
+                        cycleStatus));
+                }
+                await context.SaveChangesAsync();
+                Console.WriteLine("[DbSeeder] Seeded Billing Claims successfully.");
             }
         }
         catch (Exception ex)
