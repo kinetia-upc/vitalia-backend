@@ -37,6 +37,14 @@ using VitaliaBackend.Pharmacy.Application.QueryServices;
 using VitaliaBackend.Pharmacy.Domain.Repositories;
 using VitaliaBackend.Pharmacy.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 
+//Billing Bounded Context
+using VitaliaBackend.Billing.Application.CommandServices;
+using VitaliaBackend.Billing.Application.Internal.CommandServices;
+using VitaliaBackend.Billing.Application.Internal.QueryServices;
+using VitaliaBackend.Billing.Application.QueryServices;
+using VitaliaBackend.Billing.Domain.Repositories;
+using VitaliaBackend.Billing.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
@@ -49,6 +57,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
+builder.Services.AddScoped<IBillingClaimRepository, BillingClaimRepository>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
@@ -58,6 +67,7 @@ builder.Services.AddScoped<IPrescriptionDetailRepository, PrescriptionDetailRepo
 builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
 builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
 builder.Services.AddScoped<IMedicineQueryService, MedicineQueryService>();
+builder.Services.AddScoped<IBillingClaimQueryService, BillingClaimQueryService>();
 builder.Services.AddScoped<IMedicalRecordQueryService, MedicalRecordQueryService>();
 builder.Services.AddScoped<IDiagnosisQueryService, DiagnosisQueryService>();
 builder.Services.AddScoped<ITreatmentQueryService, TreatmentQueryService>();
@@ -67,6 +77,7 @@ builder.Services.AddScoped<IPrescriptionDetailQueryService, PrescriptionDetailQu
 builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService>();
 builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
 builder.Services.AddScoped<IMedicineCommandService, MedicineCommandService>();
+builder.Services.AddScoped<IBillingClaimCommandService, BillingClaimCommandService>();
 builder.Services.AddScoped<IMedicalRecordCommandService, MedicalRecordCommandService>();
 builder.Services.AddScoped<IDiagnosisCommandService, DiagnosisCommandService>();
 builder.Services.AddScoped<ITreatmentCommandService, TreatmentCommandService>();

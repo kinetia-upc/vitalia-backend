@@ -7,6 +7,8 @@ using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Pharmacy.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+using VitaliaBackend.Billing.Domain.Model.Aggregates;
+using VitaliaBackend.Billing.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -22,6 +24,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<AvailabilitySlot> AvailabilitySlots { get; set; }
     public DbSet<Medicine> Medicines { get; set; }
+    public DbSet<BillingClaim> BillingClaims { get; set; }
     public DbSet<MedicalRecord> MedicalRecords { get; set; }
     public DbSet<Diagnosis> Diagnoses { get; set; }
     public DbSet<Treatment> Treatments { get; set; }
@@ -50,6 +53,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         
         builder.ApplySchedulingConfiguration();
         builder.ApplyPharmacyConfiguration();
+        builder.ApplyBillingConfiguration();
         builder.ApplyClinicalConfiguration();
         // General Naming Convention for the database objects
         builder.UseSnakeCaseNamingConvention();
