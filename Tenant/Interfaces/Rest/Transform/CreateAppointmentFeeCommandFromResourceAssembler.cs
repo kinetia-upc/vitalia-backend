@@ -9,8 +9,8 @@ public static class CreateAppointmentFeeCommandFromResourceAssembler
     {
         return new CreateAppointmentFeeCommand(
             resource.Id,
-            resource.IdBranch,
-            resource.IdSpeciality,
+            resource.BranchId,
+            resource.SpecialityId,
             resource.Price);
     }
 }

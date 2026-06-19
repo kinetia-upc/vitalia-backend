@@ -302,17 +302,17 @@ public static class DbSeeder
                 foreach (var item in healthcareCentersProp.EnumerateArray())
                 {
                     var publicId = item.GetProperty("id").GetString() ?? "";
-                    var name = item.GetProperty("healthcare_center_name").GetString() ?? "";
+                    var name = item.GetProperty("healthcareCenterName").GetString() ?? "";
 
-                    var startProp = item.GetProperty("alliance_start_date");
+                    var startProp = item.GetProperty("allianceStartDate");
                     var allianceStartDate = startProp.ValueKind == JsonValueKind.String
                         ? DateOnly.Parse(startProp.GetString()!) : (DateOnly?)null;
 
-                    var finishProp = item.GetProperty("alliance_finish_date");
+                    var finishProp = item.GetProperty("allianceFinishDate");
                     var allianceFinishDate = finishProp.ValueKind == JsonValueKind.String
                         ? DateOnly.Parse(finishProp.GetString()!) : (DateOnly?)null;
 
-                    var rucProp = item.GetProperty("ruc_number");
+                    var rucProp = item.GetProperty("rucNumber");
                     var rucNumber = rucProp.ValueKind == JsonValueKind.Number
                         ? rucProp.GetInt64() : (long?)null;
 
@@ -329,12 +329,12 @@ public static class DbSeeder
                 foreach (var item in branchesProp.EnumerateArray())
                 {
                     var publicId = item.GetProperty("id").GetString() ?? "";
-                    var healthcareCenterId = item.GetProperty("id_healthcare_center").GetString() ?? "";
+                    var healthcareCenterId = item.GetProperty("healthcareCenterId").GetString() ?? "";
 
-                    var addressIdProp = item.GetProperty("id_address");
+                    var addressIdProp = item.GetProperty("addressId");
                     var addressId = addressIdProp.ValueKind == JsonValueKind.String ? addressIdProp.GetString() : null;
 
-                    var branchName = item.GetProperty("branch_name").GetString() ?? "";
+                    var branchName = item.GetProperty("branchName").GetString() ?? "";
                     var address = item.GetProperty("address").GetString() ?? "";
 
                     context.Branches.Add(new Branch(publicId, healthcareCenterId, addressId, branchName, address));
@@ -350,9 +350,9 @@ public static class DbSeeder
                 foreach (var item in appointmentFeesProp.EnumerateArray())
                 {
                     var publicId = item.GetProperty("id").GetString() ?? "";
-                    var branchId = item.GetProperty("id_branch").GetString() ?? "";
+                    var branchId = item.GetProperty("branchId").GetString() ?? "";
 
-                    var specialityIdProp = item.GetProperty("id_speciality");
+                    var specialityIdProp = item.GetProperty("specialityId");
                     var specialityId = specialityIdProp.ValueKind == JsonValueKind.String ? specialityIdProp.GetString() : null;
 
                     var price = item.GetProperty("price").GetDecimal();

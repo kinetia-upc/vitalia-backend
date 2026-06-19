@@ -9,8 +9,8 @@ public static class CreateBranchCommandFromResourceAssembler
     {
         return new CreateBranchCommand(
             resource.Id,
-            resource.IdHealthcareCenter,
-            resource.IdAddress,
+            resource.HealthcareCenterId,
+            resource.AddressId,
             resource.BranchName,
             resource.Address);
     }

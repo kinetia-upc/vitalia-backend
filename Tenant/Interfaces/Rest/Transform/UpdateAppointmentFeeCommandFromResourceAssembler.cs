@@ -11,8 +11,8 @@ public static class UpdateAppointmentFeeCommandFromResourceAssembler
     {
         return new UpdateAppointmentFeeCommand(
             appointmentFeeId,
-            resource.IdBranch,
-            resource.IdSpeciality,
+            resource.BranchId,
+            resource.SpecialityId,
             resource.Price);
     }
 }

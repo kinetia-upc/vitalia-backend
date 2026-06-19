@@ -9,8 +9,8 @@ public static class UpdateBranchCommandFromResourceAssembler
     {
         return new UpdateBranchCommand(
             branchId,
-            resource.IdHealthcareCenter,
-            resource.IdAddress,
+            resource.HealthcareCenterId,
+            resource.AddressId,
             resource.BranchName,
             resource.Address);
     }
