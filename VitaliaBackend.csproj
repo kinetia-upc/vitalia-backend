@@ -21,23 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Analytics\Application\CommandServices\" />
-    <Folder Include="Analytics\Application\Internal\" />
-    <Folder Include="Analytics\Application\QueryServices\" />
-    <Folder Include="Analytics\Domain\Model\Aggregates\" />
-    <Folder Include="Analytics\Domain\Model\Commands\" />
-    <Folder Include="Analytics\Domain\Model\Entities\" />
-    <Folder Include="Analytics\Domain\Model\Errors\" />
-    <Folder Include="Analytics\Domain\Model\Events\" />
-    <Folder Include="Analytics\Domain\Model\Queries\" />
-    <Folder Include="Analytics\Domain\Model\ValueObjects\" />
-    <Folder Include="Analytics\Domain\Repositories\" />
-    <Folder Include="Analytics\Infrastructure\Persistence\EntityFrameworkCore\Configuration\Extensions\" />
-    <Folder Include="Analytics\Infrastructure\Persistence\EntityFrameworkCore\Repositories\" />
-    <Folder Include="Analytics\Interfaces\ACL\" />
-    <Folder Include="Analytics\Interfaces\Rest\Resources\" />
-    <Folder Include="Analytics\Interfaces\Rest\Transform\" />
-    <Folder Include="Analytics\Resources\" />
     <Folder Include="Billing\Application\CommandServices\" />
     <Folder Include="Billing\Application\Internal\" />
     <Folder Include="Billing\Application\QueryServices\" />

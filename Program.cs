@@ -113,10 +113,10 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
         options.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddLocalization();
 builder.Services.AddSingleton<IStringLocalizer<ErrorMessages>, StringLocalizer<ErrorMessages>>();
 builder.Services.AddSingleton<IStringLocalizer<CommonMessages>, StringLocalizer<CommonMessages>>();
-builder.Services.AddSingleton<ProblemDetailsFactory>();
+builder.Services.AddScoped<ProblemDetailsFactory>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -124,9 +124,9 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1",
         new OpenApiInfo
         {
-            Title = "Vitalia Backend",
+            Title = "Vitalia Healthcare API",
             Version = "v1",
-            Description = "Vitalia Platform API",
+            Description = "RESTful API for the Vitalia healthcare platform. Provides endpoints for scheduling appointments, managing clinical records, billing claims, and pharmacy inventory.",
             Contact = new OpenApiContact
             {
                 Name = "Vitalia",
@@ -153,9 +153,24 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    context.Database.Migrate();
-
-    DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+    try
+    {
+        Console.WriteLine("[Database] Checking database connection and applying migrations...");
+        if (context.Database.CanConnect())
+        {
+            context.Database.Migrate();
+            DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+            Console.WriteLine("[Database] Database initialized and seeded successfully.");
+        }
+        else
+        {
+            Console.WriteLine("[Database] WARNING: Cannot connect to the database. Running without migrations/seeding. Please make sure MySQL is running.");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Database] ERROR: Database connection failed: {ex.Message}. Make sure MySQL is running.");
+    }
 }
 
 app.UseGlobalExceptionHandler();

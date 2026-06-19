@@ -16,8 +16,8 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [ApiController]
 [Route("api/v1/medicalRecords")]
 [Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Clinical medical records endpoints")]
-public class ClinicalMedicalRecordsController(
+[SwaggerTag("Medical records endpoints")]
+public class MedicalRecordsController(
     IMedicalRecordQueryService medicalRecordQueryService,
     IMedicalRecordCommandService medicalRecordCommandService,
     IStringLocalizer<ErrorMessages> errorLocalizer,
