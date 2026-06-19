@@ -45,6 +45,14 @@ using VitaliaBackend.Billing.Application.QueryServices;
 using VitaliaBackend.Billing.Domain.Repositories;
 using VitaliaBackend.Billing.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 
+//Tenant Bounded Context
+using VitaliaBackend.Tenant.Application.CommandServices;
+using VitaliaBackend.Tenant.Application.Internal.CommandServices;
+using VitaliaBackend.Tenant.Application.Internal.QueryServices;
+using VitaliaBackend.Tenant.Application.QueryServices;
+using VitaliaBackend.Tenant.Domain.Repositories;
+using VitaliaBackend.Tenant.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
@@ -58,6 +66,9 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 builder.Services.AddScoped<IBillingClaimRepository, BillingClaimRepository>();
+builder.Services.AddScoped<IHealthcareCenterRepository, HealthcareCenterRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IAppointmentFeeRepository, AppointmentFeeRepository>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
@@ -68,6 +79,9 @@ builder.Services.AddScoped<IAppointmentQueryService, AppointmentQueryService>();
 builder.Services.AddScoped<IAvailabilitySlotQueryService, AvailabilitySlotQueryService>();
 builder.Services.AddScoped<IMedicineQueryService, MedicineQueryService>();
 builder.Services.AddScoped<IBillingClaimQueryService, BillingClaimQueryService>();
+builder.Services.AddScoped<IHealthcareCenterQueryService, HealthcareCenterQueryService>();
+builder.Services.AddScoped<IBranchQueryService, BranchQueryService>();
+builder.Services.AddScoped<IAppointmentFeeQueryService, AppointmentFeeQueryService>();
 builder.Services.AddScoped<IMedicalRecordQueryService, MedicalRecordQueryService>();
 builder.Services.AddScoped<IDiagnosisQueryService, DiagnosisQueryService>();
 builder.Services.AddScoped<ITreatmentQueryService, TreatmentQueryService>();
@@ -78,6 +92,9 @@ builder.Services.AddScoped<IAppointmentCommandService, AppointmentCommandService
 builder.Services.AddScoped<IAvailabilitySlotCommandService, AvailabilitySlotCommandService>();
 builder.Services.AddScoped<IMedicineCommandService, MedicineCommandService>();
 builder.Services.AddScoped<IBillingClaimCommandService, BillingClaimCommandService>();
+builder.Services.AddScoped<IHealthcareCenterCommandService, HealthcareCenterCommandService>();
+builder.Services.AddScoped<IBranchCommandService, BranchCommandService>();
+builder.Services.AddScoped<IAppointmentFeeCommandService, AppointmentFeeCommandService>();
 builder.Services.AddScoped<IMedicalRecordCommandService, MedicalRecordCommandService>();
 builder.Services.AddScoped<IDiagnosisCommandService, DiagnosisCommandService>();
 builder.Services.AddScoped<ITreatmentCommandService, TreatmentCommandService>();

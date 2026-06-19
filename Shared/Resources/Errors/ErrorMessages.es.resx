@@ -155,4 +155,40 @@
   <data name="BillingClaimNotFoundError" xml:space="preserve">
     <value>Reclamación de facturación no encontrada.</value>
   </data>
+  <data name="HealthcareCenterCreationError" xml:space="preserve">
+    <value>Error al crear el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterUpdateError" xml:space="preserve">
+    <value>Error al actualizar el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterDeletionError" xml:space="preserve">
+    <value>Error al eliminar el centro de salud.</value>
+  </data>
+  <data name="HealthcareCenterNotFoundError" xml:space="preserve">
+    <value>Centro de salud no encontrado.</value>
+  </data>
+  <data name="BranchCreationError" xml:space="preserve">
+    <value>Error al crear la sucursal.</value>
+  </data>
+  <data name="BranchUpdateError" xml:space="preserve">
+    <value>Error al actualizar la sucursal.</value>
+  </data>
+  <data name="BranchDeletionError" xml:space="preserve">
+    <value>Error al eliminar la sucursal.</value>
+  </data>
+  <data name="BranchNotFoundError" xml:space="preserve">
+    <value>Sucursal no encontrada.</value>
+  </data>
+  <data name="AppointmentFeeCreationError" xml:space="preserve">
+    <value>Error al crear la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeUpdateError" xml:space="preserve">
+    <value>Error al actualizar la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeDeletionError" xml:space="preserve">
+    <value>Error al eliminar la tarifa de cita.</value>
+  </data>
+  <data name="AppointmentFeeNotFoundError" xml:space="preserve">
+    <value>Tarifa de cita no encontrada.</value>
+  </data>
 </root>

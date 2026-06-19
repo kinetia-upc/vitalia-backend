@@ -11,6 +11,7 @@ using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.ValueObjects;
 using VitaliaBackend.Billing.Domain.Model.Aggregates;
+using VitaliaBackend.Tenant.Domain.Model.Aggregates;
 
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -32,6 +33,9 @@ public static class DbSeeder
                 await context.AvailabilitySlots.ExecuteDeleteAsync();
                 await context.Medicines.ExecuteDeleteAsync();
                 await context.BillingClaims.ExecuteDeleteAsync();
+                await context.AppointmentFees.ExecuteDeleteAsync();
+                await context.Branches.ExecuteDeleteAsync();
+                await context.HealthcareCenters.ExecuteDeleteAsync();
                 Console.WriteLine("[DbSeeder] Existing data cleared.");
             }
 
@@ -289,6 +293,74 @@ public static class DbSeeder
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Billing Claims successfully.");
+            }
+
+            // Seed Healthcare Centers
+            if (!context.HealthcareCenters.Any() && root.TryGetProperty("healthcareCenters", out var healthcareCentersProp))
+            {
+                Console.WriteLine("[DbSeeder] Seeding Healthcare Centers...");
+                foreach (var item in healthcareCentersProp.EnumerateArray())
+                {
+                    var publicId = item.GetProperty("id").GetString() ?? "";
+                    var name = item.GetProperty("healthcare_center_name").GetString() ?? "";
+
+                    var startProp = item.GetProperty("alliance_start_date");
+                    var allianceStartDate = startProp.ValueKind == JsonValueKind.String
+                        ? DateOnly.Parse(startProp.GetString()!) : (DateOnly?)null;
+
+                    var finishProp = item.GetProperty("alliance_finish_date");
+                    var allianceFinishDate = finishProp.ValueKind == JsonValueKind.String
+                        ? DateOnly.Parse(finishProp.GetString()!) : (DateOnly?)null;
+
+                    var rucProp = item.GetProperty("ruc_number");
+                    var rucNumber = rucProp.ValueKind == JsonValueKind.Number
+                        ? rucProp.GetInt64() : (long?)null;
+
+                    context.HealthcareCenters.Add(new HealthcareCenter(publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
+                }
+                await context.SaveChangesAsync();
+                Console.WriteLine("[DbSeeder] Seeded Healthcare Centers successfully.");
+            }
+
+            // Seed Branches
+            if (!context.Branches.Any() && root.TryGetProperty("branches", out var branchesProp))
+            {
+                Console.WriteLine("[DbSeeder] Seeding Branches...");
+                foreach (var item in branchesProp.EnumerateArray())
+                {
+                    var publicId = item.GetProperty("id").GetString() ?? "";
+                    var healthcareCenterId = item.GetProperty("id_healthcare_center").GetString() ?? "";
+
+                    var addressIdProp = item.GetProperty("id_address");
+                    var addressId = addressIdProp.ValueKind == JsonValueKind.String ? addressIdProp.GetString() : null;
+
+                    var branchName = item.GetProperty("branch_name").GetString() ?? "";
+                    var address = item.GetProperty("address").GetString() ?? "";
+
+                    context.Branches.Add(new Branch(publicId, healthcareCenterId, addressId, branchName, address));
+                }
+                await context.SaveChangesAsync();
+                Console.WriteLine("[DbSeeder] Seeded Branches successfully.");
+            }
+
+            // Seed Appointment Fees
+            if (!context.AppointmentFees.Any() && root.TryGetProperty("appointmentFees", out var appointmentFeesProp))
+            {
+                Console.WriteLine("[DbSeeder] Seeding Appointment Fees...");
+                foreach (var item in appointmentFeesProp.EnumerateArray())
+                {
+                    var publicId = item.GetProperty("id").GetString() ?? "";
+                    var branchId = item.GetProperty("id_branch").GetString() ?? "";
+
+                    var specialityIdProp = item.GetProperty("id_speciality");
+                    var specialityId = specialityIdProp.ValueKind == JsonValueKind.String ? specialityIdProp.GetString() : null;
+
+                    var price = item.GetProperty("price").GetDecimal();
+
+                    context.AppointmentFees.Add(new AppointmentFee(publicId, branchId, specialityId, price));
+                }
+                await context.SaveChangesAsync();
+                Console.WriteLine("[DbSeeder] Seeded Appointment Fees successfully.");
             }
         }
         catch (Exception ex)
