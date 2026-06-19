@@ -155,4 +155,40 @@
   <data name="BillingClaimNotFoundError" xml:space="preserve">
     <value>Billing claim not found.</value>
   </data>
+  <data name="HealthcareCenterCreationError" xml:space="preserve">
+    <value>Error creating healthcare center.</value>
+  </data>
+  <data name="HealthcareCenterUpdateError" xml:space="preserve">
+    <value>Error updating healthcare center.</value>
+  </data>
+  <data name="HealthcareCenterDeletionError" xml:space="preserve">
+    <value>Error deleting healthcare center.</value>
+  </data>
+  <data name="HealthcareCenterNotFoundError" xml:space="preserve">
+    <value>Healthcare center not found.</value>
+  </data>
+  <data name="BranchCreationError" xml:space="preserve">
+    <value>Error creating branch.</value>
+  </data>
+  <data name="BranchUpdateError" xml:space="preserve">
+    <value>Error updating branch.</value>
+  </data>
+  <data name="BranchDeletionError" xml:space="preserve">
+    <value>Error deleting branch.</value>
+  </data>
+  <data name="BranchNotFoundError" xml:space="preserve">
+    <value>Branch not found.</value>
+  </data>
+  <data name="AppointmentFeeCreationError" xml:space="preserve">
+    <value>Error creating appointment fee.</value>
+  </data>
+  <data name="AppointmentFeeUpdateError" xml:space="preserve">
+    <value>Error updating appointment fee.</value>
+  </data>
+  <data name="AppointmentFeeDeletionError" xml:space="preserve">
+    <value>Error deleting appointment fee.</value>
+  </data>
+  <data name="AppointmentFeeNotFoundError" xml:space="preserve">
+    <value>Appointment fee not found.</value>
+  </data>
 </root>
