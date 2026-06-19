@@ -17,8 +17,8 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [ApiController]
 [Route("api/v1/prescriptionDetails")]
 [Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Clinical prescription details endpoints")]
-public class ClinicalPrescriptionDetailsController(
+[SwaggerTag("Prescription details endpoints")]
+public class PrescriptionDetailsController(
     IPrescriptionDetailQueryService prescriptionDetailQueryService,
     IPrescriptionDetailCommandService prescriptionDetailCommandService,
     IStringLocalizer<ErrorMessages> errorLocalizer,

@@ -17,8 +17,8 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 [ApiController]
 [Route("api/v1/diagnoses")]
 [Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Clinical diagnoses endpoints")]
-public class ClinicalDiagnosesController(
+[SwaggerTag("Diagnoses endpoints")]
+public class DiagnosesController(
     IDiagnosisQueryService diagnosisQueryService,
     IDiagnosisCommandService diagnosisCommandService,
     IStringLocalizer<ErrorMessages> errorLocalizer,
