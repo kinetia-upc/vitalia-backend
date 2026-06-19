@@ -127,14 +127,18 @@ public static class DbSeeder
             }
 
             // Seed MedicalRecords
+            var medicalRecordCodeMap = new Dictionary<string, string>();
             if (!context.MedicalRecords.Any() && root.TryGetProperty("medicalRecords", out var mrProp))
             {
                 Console.WriteLine("[DbSeeder] Seeding Medical Records...");
                 foreach (var item in mrProp.EnumerateArray())
                 {
+                    var mockId = item.GetProperty("id").GetString() ?? "";
                     var code = item.GetProperty("code").GetString() ?? "";
-                    var patientId = item.GetProperty("id_patient").GetString() ?? "";
-                    var appointmentId = item.GetProperty("id_appointment").GetString() ?? "";
+                    var patientId = item.GetProperty("patientId").GetString() ?? "";
+                    
+                    var apptProp = item.GetProperty("appointmentId");
+                    var appointmentId = apptProp.ValueKind != JsonValueKind.Null ? apptProp.GetString() ?? "" : "";
 
                     var mr = new MedicalRecord(appointmentId, patientId);
                     
@@ -143,36 +147,45 @@ public static class DbSeeder
                     codeProp?.SetValue(mr, code);
 
                     context.MedicalRecords.Add(mr);
+                    await context.SaveChangesAsync();
+                    medicalRecordCodeMap[mockId] = mr.Code;
                 }
-                await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Medical Records successfully.");
             }
 
             // Seed Diagnoses
-            if (!context.Diagnoses.Any() && root.TryGetProperty("diagnoses", out var diagnosesProp))
+            if (!context.Diagnoses.Any() && root.TryGetProperty("diagnoses", out var diagnosesProp) && medicalRecordCodeMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Diagnoses...");
                 foreach (var item in diagnosesProp.EnumerateArray())
                 {
-                    var mrId = item.GetProperty("id_medical_record").GetString() ?? "";
+                    var mockMrId = item.GetProperty("medicalRecordId").GetString() ?? "";
+                    if (!medicalRecordCodeMap.TryGetValue(mockMrId, out var actualMrCode))
+                    {
+                        continue;
+                    }
                     var description = item.GetProperty("description").GetString() ?? "";
 
-                    context.Diagnoses.Add(new Diagnosis(mrId, description));
+                    context.Diagnoses.Add(new Diagnosis(actualMrCode, description));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Diagnoses successfully.");
             }
 
             // Seed Treatments
-            if (!context.Treatments.Any() && root.TryGetProperty("treatments", out var treatmentsProp))
+            if (!context.Treatments.Any() && root.TryGetProperty("treatments", out var treatmentsProp) && medicalRecordCodeMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Treatments...");
                 foreach (var item in treatmentsProp.EnumerateArray())
                 {
-                    var mrId = item.GetProperty("id_medical_record").GetString() ?? "";
+                    var mockMrId = item.GetProperty("medicalRecordId").GetString() ?? "";
+                    if (!medicalRecordCodeMap.TryGetValue(mockMrId, out var actualMrCode))
+                    {
+                        continue;
+                    }
                     var description = item.GetProperty("description").GetString() ?? "";
 
-                    context.Treatments.Add(new Treatment(mrId, description));
+                    context.Treatments.Add(new Treatment(actualMrCode, description));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Treatments successfully.");
@@ -180,18 +193,21 @@ public static class DbSeeder
 
             // Seed Prescriptions
             var prescriptionIdMap = new Dictionary<string, int>();
-            if (!context.Prescriptions.Any() && root.TryGetProperty("prescriptions", out var prescriptionsProp))
+            if (!context.Prescriptions.Any() && root.TryGetProperty("prescriptions", out var prescriptionsProp) && medicalRecordCodeMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Prescriptions...");
                 foreach (var item in prescriptionsProp.EnumerateArray())
                 {
                     var mockId = item.GetProperty("id").GetString() ?? "";
-                    var mrId = item.GetProperty("id_medical_record").GetString() ?? "";
+                    var mockMrId = item.GetProperty("medicalRecordId").GetString() ?? "";
+                    if (!medicalRecordCodeMap.TryGetValue(mockMrId, out var actualMrCode))
+                    {
+                        continue;
+                    }
 
-                    var prescription = new Prescription(mrId);
+                    var prescription = new Prescription(actualMrCode);
                     context.Prescriptions.Add(prescription);
                     
-                    // We will save changes to generate IDs and map them
                     await context.SaveChangesAsync();
                     prescriptionIdMap[mockId] = prescription.Id;
                 }
@@ -204,48 +220,43 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Prescription Details...");
                 foreach (var item in pdProp.EnumerateArray())
                 {
-                    var mockPrescriptionId = item.GetProperty("id_prescription").GetString() ?? "";
+                    var mockPrescriptionId = item.GetProperty("prescriptionId").GetString() ?? "";
                     if (!prescriptionIdMap.TryGetValue(mockPrescriptionId, out var prescriptionId))
                     {
-                        continue; // Skip if we don't have the matched prescription
+                        continue;
                     }
 
-                    var mockMedicineIdName = item.GetProperty("id_medicine").GetString() ?? "";
-                    var medicineName = item.GetProperty("medicine_name").GetString() ?? mockMedicineIdName;
+                    var medicineName = item.GetProperty("medicineName").GetString() ?? "";
 
-                    // Try to find the seeded medicine in the DB to map its ID
-                    var medicine = context.Medicines.Local.FirstOrDefault(m => m.Name.Equals(medicineName, StringComparison.OrdinalIgnoreCase))
-                                   ?? context.Medicines.FirstOrDefault(m => m.Name.ToLower() == medicineName.ToLower());
-                    
-                    int? medicineId = medicine?.Id;
+                    var medicineId = item.TryGetProperty("medicineId", out var medicineIdProp) && medicineIdProp.ValueKind == JsonValueKind.Number
+                        ? medicineIdProp.GetInt32() : (int?)null;
+
+                    // Look up by name first (stable across re-seeds), fall back to ID
+                    var medicine = context.Medicines.Local
+                        .FirstOrDefault(m => m.Name.Equals(medicineName, StringComparison.OrdinalIgnoreCase))
+                        ?? context.Medicines
+                            .FirstOrDefault(m => m.Name.ToLower() == medicineName.ToLower());
+
+                    medicine ??= medicineId.HasValue
+                        ? context.Medicines.Local.FirstOrDefault(m => m.Id == medicineId.Value)
+                          ?? context.Medicines.FirstOrDefault(m => m.Id == medicineId.Value)
+                        : null;
+
+                    int? resolvedMedicineId = medicine?.Id;
 
                     var frequency = item.GetProperty("frequency").GetString() ?? "";
                     var duration = item.GetProperty("duration").GetString() ?? "";
 
-                    // Parse Dose
-                    var doseAmount = 0;
-                    if (item.TryGetProperty("dose", out var doseAmountProp))
-                    {
-                        if (doseAmountProp.ValueKind == JsonValueKind.Number)
-                        {
-                            doseAmount = doseAmountProp.GetInt32();
-                        }
-                        else if (doseAmountProp.ValueKind == JsonValueKind.String && int.TryParse(doseAmountProp.GetString(), out var parsedAmt))
-                        {
-                            doseAmount = parsedAmt;
-                        }
-                    }
+                    var doseAmount = item.TryGetProperty("doseAmount", out var doseAmountProp) && doseAmountProp.ValueKind == JsonValueKind.Number
+                        ? doseAmountProp.GetInt32() : 0;
 
-                    var doseUnitStr = "mg";
-                    if (item.TryGetProperty("dose_unit_type", out var doseUnitProp))
-                    {
-                        doseUnitStr = doseUnitProp.GetString() ?? "mg";
-                    }
+                    var doseUnitStr = item.TryGetProperty("doseUnit", out var doseUnitProp)
+                        ? doseUnitProp.GetString() ?? "mg" : "mg";
 
                     var doseUnit = Enum.TryParse<DoseUnitType>(doseUnitStr, true, out var parsedDoseUnit) ? parsedDoseUnit : DoseUnitType.Mg;
                     var dose = new Dose(doseAmount, doseUnit);
 
-                    context.PrescriptionDetails.Add(new PrescriptionDetail(prescriptionId, medicineId, medicineName, dose, frequency, duration));
+                    context.PrescriptionDetails.Add(new PrescriptionDetail(prescriptionId, resolvedMedicineId, medicineName, dose, frequency, duration));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Prescription Details successfully.");

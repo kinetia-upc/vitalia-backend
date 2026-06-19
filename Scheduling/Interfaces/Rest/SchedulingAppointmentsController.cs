@@ -15,10 +15,10 @@ using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 namespace VitaliaBackend.Scheduling.Interfaces.Rest;
 
 [ApiController]
-[Route("api/v1/scheduling/appointments")]
+[Route("api/v1/appointments")]
 [Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Scheduling appointments endpoints")]
-public class SchedulingAppointmentsController(
+[SwaggerTag("Appointments endpoints")]
+public class AppointmentsController(
     IAppointmentQueryService appointmentQueryService,
     IAppointmentCommandService appointmentCommandService,
     IStringLocalizer<ErrorMessages> errorLocalizer,

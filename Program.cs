@@ -39,8 +39,8 @@ using VitaliaBackend.Pharmacy.Infrastructure.Persistence.EntityFrameworkCore.Rep
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
-builder.Services.AddControllers(options => options.Conventions.Add(new KebabCaseRouteNamingConvention()))
+builder.Services.AddRouting();
+builder.Services.AddControllers()
     .AddDataAnnotationsLocalization();
 builder.Services.AddProblemDetails();
 

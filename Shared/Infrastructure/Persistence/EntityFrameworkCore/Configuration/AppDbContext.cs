@@ -54,4 +54,33 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         // General Naming Convention for the database objects
         builder.UseSnakeCaseNamingConvention();
     }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+        builder.Properties<DateOnly>()
+            .HaveConversion<DateOnlyConverter>()
+            .HaveColumnType("date");
+
+        builder.Properties<TimeOnly>()
+            .HaveConversion<TimeOnlyConverter>()
+            .HaveColumnType("time");
+
+        base.ConfigureConventions(builder);
+    }
+}
+
+public class DateOnlyConverter : Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<DateOnly, DateTime>
+{
+    public DateOnlyConverter() : base(
+        d => d.ToDateTime(TimeOnly.MinValue),
+        d => DateOnly.FromDateTime(d))
+    { }
+}
+
+public class TimeOnlyConverter : Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<TimeOnly, TimeSpan>
+{
+    public TimeOnlyConverter() : base(
+        t => t.ToTimeSpan(),
+        t => TimeOnly.FromTimeSpan(t))
+    { }
 }

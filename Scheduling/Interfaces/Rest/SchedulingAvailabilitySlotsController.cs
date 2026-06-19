@@ -15,10 +15,10 @@ using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 namespace VitaliaBackend.Scheduling.Interfaces.Rest;
 
 [ApiController]
-[Route("api/v1/scheduling/availabilitySlots")]
+[Route("api/v1/availabilitySlots")]
 [Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Scheduling availability slots endpoints")]
-public class SchedulingAvailabilitySlotsController(
+[SwaggerTag("Availability slots endpoints")]
+public class AvailabilitySlotsController(
     IAvailabilitySlotQueryService availabilitySlotQueryService,
     IAvailabilitySlotCommandService availabilitySlotCommandService,
     IStringLocalizer<ErrorMessages> errorLocalizer,
