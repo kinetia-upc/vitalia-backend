@@ -32,7 +32,7 @@ public class DiagnosisCommandService(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var diagnosis = new Diagnosis(Guid.NewGuid(), command.Code, command.MedicalRecordId, command.Description);
+        var diagnosis = new Diagnosis(Guid.NewGuid(), GenerateCode(), command.MedicalRecordId, command.Description);
 
         try
         {
@@ -124,5 +124,10 @@ public class DiagnosisCommandService(
     private static bool HasValidDescription(string description)
     {
         return !string.IsNullOrWhiteSpace(description) && description.Trim().Length >= 5;
+    }
+
+    private static string GenerateCode()
+    {
+        return $"dgn-{Guid.NewGuid():N}"[..20];
     }
 }

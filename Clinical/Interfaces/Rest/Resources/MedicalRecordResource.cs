@@ -5,6 +5,7 @@ public record MedicalRecordResource(
     string Code,
     Guid PatientId,
     Guid AppointmentId,
+    string? AppointmentCode,
     DateTimeOffset? CreatedAt,
     DateTimeOffset? UpdatedAt
 );

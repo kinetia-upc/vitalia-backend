@@ -33,4 +33,10 @@ public class BranchMedicine
         Stock -= quantity;
         return true;
     }
+
+    public void UpdateDetails(int stock, decimal price)
+    {
+        Stock = stock;
+        Price = price;
+    }
 }

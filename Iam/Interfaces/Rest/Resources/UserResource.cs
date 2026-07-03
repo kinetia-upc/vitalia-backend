@@ -8,7 +8,7 @@ public record UserResource(
     string MaternalSurname,
     string IdentityType,
     string IdentityNumber,
-    DateOnly BirthDate,
+    DateOnly DateBirth,
     string Email,
     string Phone,
     string Gender,

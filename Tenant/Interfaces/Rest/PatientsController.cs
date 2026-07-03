@@ -27,8 +27,9 @@ public class PatientsController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreatePatient([FromBody] Patient resource, CancellationToken cancellationToken)
     {
-        context.Patients.Add(new Patient(resource.UserId, resource.Code, resource.InsuranceProvider, resource.PolicyNumber, resource.ActiveThru, resource.EmergencyContactName, resource.EmergencyContactPhone));
+        var patient = new Patient(resource.UserId, resource.Code, resource.InsuranceProvider, resource.PolicyNumber, resource.ActiveThru, resource.EmergencyContactName, resource.EmergencyContactPhone, resource.EHRCode);
+        context.Patients.Add(patient);
         await context.SaveChangesAsync(cancellationToken);
-        return CreatedAtAction(nameof(GetPatientById), new { userId = resource.UserId }, resource);
+        return CreatedAtAction(nameof(GetPatientById), new { userId = patient.UserId }, patient);
     }
 }

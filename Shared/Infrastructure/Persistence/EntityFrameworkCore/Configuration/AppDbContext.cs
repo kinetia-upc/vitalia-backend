@@ -121,11 +121,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Patient>().HasKey(patient => patient.UserId);
         builder.Entity<Patient>().Property(patient => patient.UserId).ValueGeneratedNever();
         builder.Entity<Patient>().Property(patient => patient.Code).IsRequired().HasMaxLength(20);
+        builder.Entity<Patient>().Property(patient => patient.EHRCode).HasColumnName("ehr_code").IsRequired().HasMaxLength(20);
         builder.Entity<Patient>().Property(patient => patient.InsuranceProvider).HasMaxLength(120);
         builder.Entity<Patient>().Property(patient => patient.PolicyNumber).HasMaxLength(80);
         builder.Entity<Patient>().Property(patient => patient.EmergencyContactName).HasMaxLength(160);
         builder.Entity<Patient>().Property(patient => patient.EmergencyContactPhone).HasMaxLength(32);
         builder.Entity<Patient>().HasIndex(patient => patient.Code).IsUnique();
+        builder.Entity<Patient>().HasIndex(patient => patient.EHRCode).IsUnique();
 
         builder.Entity<Speciality>().ToTable("specialities");
         builder.Entity<Speciality>().HasKey(speciality => speciality.Id);

@@ -92,14 +92,14 @@ public class AppointmentFeesController(
                 AppointmentFeeResourceFromEntityAssembler.ToResourceFromEntity(createdFee)));
     }
 
-    [HttpPut("{appointmentFeeId}")]
+    [HttpPut("{appointmentFeeId:guid}")]
     [SwaggerOperation(Summary = "Update an appointment fee", Description = "Replaces every editable field of an existing appointment fee.")]
     [SwaggerResponse(200, "The appointment fee was updated.", typeof(AppointmentFeeResource))]
     [SwaggerResponse(400, "The data was invalid.")]
     [SwaggerResponse(404, "No appointment fee exists with the given id.")]
     public async Task<IActionResult> UpdateAppointmentFee(
-        [FromRoute, SwaggerParameter("Business id of the appointment fee to update.")]
-        string appointmentFeeId,
+        [FromRoute, SwaggerParameter("UUID of the appointment fee to update.")]
+        Guid appointmentFeeId,
         [FromBody, SwaggerParameter("New data for the appointment fee.")]
         UpdateAppointmentFeeResource resource,
         CancellationToken cancellationToken)
@@ -115,13 +115,13 @@ public class AppointmentFeesController(
             updatedFee => Ok(AppointmentFeeResourceFromEntityAssembler.ToResourceFromEntity(updatedFee)));
     }
 
-    [HttpDelete("{appointmentFeeId}")]
-    [SwaggerOperation(Summary = "Delete an appointment fee", Description = "Permanently removes an appointment fee by its business id.")]
+    [HttpDelete("{appointmentFeeId:guid}")]
+    [SwaggerOperation(Summary = "Delete an appointment fee", Description = "Permanently removes an appointment fee by its UUID.")]
     [SwaggerResponse(204, "The appointment fee was deleted.")]
     [SwaggerResponse(404, "No appointment fee exists with the given id.")]
     public async Task<IActionResult> DeleteAppointmentFee(
-        [FromRoute, SwaggerParameter("Business id of the appointment fee to delete.")]
-        string appointmentFeeId,
+        [FromRoute, SwaggerParameter("UUID of the appointment fee to delete.")]
+        Guid appointmentFeeId,
         CancellationToken cancellationToken)
     {
         var command = new DeleteAppointmentFeeCommand(appointmentFeeId);

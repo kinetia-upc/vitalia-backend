@@ -145,6 +145,9 @@ public static class DbSeeder
                 {
                     var userId = Guid.Parse(item.GetProperty("userId").GetString() ?? Guid.Empty.ToString());
                     var code = item.GetProperty("code").GetString() ?? "";
+                    var ehrCode = item.TryGetProperty("ehrCode", out var ehrCodeProp)
+                        ? ehrCodeProp.GetString()
+                        : null;
                     var insuranceProvider = item.GetProperty("insuranceProvider").GetString() ?? "";
                     var policyNumber = item.GetProperty("policyNumber").GetString() ?? "";
                     var activeThru = item.TryGetProperty("activeThru", out var activeThruProp) && activeThruProp.ValueKind == JsonValueKind.String
@@ -152,7 +155,7 @@ public static class DbSeeder
                         : (DateOnly?)null;
                     var emergencyContactName = item.GetProperty("emergencyContactName").GetString() ?? "";
                     var emergencyContactPhone = item.GetProperty("emergencyContactPhone").GetString() ?? "";
-                    context.Patients.Add(new Patient(userId, code, insuranceProvider, policyNumber, activeThru, emergencyContactName, emergencyContactPhone));
+                    context.Patients.Add(new Patient(userId, code, insuranceProvider, policyNumber, activeThru, emergencyContactName, emergencyContactPhone, ehrCode));
                 }
 
                 await context.SaveChangesAsync();
@@ -248,12 +251,54 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeded Medicine Restocks successfully.");
             }
 
+            var appointmentIdByCode = new Dictionary<string, Guid>();
+            if (root.TryGetProperty("appointments", out var appointmentMapProp))
+            {
+                foreach (var item in appointmentMapProp.EnumerateArray())
+                {
+                    var appointmentId = Guid.Parse(item.GetProperty("id").GetString() ?? Guid.Empty.ToString());
+                    var appointmentCode = item.TryGetProperty("code", out var codeProp)
+                        ? codeProp.GetString() ?? string.Empty
+                        : string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(appointmentCode) && appointmentId != Guid.Empty)
+                    {
+                        appointmentIdByCode[appointmentCode] = appointmentId;
+                    }
+                }
+            }
+
+            if (appointmentIdByCode.Count > 0 && context.Appointments.Any())
+            {
+                Console.WriteLine("[DbSeeder] Synchronizing existing Appointment ids by code...");
+                var existingAppointments = await context.Appointments
+                    .AsNoTracking()
+                    .Select(appointment => new { appointment.Id, appointment.Code })
+                    .ToListAsync();
+
+                foreach (var appointment in existingAppointments)
+                {
+                    if (!appointmentIdByCode.TryGetValue(appointment.Code, out var expectedId) || appointment.Id == expectedId)
+                    {
+                        continue;
+                    }
+
+                    await context.Database.ExecuteSqlInterpolatedAsync(
+                        $"UPDATE appointments SET id = {expectedId} WHERE code = {appointment.Code}");
+                }
+
+                Console.WriteLine("[DbSeeder] Appointment id synchronization completed.");
+            }
+
             // Seed Appointments
             if (!context.Appointments.Any() && root.TryGetProperty("appointments", out var appointmentsProp))
             {
                 Console.WriteLine("[DbSeeder] Seeding Appointments...");
                 foreach (var item in appointmentsProp.EnumerateArray())
                 {
+                    var appointmentId = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -269,7 +314,16 @@ public static class DbSeeder
                     var paymentStr = item.GetProperty("paymentStatus").GetString() ?? "pending";
                     var paymentStatus = Enum.TryParse<EPaymentStatus>(paymentStr, true, out var parsedPayment) ? parsedPayment : EPaymentStatus.Pending;
 
-                    context.Appointments.Add(new Appointment(publicId, doctorId, patientId, branchId, scheduledAt, reason, status, paymentStatus));
+                    context.Appointments.Add(new Appointment(
+                        appointmentId,
+                        publicId,
+                        Guid.Parse(doctorId),
+                        Guid.Parse(patientId),
+                        branchId,
+                        scheduledAt,
+                        reason,
+                        status,
+                        paymentStatus));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Appointments successfully.");
@@ -530,6 +584,7 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Branches...");
                 foreach (var item in branchesProp.EnumerateArray())
                 {
+                    var id = Guid.Parse(item.GetProperty("id").GetString() ?? "");
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -538,7 +593,7 @@ public static class DbSeeder
                     var branchName = item.GetProperty("branchName").GetString() ?? "";
                     var address = item.GetProperty("address").GetString() ?? "";
 
-                    context.Branches.Add(new Branch(publicId, healthcareCenterId, branchName, address));
+                    context.Branches.Add(new Branch(id, publicId, healthcareCenterId, branchName, address));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Branches successfully.");

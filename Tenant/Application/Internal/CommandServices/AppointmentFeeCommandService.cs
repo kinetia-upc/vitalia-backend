@@ -64,7 +64,7 @@ public class AppointmentFeeCommandService(
                 TenantError.AppointmentFeeUpdateError,
                 localizer[nameof(TenantError.AppointmentFeeUpdateError)]);
 
-        var appointmentFee = await appointmentFeeRepository.FindByPublicIdAsync(command.AppointmentFeeId, cancellationToken);
+        var appointmentFee = await appointmentFeeRepository.FindByIdAsync(command.AppointmentFeeId, cancellationToken);
 
         if (appointmentFee is null)
             return Result<AppointmentFee>.Failure(
@@ -95,7 +95,7 @@ public class AppointmentFeeCommandService(
 
     public async Task<Result> Handle(DeleteAppointmentFeeCommand command, CancellationToken cancellationToken)
     {
-        var appointmentFee = await appointmentFeeRepository.FindByPublicIdAsync(command.AppointmentFeeId, cancellationToken);
+        var appointmentFee = await appointmentFeeRepository.FindByIdAsync(command.AppointmentFeeId, cancellationToken);
 
         if (appointmentFee is null)
             return Result.Failure(

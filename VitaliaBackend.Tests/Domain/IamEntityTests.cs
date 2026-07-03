@@ -79,6 +79,7 @@ public class PatientTests
 
         Assert.Equal(userId, patient.UserId);
         Assert.Equal("PAT-001", patient.Code);
+        Assert.Equal("EHR-10001", patient.EHRCode);
         Assert.Equal("Sura", patient.InsuranceProvider);
         Assert.Equal("POL-123", patient.PolicyNumber);
         Assert.Equal(new DateOnly(2026, 12, 31), patient.ActiveThru);

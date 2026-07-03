@@ -6,7 +6,7 @@ namespace VitaliaBackend.Tenant.Interfaces.Rest.Transform;
 public static class UpdateAppointmentFeeCommandFromResourceAssembler
 {
     public static UpdateAppointmentFeeCommand ToCommandFromResource(
-        string appointmentFeeId,
+        Guid appointmentFeeId,
         UpdateAppointmentFeeResource resource)
     {
         return new UpdateAppointmentFeeCommand(

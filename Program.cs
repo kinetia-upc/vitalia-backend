@@ -182,7 +182,7 @@ using (var scope = app.Services.CreateScope())
         if (context.Database.CanConnect())
         {
             context.Database.Migrate();
-            DbSeeder.SeedAsync(context, false).GetAwaiter().GetResult();
+            DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
             Console.WriteLine("[Database] Database initialized and seeded successfully.");
         }
         else

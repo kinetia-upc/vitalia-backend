@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Tenant.Domain.Model.Commands;
 
 public record UpdateAppointmentFeeCommand(
-    string AppointmentFeeId,
+    Guid AppointmentFeeId,
     string BranchId,
     string? SpecialityId,
     decimal Price

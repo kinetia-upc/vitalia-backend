@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Tenant.Domain.Model.Commands;
 
 public record UpdateBranchCommand(
-    string BranchId,
+    Guid BranchId,
     string HealthcareCenterId,
     string BranchName,
     string Address

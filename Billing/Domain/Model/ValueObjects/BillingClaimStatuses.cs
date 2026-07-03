@@ -19,6 +19,7 @@ public static class BillingClaimStatuses
     public static readonly string[] AllowedClinicalCompliances =
     [
         "verified",
+        "pending",
         "pending_sign",
         "missing_icd10"
     ];
@@ -31,6 +32,8 @@ public static class BillingClaimStatuses
         "In Clearinghouse",
         "Funds Released",
         "Auth Required",
-        "Rejected"
+        "Rejected",
+        "cleared",
+        "submitted"
     ];
 }

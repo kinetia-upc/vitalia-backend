@@ -7,6 +7,6 @@ public static class CreateTreatmentCommandFromResourceAssembler
 {
     public static CreateTreatmentCommand ToCommandFromResource(CreateTreatmentResource resource)
     {
-        return new CreateTreatmentCommand(resource.Code, resource.MedicalRecordId, resource.Description);
+        return new CreateTreatmentCommand(resource.MedicalRecordId, resource.Description);
     }
 }

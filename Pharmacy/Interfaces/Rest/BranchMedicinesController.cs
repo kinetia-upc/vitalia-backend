@@ -41,4 +41,44 @@ public class BranchMedicinesController(AppDbContext context) : ControllerBase
         await context.SaveChangesAsync(cancellationToken);
         return CreatedAtAction(nameof(GetBranchMedicine), new { branchId = branchMedicine.BranchId, medicineId = branchMedicine.MedicineId }, branchMedicine);
     }
+
+    [HttpPut("branches/{branchId}/medicines/{medicineId:guid}")]
+    public async Task<IActionResult> UpdateBranchMedicine(
+        [FromRoute] string branchId, [FromRoute] Guid medicineId,
+        [FromBody] BranchMedicineResource resource, CancellationToken cancellationToken)
+    {
+        var branchMedicine = await context.BranchMedicines
+            .FirstOrDefaultAsync(item => item.BranchId == branchId && item.MedicineId == medicineId, cancellationToken);
+        if (branchMedicine is null) return NotFound();
+
+        if (resource.BranchId != branchId)
+        {
+            var targetExists = await context.BranchMedicines
+                .AnyAsync(item => item.BranchId == resource.BranchId && item.MedicineId == resource.MedicineId, cancellationToken);
+            if (targetExists) return Conflict(new { message = "Branch medicine already exists for the target branch." });
+
+            context.BranchMedicines.Remove(branchMedicine);
+            var moved = new BranchMedicine(resource.BranchId, resource.MedicineId, resource.Stock, resource.Price);
+            context.BranchMedicines.Add(moved);
+        }
+        else
+        {
+            branchMedicine.UpdateDetails(resource.Stock, resource.Price);
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+        return Ok(new BranchMedicineResource(branchId, medicineId, branchMedicine.Stock, branchMedicine.Price));
+    }
+
+    [HttpDelete("branches/{branchId}/medicines/{medicineId:guid}")]
+    public async Task<IActionResult> DeleteBranchMedicine(
+        [FromRoute] string branchId, [FromRoute] Guid medicineId, CancellationToken cancellationToken)
+    {
+        var branchMedicine = await context.BranchMedicines
+            .FirstOrDefaultAsync(item => item.BranchId == branchId && item.MedicineId == medicineId, cancellationToken);
+        if (branchMedicine is null) return NotFound();
+        context.BranchMedicines.Remove(branchMedicine);
+        await context.SaveChangesAsync(cancellationToken);
+        return NoContent();
+    }
 }
