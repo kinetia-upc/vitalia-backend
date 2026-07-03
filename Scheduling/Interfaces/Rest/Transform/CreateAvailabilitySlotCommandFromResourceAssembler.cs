@@ -8,7 +8,7 @@ public static class CreateAvailabilitySlotCommandFromResourceAssembler
     public static CreateAvailabilitySlotCommand ToCommandFromResource(CreateAvailabilitySlotResource resource)
     {
         return new CreateAvailabilitySlotCommand(
-            resource.Id,
+            resource.Code,
             resource.DoctorId,
             resource.BranchId,
             resource.Date,

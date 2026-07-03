@@ -8,7 +8,7 @@ public static class CreateAppointmentFeeCommandFromResourceAssembler
     public static CreateAppointmentFeeCommand ToCommandFromResource(CreateAppointmentFeeResource resource)
     {
         return new CreateAppointmentFeeCommand(
-            resource.Id,
+            resource.Code,
             resource.BranchId,
             resource.SpecialityId,
             resource.Price);

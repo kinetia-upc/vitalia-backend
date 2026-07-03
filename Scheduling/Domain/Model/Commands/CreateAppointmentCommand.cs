@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Scheduling.Domain.Model.Commands;
 
 public record CreateAppointmentCommand(
-    string Id,
+    string Code,
     string DoctorId,
     string PatientId,
     string BranchId,

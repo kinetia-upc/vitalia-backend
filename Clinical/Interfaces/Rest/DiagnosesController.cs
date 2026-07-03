@@ -37,13 +37,13 @@ public class DiagnosesController(
         return Ok(resources);
     }
 
-    [HttpGet("{diagnosisId:int}")]
+    [HttpGet("{diagnosisId:guid}")]
     [SwaggerOperation(
         Summary = "Get a diagnosis by id",
         Description = "Returns a single diagnosis using its numeric identifier."
     )]
     public async Task<IActionResult> GetDiagnosisById(
-        [FromRoute] int diagnosisId,
+        [FromRoute] Guid diagnosisId,
         CancellationToken cancellationToken)
     {
         var query = new GetDiagnosisByIdQuery(diagnosisId);
@@ -58,13 +58,13 @@ public class DiagnosesController(
             foundDiagnosis => Ok(DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(foundDiagnosis)));
     }
 
-    [HttpGet("medical-records/{medicalRecordId}")]
+    [HttpGet("medical-records/{medicalRecordId:guid}")]
     [SwaggerOperation(
         Summary = "List diagnoses by medical record",
-        Description = "Returns all diagnoses associated with the specified medical record identifier."
+        Description = "Returns all diagnoses associated with the specified medical record UUID."
     )]
     public async Task<IActionResult> GetDiagnosesByMedicalRecordId(
-        [FromRoute] string medicalRecordId,
+        [FromRoute] Guid medicalRecordId,
         CancellationToken cancellationToken)
     {
         var query = new GetDiagnosesByMedicalRecordIdQuery(medicalRecordId);
@@ -97,13 +97,13 @@ public class DiagnosesController(
                 DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(createdDiagnosis)));
     }
 
-    [HttpPatch("{diagnosisId:int}")]
+    [HttpPatch("{diagnosisId:guid}")]
     [SwaggerOperation(
         Summary = "Update a diagnosis description",
         Description = "Updates the description of an existing diagnosis using its numeric identifier."
     )]
     public async Task<IActionResult> UpdateDiagnosisDescription(
-        [FromRoute] int diagnosisId,
+        [FromRoute] Guid diagnosisId,
         [FromBody] UpdateDescriptionResource resource,
         CancellationToken cancellationToken)
     {
@@ -120,13 +120,13 @@ public class DiagnosesController(
             updatedDiagnosis => Ok(DiagnosisResourceFromEntityAssembler.ToResourceFromEntity(updatedDiagnosis)));
     }
 
-    [HttpDelete("{diagnosisId:int}")]
+    [HttpDelete("{diagnosisId:guid}")]
     [SwaggerOperation(
         Summary = "Delete a diagnosis",
         Description = "Deletes an existing diagnosis using its numeric identifier."
     )]
     public async Task<IActionResult> DeleteDiagnosis(
-        [FromRoute] int diagnosisId,
+        [FromRoute] Guid diagnosisId,
         CancellationToken cancellationToken)
     {
         var command = new DeleteDiagnosisCommand(diagnosisId);

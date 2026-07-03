@@ -10,7 +10,7 @@ public class PrescriptionRepository(AppDbContext context)
     : BaseRepository<Prescription>(context), IPrescriptionRepository
 {
     public async Task<IEnumerable<Prescription>> FindAllByMedicalRecordIdAsync(
-        string medicalRecordId,
+        Guid medicalRecordId,
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<Prescription>()

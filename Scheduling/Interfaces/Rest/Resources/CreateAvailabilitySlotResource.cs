@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Scheduling.Interfaces.Rest.Resources;
 
 public record CreateAvailabilitySlotResource(
-    string Id,
+    string Code,
     string DoctorId,
     string BranchId,
     DateOnly Date,

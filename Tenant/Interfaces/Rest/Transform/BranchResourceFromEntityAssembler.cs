@@ -8,9 +8,9 @@ public static class BranchResourceFromEntityAssembler
     public static BranchResource ToResourceFromEntity(Branch entity)
     {
         return new BranchResource(
-            entity.PublicId,
+            entity.Id,
+            entity.Code,
             entity.HealthcareCenterId,
-            entity.AddressId,
             entity.Name,
             entity.Address);
     }

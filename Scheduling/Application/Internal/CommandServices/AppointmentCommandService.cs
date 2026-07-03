@@ -41,7 +41,7 @@ public class AppointmentCommandService(
                 localizer[nameof(SchedulingError.AppointmentCreationError)]);
 
         var appointment = new Appointment(
-            command.Id,
+            command.Code,
             command.DoctorId,
             command.PatientId,
             command.BranchId,

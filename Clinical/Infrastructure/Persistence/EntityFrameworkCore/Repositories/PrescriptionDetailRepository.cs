@@ -10,12 +10,24 @@ public class PrescriptionDetailRepository(AppDbContext context)
     : BaseRepository<PrescriptionDetail>(context), IPrescriptionDetailRepository
 {
     public async Task<IEnumerable<PrescriptionDetail>> FindAllByPrescriptionIdAsync(
-        int prescriptionId,
+        Guid prescriptionId,
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<PrescriptionDetail>()
             .Where(prescriptionDetail => prescriptionDetail.PrescriptionId == prescriptionId)
             .OrderByDescending(prescriptionDetail => prescriptionDetail.CreatedAt)
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task<PrescriptionDetail?> FindByPrescriptionAndMedicineAsync(
+        Guid prescriptionId,
+        Guid medicineId,
+        CancellationToken cancellationToken = default)
+    {
+        return await Context.Set<PrescriptionDetail>()
+            .FirstOrDefaultAsync(prescriptionDetail =>
+                    prescriptionDetail.PrescriptionId == prescriptionId
+                    && prescriptionDetail.MedicineId == medicineId,
+                cancellationToken);
     }
 }

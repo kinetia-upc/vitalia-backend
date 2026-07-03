@@ -9,6 +9,7 @@ public static class PrescriptionResourceFromEntityAssembler
     {
         return new PrescriptionResource(
             entity.Id,
+            entity.Code,
             entity.MedicalRecordId,
             entity.CreatedAt,
             entity.UpdatedAt);

@@ -24,7 +24,7 @@ public class AppointmentFeeCommandService(
                 TenantError.AppointmentFeeCreationError,
                 localizer[nameof(TenantError.AppointmentFeeCreationError)]);
 
-        var existsDuplicate = await appointmentFeeRepository.ExistsByPublicIdAsync(command.Id, cancellationToken: cancellationToken);
+        var existsDuplicate = await appointmentFeeRepository.ExistsByPublicIdAsync(command.Code, cancellationToken: cancellationToken);
 
         if (existsDuplicate)
             return Result<AppointmentFee>.Failure(
@@ -32,7 +32,7 @@ public class AppointmentFeeCommandService(
                 localizer[nameof(TenantError.AppointmentFeeCreationError)]);
 
         var appointmentFee = new AppointmentFee(
-            command.Id,
+            command.Code,
             command.BranchId,
             command.SpecialityId,
             command.Price);

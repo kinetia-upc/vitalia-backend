@@ -84,7 +84,7 @@ public class AppointmentsController(
             problemDetailsFactory,
             createdAppointment => CreatedAtAction(
                 nameof(GetAppointmentById),
-                new { appointmentId = createdAppointment.PublicId },
+                new { appointmentId = createdAppointment.Code },
                 AppointmentResourceFromEntityAssembler.ToResourceFromEntity(createdAppointment)));
     }
 

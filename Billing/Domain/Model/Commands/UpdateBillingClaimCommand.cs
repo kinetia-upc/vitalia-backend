@@ -5,8 +5,9 @@ namespace VitaliaBackend.Billing.Domain.Model.Commands;
 ///     <see cref="BillingClaimId" />.
 /// </summary>
 public record UpdateBillingClaimCommand(
-    int BillingClaimId,
-    string ClaimCode,
+    Guid BillingClaimId,
+    string Code,
+    Guid AppointmentId,
     string InsuranceProvider,
     string PatientName,
     string ProviderName,

@@ -9,7 +9,10 @@ namespace VitaliaBackend.Billing.Interfaces.Rest.Resources;
 /// </summary>
 public record UpdateBillingClaimResource(
     [property: SwaggerSchema(Description = "Unique business code for the claim, e.g. 'CLM-2026-0001'.")]
-    string ClaimCode,
+    string Code,
+
+    [property: SwaggerSchema(Description = "UUID of the appointment associated with this claim.")]
+    Guid AppointmentId,
 
     [property: SwaggerSchema(Description = "Name of the insurance company being billed.")]
     string InsuranceProvider,

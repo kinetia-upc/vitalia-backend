@@ -33,6 +33,8 @@ public interface IBaseRepository<TEntity>
     /// </returns>
     Task<TEntity?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
 
+    Task<TEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
     void Update(TEntity entity);
 
     /// <summary>

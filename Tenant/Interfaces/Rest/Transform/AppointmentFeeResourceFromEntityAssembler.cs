@@ -8,7 +8,8 @@ public static class AppointmentFeeResourceFromEntityAssembler
     public static AppointmentFeeResource ToResourceFromEntity(AppointmentFee entity)
     {
         return new AppointmentFeeResource(
-            entity.PublicId,
+            entity.Id,
+            entity.Code,
             entity.BranchId,
             entity.SpecialityId,
             entity.Price);

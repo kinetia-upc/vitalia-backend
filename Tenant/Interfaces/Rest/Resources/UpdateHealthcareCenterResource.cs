@@ -13,5 +13,5 @@ public record UpdateHealthcareCenterResource(
     DateOnly? AllianceFinishDate,
 
     [property: SwaggerSchema(Description = "Peruvian tax id (RUC) of the healthcare center, if registered as a business.")]
-    long? RucNumber
+    string? RucNumber
 );

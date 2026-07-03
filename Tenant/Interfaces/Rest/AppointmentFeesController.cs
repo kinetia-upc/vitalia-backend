@@ -88,7 +88,7 @@ public class AppointmentFeesController(
             problemDetailsFactory,
             createdFee => CreatedAtAction(
                 nameof(GetAppointmentFeeById),
-                new { appointmentFeeId = createdFee.PublicId },
+                new { appointmentFeeId = createdFee.Code },
                 AppointmentFeeResourceFromEntityAssembler.ToResourceFromEntity(createdFee)));
     }
 

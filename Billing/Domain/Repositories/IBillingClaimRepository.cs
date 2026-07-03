@@ -18,7 +18,7 @@ public interface IBillingClaimRepository : IBaseRepository<BillingClaim>
     /// </summary>
     Task<bool> ExistsByClaimCodeAsync(
         string claimCode,
-        int? excludingId = null,
+        Guid? excludingId = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>

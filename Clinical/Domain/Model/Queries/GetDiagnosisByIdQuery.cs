@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Domain.Model.Queries;
 
-public record GetDiagnosisByIdQuery(int DiagnosisId);
+public record GetDiagnosisByIdQuery(Guid DiagnosisId);

@@ -12,28 +12,30 @@ public static class ModelBuilderExtensions
     public static void ApplyTenantConfiguration(this ModelBuilder builder)
     {
         builder.Entity<HealthcareCenter>().HasKey(healthcareCenter => healthcareCenter.Id);
-        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<HealthcareCenter>().HasIndex(healthcareCenter => healthcareCenter.PublicId).IsUnique();
+        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.Id).IsRequired().ValueGeneratedNever();
+
+        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.Code).IsRequired().HasMaxLength(50);
+        builder.Entity<HealthcareCenter>().HasIndex(healthcareCenter => healthcareCenter.Code).IsUnique();
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.Name).IsRequired().HasMaxLength(150);
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.AllianceStartDate);
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.AllianceFinishDate);
-        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.RucNumber);
+        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.RucNumber).HasMaxLength(11);
 
         builder.Entity<Branch>().HasKey(branch => branch.Id);
-        builder.Entity<Branch>().Property(branch => branch.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Branch>().Property(branch => branch.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<Branch>().HasIndex(branch => branch.PublicId).IsUnique();
+        builder.Entity<Branch>().Property(branch => branch.Id).IsRequired().ValueGeneratedNever();
+
+        builder.Entity<Branch>().Property(branch => branch.Code).IsRequired().HasMaxLength(50);
+        builder.Entity<Branch>().HasIndex(branch => branch.Code).IsUnique();
         builder.Entity<Branch>().Property(branch => branch.HealthcareCenterId).IsRequired().HasMaxLength(50);
-        builder.Entity<Branch>().Property(branch => branch.AddressId).HasMaxLength(50);
         builder.Entity<Branch>().Property(branch => branch.Name).IsRequired().HasMaxLength(150);
         builder.Entity<Branch>().Property(branch => branch.Address).IsRequired().HasMaxLength(250);
         builder.Entity<Branch>().HasIndex(branch => branch.HealthcareCenterId);
 
         builder.Entity<AppointmentFee>().HasKey(appointmentFee => appointmentFee.Id);
-        builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.PublicId).IsRequired().HasMaxLength(50);
-        builder.Entity<AppointmentFee>().HasIndex(appointmentFee => appointmentFee.PublicId).IsUnique();
+        builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.Id).IsRequired().ValueGeneratedNever();
+
+        builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.Code).IsRequired().HasMaxLength(50);
+        builder.Entity<AppointmentFee>().HasIndex(appointmentFee => appointmentFee.Code).IsUnique();
         builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.BranchId).IsRequired().HasMaxLength(50);
         builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.SpecialityId).HasMaxLength(50);
         builder.Entity<AppointmentFee>().Property(appointmentFee => appointmentFee.Price).IsRequired().HasPrecision(10, 2);

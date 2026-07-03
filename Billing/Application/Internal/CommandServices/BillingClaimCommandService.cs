@@ -26,7 +26,8 @@ public class BillingClaimCommandService(
     public async Task<Result<BillingClaim>> Handle(CreateBillingClaimCommand command, CancellationToken cancellationToken)
     {
         if (!IsValid(
-                command.ClaimCode,
+                command.Code,
+                command.AppointmentId,
                 command.InsuranceProvider,
                 command.PatientName,
                 command.ProviderName,
@@ -38,7 +39,7 @@ public class BillingClaimCommandService(
                 localizer[nameof(BillingError.BillingClaimCreationError)]);
 
         var existsDuplicate = await billingClaimRepository.ExistsByClaimCodeAsync(
-            command.ClaimCode,
+            command.Code,
             cancellationToken: cancellationToken);
 
         if (existsDuplicate)
@@ -47,7 +48,8 @@ public class BillingClaimCommandService(
                 localizer[nameof(BillingError.BillingClaimCreationError)]);
 
         var billingClaim = new BillingClaim(
-            command.ClaimCode,
+            command.Code,
+            command.AppointmentId,
             command.InsuranceProvider,
             command.PatientName,
             command.ProviderName,
@@ -78,7 +80,8 @@ public class BillingClaimCommandService(
     public async Task<Result<BillingClaim>> Handle(UpdateBillingClaimCommand command, CancellationToken cancellationToken)
     {
         if (!IsValid(
-                command.ClaimCode,
+                command.Code,
+                command.AppointmentId,
                 command.InsuranceProvider,
                 command.PatientName,
                 command.ProviderName,
@@ -97,7 +100,7 @@ public class BillingClaimCommandService(
                 localizer[nameof(BillingError.BillingClaimNotFoundError)]);
 
         var existsDuplicate = await billingClaimRepository.ExistsByClaimCodeAsync(
-            command.ClaimCode,
+            command.Code,
             command.BillingClaimId,
             cancellationToken);
 
@@ -107,7 +110,8 @@ public class BillingClaimCommandService(
                 localizer[nameof(BillingError.BillingClaimUpdateError)]);
 
         billingClaim.UpdateDetails(
-            command.ClaimCode,
+            command.Code,
+            command.AppointmentId,
             command.InsuranceProvider,
             command.PatientName,
             command.ProviderName,
@@ -171,6 +175,7 @@ public class BillingClaimCommandService(
     /// </summary>
     private static bool IsValid(
         string claimCode,
+        Guid appointmentId,
         string insuranceProvider,
         string patientName,
         string providerName,
@@ -179,6 +184,7 @@ public class BillingClaimCommandService(
         string cycleStatus)
     {
         return !string.IsNullOrWhiteSpace(claimCode)
+               && appointmentId != Guid.Empty
                && !string.IsNullOrWhiteSpace(insuranceProvider)
                && !string.IsNullOrWhiteSpace(patientName)
                && !string.IsNullOrWhiteSpace(providerName)

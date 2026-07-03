@@ -1,10 +1,9 @@
 namespace VitaliaBackend.Pharmacy.Domain.Model.Commands;
 
 public record UpdateMedicineCommand(
-    int MedicineId,
+    Guid MedicineId,
+    string Code,
     string Name,
     int UnitQuantity,
-    string UnitType,
-    decimal Price,
-    int Stock
+    string UnitType
 );

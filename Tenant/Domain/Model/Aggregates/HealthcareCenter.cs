@@ -13,19 +13,19 @@ namespace VitaliaBackend.Tenant.Domain.Model.Aggregates;
 /// </remarks>
 public class HealthcareCenter : IAuditableEntity
 {
-    public int Id { get; private set; }
-    public string PublicId { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
     public string Name { get; private set; }
     public DateOnly? AllianceStartDate { get; private set; }
     public DateOnly? AllianceFinishDate { get; private set; }
-    public long? RucNumber { get; private set; }
+    public string? RucNumber { get; private set; }
 
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
     protected HealthcareCenter()
     {
-        PublicId = string.Empty;
+        Code = string.Empty;
         Name = string.Empty;
     }
 
@@ -34,24 +34,35 @@ public class HealthcareCenter : IAuditableEntity
         string name,
         DateOnly? allianceStartDate,
         DateOnly? allianceFinishDate,
-        long? rucNumber)
+        string? rucNumber)
     {
-        PublicId = publicId.Trim();
+        Id = Guid.NewGuid();
+        Code = publicId.Trim();
         Name = name.Trim();
         AllianceStartDate = allianceStartDate;
         AllianceFinishDate = allianceFinishDate;
-        RucNumber = rucNumber;
+        RucNumber = rucNumber?.Trim();
+    }
+
+    public HealthcareCenter(Guid id, string code, string name, DateOnly? allianceStartDate, DateOnly? allianceFinishDate, string? rucNumber)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
+        Name = name.Trim();
+        AllianceStartDate = allianceStartDate;
+        AllianceFinishDate = allianceFinishDate;
+        RucNumber = rucNumber?.Trim();
     }
 
     public void UpdateDetails(
         string name,
         DateOnly? allianceStartDate,
         DateOnly? allianceFinishDate,
-        long? rucNumber)
+        string? rucNumber)
     {
         Name = name.Trim();
         AllianceStartDate = allianceStartDate;
         AllianceFinishDate = allianceFinishDate;
-        RucNumber = rucNumber;
+        RucNumber = rucNumber?.Trim();
     }
 }

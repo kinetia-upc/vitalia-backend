@@ -53,15 +53,15 @@ public class BillingClaimsController(
         return Ok(resources);
     }
 
-    [HttpGet("{billingClaimId:int}")]
+    [HttpGet("{billingClaimId:guid}")]
     [SwaggerOperation(
         Summary = "Get a billing claim by id",
-        Description = "Returns a single billing claim identified by its internal numeric id.")]
+        Description = "Returns a single billing claim identified by its UUID.")]
     [SwaggerResponse(200, "The billing claim was found.", typeof(BillingClaimResource))]
     [SwaggerResponse(404, "No billing claim exists with the given id.")]
     public async Task<IActionResult> GetBillingClaimById(
-        [FromRoute, SwaggerParameter("Internal numeric id of the billing claim.")]
-        int billingClaimId,
+        [FromRoute, SwaggerParameter("UUID of the billing claim.")]
+        Guid billingClaimId,
         CancellationToken cancellationToken)
     {
         var query = new GetBillingClaimByIdQuery(billingClaimId);
@@ -103,7 +103,7 @@ public class BillingClaimsController(
                 BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(createdClaim)));
     }
 
-    [HttpPut("{billingClaimId:int}")]
+    [HttpPut("{billingClaimId:guid}")]
     [SwaggerOperation(
         Summary = "Update a billing claim",
         Description = "Replaces every editable field of an existing billing claim. This is also the " +
@@ -112,8 +112,8 @@ public class BillingClaimsController(
     [SwaggerResponse(200, "The billing claim was updated.", typeof(BillingClaimResource))]
     [SwaggerResponse(400, "The billing claim does not exist, the data was invalid, or the claim code is already used by another claim.")]
     public async Task<IActionResult> UpdateBillingClaim(
-        [FromRoute, SwaggerParameter("Internal numeric id of the billing claim to update.")]
-        int billingClaimId,
+        [FromRoute, SwaggerParameter("UUID of the billing claim to update.")]
+        Guid billingClaimId,
         [FromBody, SwaggerParameter("New data for the billing claim.")]
         UpdateBillingClaimResource resource,
         CancellationToken cancellationToken)
@@ -129,15 +129,15 @@ public class BillingClaimsController(
             updatedClaim => Ok(BillingClaimResourceFromEntityAssembler.ToResourceFromEntity(updatedClaim)));
     }
 
-    [HttpDelete("{billingClaimId:int}")]
+    [HttpDelete("{billingClaimId:guid}")]
     [SwaggerOperation(
         Summary = "Delete a billing claim",
-        Description = "Permanently removes a billing claim by its internal numeric id.")]
+        Description = "Permanently removes a billing claim by its UUID.")]
     [SwaggerResponse(204, "The billing claim was deleted.")]
     [SwaggerResponse(404, "No billing claim exists with the given id.")]
     public async Task<IActionResult> DeleteBillingClaim(
-        [FromRoute, SwaggerParameter("Internal numeric id of the billing claim to delete.")]
-        int billingClaimId,
+        [FromRoute, SwaggerParameter("UUID of the billing claim to delete.")]
+        Guid billingClaimId,
         CancellationToken cancellationToken)
     {
         var command = new DeleteBillingClaimCommand(billingClaimId);

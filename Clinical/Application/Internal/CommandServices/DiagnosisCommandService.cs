@@ -20,21 +20,19 @@ public class DiagnosisCommandService(
 {
     public async Task<Result<Diagnosis>> Handle(CreateDiagnosisCommand command, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(command.MedicalRecordId) || !HasValidDescription(command.Description))
+        if (command.MedicalRecordId == Guid.Empty || !HasValidDescription(command.Description))
             return Result<Diagnosis>.Failure(
                 ClinicalError.InvalidDiagnosisDescription,
                 localizer[nameof(ClinicalError.InvalidDiagnosisDescription)]);
 
-        var medicalRecordExists = await medicalRecordRepository.ExistsByCodeAsync(
-            command.MedicalRecordId,
-            cancellationToken);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(command.MedicalRecordId, cancellationToken);
 
-        if (!medicalRecordExists)
+        if (medicalRecord is null)
             return Result<Diagnosis>.Failure(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var diagnosis = new Diagnosis(command.MedicalRecordId, command.Description);
+        var diagnosis = new Diagnosis(Guid.NewGuid(), command.Code, command.MedicalRecordId, command.Description);
 
         try
         {

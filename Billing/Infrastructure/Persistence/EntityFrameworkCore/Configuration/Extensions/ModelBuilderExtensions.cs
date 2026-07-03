@@ -12,8 +12,10 @@ public static class ModelBuilderExtensions
     public static void ApplyBillingConfiguration(this ModelBuilder builder)
     {
         builder.Entity<BillingClaim>().HasKey(billingClaim => billingClaim.Id);
-        builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.ClaimCode).IsRequired().HasMaxLength(50);
+        builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.Id).IsRequired().ValueGeneratedNever();
+
+        builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.Code).IsRequired().HasMaxLength(50);
+        builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.AppointmentId).IsRequired();
         builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.InsuranceProvider).IsRequired().HasMaxLength(120);
         builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.PatientName).IsRequired().HasMaxLength(120);
         builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.ProviderName).IsRequired().HasMaxLength(120);
@@ -22,7 +24,7 @@ public static class ModelBuilderExtensions
         builder.Entity<BillingClaim>().Property(billingClaim => billingClaim.CycleStatus).IsRequired().HasMaxLength(30);
 
         builder.Entity<BillingClaim>()
-            .HasIndex(billingClaim => billingClaim.ClaimCode)
+            .HasIndex(billingClaim => billingClaim.Code)
             .IsUnique();
     }
 }

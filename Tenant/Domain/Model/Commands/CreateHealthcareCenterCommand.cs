@@ -1,9 +1,9 @@
 namespace VitaliaBackend.Tenant.Domain.Model.Commands;
 
 public record CreateHealthcareCenterCommand(
-    string Id,
+    string Code,
     string HealthcareCenterName,
     DateOnly? AllianceStartDate,
     DateOnly? AllianceFinishDate,
-    long? RucNumber
+    string? RucNumber
 );

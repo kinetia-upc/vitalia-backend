@@ -10,9 +10,7 @@ public static class CreatePrescriptionDetailCommandFromResourceAssembler
         return new CreatePrescriptionDetailCommand(
             resource.PrescriptionId,
             resource.MedicineId,
-            resource.MedicineName,
-            resource.DoseAmount,
-            resource.DoseUnit,
+            resource.Quantity,
             resource.Frequency,
             resource.Duration);
     }

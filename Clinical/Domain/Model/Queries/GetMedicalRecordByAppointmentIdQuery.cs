@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Domain.Model.Queries;
 
-public record GetMedicalRecordByAppointmentIdQuery(string AppointmentId);
+public record GetMedicalRecordByAppointmentIdQuery(Guid AppointmentId);

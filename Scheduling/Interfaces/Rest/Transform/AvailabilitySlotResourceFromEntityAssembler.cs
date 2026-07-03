@@ -8,8 +8,9 @@ public static class AvailabilitySlotResourceFromEntityAssembler
     public static AvailabilitySlotResource ToResourceFromEntity(AvailabilitySlot entity)
     {
         return new AvailabilitySlotResource(
-            entity.PublicId,
-            entity.DoctorId,
+            entity.Id,
+            entity.Code,
+            entity.DoctorId.ToString(),
             entity.BranchId,
             entity.Date,
             entity.StartTime,

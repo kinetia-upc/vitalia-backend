@@ -3,21 +3,24 @@ using VitaliaBackend.Shared.Domain.Model.Entities;
 
 public class Diagnosis : IAuditableEntity
 {
-    public int Id { get; private set; }
-    public string MedicalRecordId { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
+    public Guid MedicalRecordId { get; private set; }
     public string Description { get; private set; }
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
     protected Diagnosis()
     {
-        MedicalRecordId = string.Empty;
+        Code = string.Empty;
         Description = string.Empty;
     }
     
-    public Diagnosis(string medicalRecordId, string description)
+    public Diagnosis(Guid id, string code, Guid medicalRecordId, string description)
     {
-        MedicalRecordId = medicalRecordId.Trim();
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
+        MedicalRecordId = medicalRecordId;
         Description = description.Trim();
     }
 

@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Scheduling.Domain.Model.Commands;
 
 public record CreateAvailabilitySlotCommand(
-    string Id,
+    string Code,
     string DoctorId,
     string BranchId,
     DateOnly Date,

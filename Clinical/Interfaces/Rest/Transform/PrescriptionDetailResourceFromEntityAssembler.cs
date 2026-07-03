@@ -8,12 +8,9 @@ public static class PrescriptionDetailResourceFromEntityAssembler
     public static PrescriptionDetailResource ToResourceFromEntity(PrescriptionDetail entity)
     {
         return new PrescriptionDetailResource(
-            entity.Id,
             entity.PrescriptionId,
             entity.MedicineId,
-            entity.MedicineName,
-            entity.Dose.Amount,
-            entity.Dose.Unit.ToString(),
+            entity.Quantity,
             entity.Frequency,
             entity.Duration,
             entity.CreatedAt,

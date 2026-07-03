@@ -13,12 +13,13 @@ namespace VitaliaBackend.Billing.Domain.Model.Aggregates;
 /// </remarks>
 public class BillingClaim : IAuditableEntity
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
 
     /// <summary>
     ///     Human readable, unique business code for the claim (for example "CLM-2026-0001").
     /// </summary>
-    public string ClaimCode { get; private set; }
+    public string Code { get; private set; }
+    public Guid AppointmentId { get; private set; }
 
     public string InsuranceProvider { get; private set; }
     public string PatientName { get; private set; }
@@ -46,7 +47,7 @@ public class BillingClaim : IAuditableEntity
     /// </summary>
     protected BillingClaim()
     {
-        ClaimCode = string.Empty;
+        Code = string.Empty;
         InsuranceProvider = string.Empty;
         PatientName = string.Empty;
         ProviderName = string.Empty;
@@ -59,6 +60,7 @@ public class BillingClaim : IAuditableEntity
     /// </summary>
     public BillingClaim(
         string claimCode,
+        Guid appointmentId,
         string insuranceProvider,
         string patientName,
         string providerName,
@@ -66,7 +68,22 @@ public class BillingClaim : IAuditableEntity
         string clinicalCompliance,
         string cycleStatus)
     {
-        ClaimCode = claimCode.Trim();
+        Id = Guid.NewGuid();
+        Code = claimCode.Trim();
+        AppointmentId = appointmentId;
+        InsuranceProvider = insuranceProvider.Trim();
+        PatientName = patientName.Trim();
+        ProviderName = providerName.Trim();
+        Value = value;
+        ClinicalCompliance = clinicalCompliance.Trim();
+        CycleStatus = cycleStatus.Trim();
+    }
+
+    public BillingClaim(Guid id, string code, Guid appointmentId, string insuranceProvider, string patientName, string providerName, decimal value, string clinicalCompliance, string cycleStatus)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
+        AppointmentId = appointmentId;
         InsuranceProvider = insuranceProvider.Trim();
         PatientName = patientName.Trim();
         ProviderName = providerName.Trim();
@@ -80,6 +97,7 @@ public class BillingClaim : IAuditableEntity
     /// </summary>
     public void UpdateDetails(
         string claimCode,
+        Guid appointmentId,
         string insuranceProvider,
         string patientName,
         string providerName,
@@ -87,7 +105,8 @@ public class BillingClaim : IAuditableEntity
         string clinicalCompliance,
         string cycleStatus)
     {
-        ClaimCode = claimCode.Trim();
+        Code = claimCode.Trim();
+        AppointmentId = appointmentId;
         InsuranceProvider = insuranceProvider.Trim();
         PatientName = patientName.Trim();
         ProviderName = providerName.Trim();

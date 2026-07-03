@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Domain.Model.Commands;
 
-public record DeletePrescriptionDetailCommand(int PrescriptionDetailId);
+public record DeletePrescriptionDetailCommand(Guid PrescriptionId, Guid MedicineId);

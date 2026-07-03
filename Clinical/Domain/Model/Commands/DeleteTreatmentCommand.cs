@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Domain.Model.Commands;
 
-public record DeleteTreatmentCommand(int TreatmentId);
+public record DeleteTreatmentCommand(Guid TreatmentId);

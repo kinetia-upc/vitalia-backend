@@ -14,7 +14,7 @@ public class BranchRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<Branch>()
-            .FirstOrDefaultAsync(branch => branch.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(branch => branch.Code == publicId, cancellationToken);
     }
 
     public async Task<bool> ExistsByPublicIdAsync(
@@ -24,8 +24,8 @@ public class BranchRepository(AppDbContext context)
     {
         return await Context.Set<Branch>()
             .AnyAsync(branch =>
-                    branch.PublicId == publicId
-                    && (excludingPublicId == null || branch.PublicId != excludingPublicId),
+                    branch.Code == publicId
+                    && (excludingPublicId == null || branch.Code != excludingPublicId),
                 cancellationToken);
     }
 
