@@ -5,18 +5,11 @@ namespace VitaliaBackend.Tenant.Domain.Model.Aggregates;
 /// <summary>
 ///     A physical location of a <see cref="HealthcareCenter" />.
 /// </summary>
-/// <remarks>
-///     <see cref="AddressId" /> points to an Address record that lives outside this
-///     bounded context's scope, so it is kept as a plain string reference instead of
-///     a navigation property, the same way <see cref="HealthcareCenterId" /> refers to
-///     its parent only by id.
-/// </remarks>
 public class Branch : IAuditableEntity
 {
-    public int Id { get; private set; }
-    public string PublicId { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
     public string HealthcareCenterId { get; private set; }
-    public string? AddressId { get; private set; }
     public string Name { get; private set; }
     public string Address { get; private set; }
 
@@ -25,7 +18,7 @@ public class Branch : IAuditableEntity
 
     protected Branch()
     {
-        PublicId = string.Empty;
+        Code = string.Empty;
         HealthcareCenterId = string.Empty;
         Name = string.Empty;
         Address = string.Empty;
@@ -34,25 +27,31 @@ public class Branch : IAuditableEntity
     public Branch(
         string publicId,
         string healthcareCenterId,
-        string? addressId,
         string name,
         string address)
     {
-        PublicId = publicId.Trim();
+        Id = Guid.NewGuid();
+        Code = publicId.Trim();
         HealthcareCenterId = healthcareCenterId.Trim();
-        AddressId = addressId?.Trim();
+        Name = name.Trim();
+        Address = address.Trim();
+    }
+
+    public Branch(Guid id, string code, string healthcareCenterId, string name, string address)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
+        HealthcareCenterId = healthcareCenterId.Trim();
         Name = name.Trim();
         Address = address.Trim();
     }
 
     public void UpdateDetails(
         string healthcareCenterId,
-        string? addressId,
         string name,
         string address)
     {
         HealthcareCenterId = healthcareCenterId.Trim();
-        AddressId = addressId?.Trim();
         Name = name.Trim();
         Address = address.Trim();
     }

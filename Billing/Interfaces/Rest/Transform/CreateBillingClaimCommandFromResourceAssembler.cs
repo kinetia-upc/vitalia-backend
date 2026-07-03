@@ -12,7 +12,8 @@ public static class CreateBillingClaimCommandFromResourceAssembler
     public static CreateBillingClaimCommand ToCommandFromResource(CreateBillingClaimResource resource)
     {
         return new CreateBillingClaimCommand(
-            resource.ClaimCode,
+            resource.Code,
+            resource.AppointmentId,
             resource.InsuranceProvider,
             resource.PatientName,
             resource.ProviderName,

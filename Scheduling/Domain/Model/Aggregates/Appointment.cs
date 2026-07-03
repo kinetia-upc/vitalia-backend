@@ -5,10 +5,10 @@ namespace VitaliaBackend.Scheduling.Domain.Model.Aggregates;
 
 public class Appointment : IAuditableEntity
 {
-    public int Id { get; private set; }
-    public string PublicId { get; private set; }
-    public string DoctorId { get; private set; }
-    public string PatientId { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
+    public Guid DoctorId { get; private set; }
+    public Guid PatientId { get; private set; }
     public string BranchId { get; private set; }
     public DateTime ScheduledAt { get; private set; }
     public string Reason { get; private set; }
@@ -19,24 +19,24 @@ public class Appointment : IAuditableEntity
     
     protected Appointment()
     {
-        PublicId = string.Empty;
-        DoctorId = string.Empty;
-        PatientId = string.Empty;
+        Code = string.Empty;
         BranchId = string.Empty;
         Reason = string.Empty;
     }
 
     public Appointment(
-        string publicId,
-        string doctorId,
-        string patientId,
+        Guid id,
+        string code,
+        Guid doctorId,
+        Guid patientId,
         string branchId,
         DateTime scheduledAt,
         string reason,
         EAppointmentStatus status = EAppointmentStatus.Scheduled,
         EPaymentStatus paymentStatus = EPaymentStatus.Pending)
     {
-        PublicId = publicId;
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
         DoctorId = doctorId;
         PatientId = patientId;
         BranchId = branchId;
@@ -46,13 +46,26 @@ public class Appointment : IAuditableEntity
         PaymentStatus = paymentStatus;
     }
 
+    public Appointment(
+        string code,
+        string doctorId,
+        string patientId,
+        string branchId,
+        DateTime scheduledAt,
+        string reason,
+        EAppointmentStatus status = EAppointmentStatus.Scheduled,
+        EPaymentStatus paymentStatus = EPaymentStatus.Pending)
+        : this(Guid.NewGuid(), code, Guid.Parse(doctorId), Guid.Parse(patientId), branchId, scheduledAt, reason, status, paymentStatus)
+    {
+    }
+
     public bool IsActive =>
         Status is EAppointmentStatus.Scheduled
             or EAppointmentStatus.Confirmed
             or EAppointmentStatus.Arrived
             or EAppointmentStatus.InAttention;
 
-    public void Reschedule(string doctorId, string patientId, string branchId, DateTime scheduledAt, string? reason = null)
+    public void Reschedule(Guid doctorId, Guid patientId, string branchId, DateTime scheduledAt, string? reason = null)
     {
         DoctorId = doctorId;
         PatientId = patientId;
@@ -63,6 +76,11 @@ public class Appointment : IAuditableEntity
             Reason = reason;
 
         Status = EAppointmentStatus.Scheduled;
+    }
+
+    public void Reschedule(string doctorId, string patientId, string branchId, DateTime scheduledAt, string? reason = null)
+    {
+        Reschedule(Guid.Parse(doctorId), Guid.Parse(patientId), branchId, scheduledAt, reason);
     }
 
     public void ChangeStatus(EAppointmentStatus status)

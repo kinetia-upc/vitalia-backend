@@ -1,52 +1,38 @@
-using VitaliaBackend.Clinical.Domain.Model.ValueObjects;
 using VitaliaBackend.Shared.Domain.Model.Entities;
 
 namespace VitaliaBackend.Clinical.Domain.Model.Aggregates;
 
 public class PrescriptionDetail : IAuditableEntity
 {
-    public int Id { get; private set; }
-    
-    public int PrescriptionId { get; private set; }
-    public int? MedicineId { get; private set; }
-    public string? MedicineName { get; private set; }
-    public Dose Dose { get; private set; }
-    public string Frequency { get; private set; }
-    public string Duration { get; private set; }
+    public Guid PrescriptionId { get; private set; }
+    public Guid MedicineId { get; private set; }
+    public int Quantity { get; private set; }
+    public int Frequency { get; private set; }
+    public int Duration { get; private set; }
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
     protected PrescriptionDetail()
     {
-        MedicineName = null;
-        MedicineId = null;
-        Frequency = string.Empty;
-        Duration = string.Empty;
-        Dose = new Dose();
     }
 
     public PrescriptionDetail(
-        int prescriptionId, int? medicineId, string? medicineName, Dose dose, string frequency, string duration)
+        Guid prescriptionId, Guid medicineId, int quantity, int frequency, int duration)
     {
         PrescriptionId = prescriptionId;
         MedicineId = medicineId;
-        MedicineName = medicineName;
-        Dose = dose;
+        Quantity = quantity;
         Frequency = frequency;
         Duration = duration;
     }
 
     public void UpdateDetails(
-        int? medicineId,
-        string? medicineName,
-        Dose dose,
-        string frequency,
-        string duration)
+        int quantity,
+        int frequency,
+        int duration)
     {
-        MedicineId = medicineId;
-        MedicineName = medicineName?.Trim();
-        Dose = dose;
-        Frequency = frequency.Trim();
-        Duration = duration.Trim();
+        Quantity = quantity;
+        Frequency = frequency;
+        Duration = duration;
     }
 }

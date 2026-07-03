@@ -17,14 +17,14 @@ public class BillingClaimRepository(AppDbContext context)
 {
     public async Task<bool> ExistsByClaimCodeAsync(
         string claimCode,
-        int? excludingId = null,
+        Guid? excludingId = null,
         CancellationToken cancellationToken = default)
     {
         var normalizedClaimCode = claimCode.Trim().ToLower();
 
         return await Context.Set<BillingClaim>()
             .AnyAsync(billingClaim =>
-                    billingClaim.ClaimCode.ToLower() == normalizedClaimCode
+                    billingClaim.Code.ToLower() == normalizedClaimCode
                     && (!excludingId.HasValue || billingClaim.Id != excludingId.Value),
                 cancellationToken);
     }
@@ -39,7 +39,7 @@ public class BillingClaimRepository(AppDbContext context)
         {
             var normalizedSearch = search.Trim().ToLower();
             query = query.Where(billingClaim =>
-                billingClaim.ClaimCode.ToLower().Contains(normalizedSearch)
+                billingClaim.Code.ToLower().Contains(normalizedSearch)
                 || billingClaim.PatientName.ToLower().Contains(normalizedSearch)
                 || billingClaim.ProviderName.ToLower().Contains(normalizedSearch)
                 || billingClaim.InsuranceProvider.ToLower().Contains(normalizedSearch));

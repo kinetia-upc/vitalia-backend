@@ -84,7 +84,7 @@ public class HealthcareCentersController(
             problemDetailsFactory,
             createdCenter => CreatedAtAction(
                 nameof(GetHealthcareCenterById),
-                new { healthcareCenterId = createdCenter.PublicId },
+                new { healthcareCenterId = createdCenter.Code },
                 HealthcareCenterResourceFromEntityAssembler.ToResourceFromEntity(createdCenter)));
     }
 

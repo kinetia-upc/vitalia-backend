@@ -21,22 +21,25 @@ namespace VitaliaBackend.Migrations
 
             modelBuilder.Entity("VitaliaBackend.Billing.Domain.Model.Aggregates.BillingClaim", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
-                    b.Property<string>("ClaimCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("claim_code");
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("appointment_id");
 
                     b.Property<string>("ClinicalCompliance")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
                         .HasColumnName("clinical_compliance");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -78,19 +81,24 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_billing_claims");
 
-                    b.HasIndex("ClaimCode")
+                    b.HasIndex("Code")
                         .IsUnique()
-                        .HasDatabaseName("i_x_billing_claims_claim_code");
+                        .HasDatabaseName("i_x_billing_claims_code");
 
                     b.ToTable("billing_claims");
                 });
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Diagnosis", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -102,10 +110,8 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("description");
 
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("MedicalRecordId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("medical_record_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -115,20 +121,85 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_diagnoses");
 
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_diagnoses_code");
+
                     b.ToTable("diagnoses");
+                });
+
+            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.MedicalOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("appointment_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset?>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("description");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("doctor_id");
+
+                    b.Property<Guid?>("MedicalRecordId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("medical_record_id");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("patient_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)")
+                        .HasColumnName("type");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("p_k_medical_orders");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_medical_orders_code");
+
+                    b.ToTable("medical_orders", (string)null);
                 });
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.MedicalRecord", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
-                    b.Property<string>("AppointmentId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("appointment_id");
 
                     b.Property<string>("Code")
@@ -141,10 +212,8 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<string>("PatientId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("patient_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -166,19 +235,22 @@ namespace VitaliaBackend.Migrations
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Prescription", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("MedicalRecordId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("medical_record_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -188,50 +260,44 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_prescriptions");
 
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_prescriptions_code");
+
                     b.ToTable("prescriptions");
                 });
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.PrescriptionDetail", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
+                    b.Property<Guid>("PrescriptionId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("prescription_id");
+
+                    b.Property<Guid>("MedicineId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("medicine_id");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<string>("Duration")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
+                    b.Property<int>("Duration")
+                        .HasColumnType("int")
                         .HasColumnName("duration");
 
-                    b.Property<string>("Frequency")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
+                    b.Property<int>("Frequency")
+                        .HasColumnType("int")
                         .HasColumnName("frequency");
 
-                    b.Property<int?>("MedicineId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int")
-                        .HasColumnName("medicine_id");
-
-                    b.Property<string>("MedicineName")
-                        .HasMaxLength(120)
-                        .HasColumnType("varchar(120)")
-                        .HasColumnName("medicine_name");
-
-                    b.Property<int>("PrescriptionId")
-                        .HasColumnType("int")
-                        .HasColumnName("prescription_id");
+                        .HasColumnName("quantity");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.HasKey("Id")
+                    b.HasKey("PrescriptionId", "MedicineId")
                         .HasName("p_k_prescription_details");
 
                     b.ToTable("prescription_details");
@@ -239,10 +305,15 @@ namespace VitaliaBackend.Migrations
 
             modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.Treatment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -254,10 +325,8 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("description");
 
-                    b.Property<string>("MedicalRecordId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("MedicalRecordId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("medical_record_id");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -267,15 +336,158 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_treatments");
 
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_treatments_code");
+
                     b.ToTable("treatments");
+                });
+
+            modelBuilder.Entity("VitaliaBackend.Iam.Domain.Model.Aggregates.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(240)
+                        .HasColumnType("varchar(240)")
+                        .HasColumnName("address");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("date")
+                        .HasColumnName("birth_date");
+
+                    b.Property<DateTimeOffset?>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("varchar(160)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)")
+                        .HasColumnName("gender");
+
+                    b.Property<string>("HealthcareCenterId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("healthcare_center_id");
+
+                    b.Property<string>("IdentityNumber")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("identity_number");
+
+                    b.Property<string>("IdentityType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("identity_type");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("MaternalSurname")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("maternal_surname");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)")
+                        .HasColumnName("password_hash");
+
+                    b.Property<string>("PaternalSurname")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("paternal_surname");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("phone");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("role");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("p_k_users");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_users_email");
+
+                    b.HasIndex("IdentityNumber")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_users_identity_number");
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("VitaliaBackend.Pharmacy.Domain.Model.Aggregates.BranchMedicine", b =>
+                {
+                    b.Property<string>("BranchId")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("branch_id");
+
+                    b.Property<Guid>("MedicineId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("medicine_id");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("price");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int")
+                        .HasColumnName("stock");
+
+                    b.HasKey("BranchId", "MedicineId")
+                        .HasName("p_k_branch_medicines");
+
+                    b.ToTable("branch_medicines", (string)null);
                 });
 
             modelBuilder.Entity("VitaliaBackend.Pharmacy.Domain.Model.Aggregates.Medicine", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -286,15 +498,6 @@ namespace VitaliaBackend.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("varchar(120)")
                         .HasColumnName("name");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("price");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int")
-                        .HasColumnName("stock");
 
                     b.Property<int>("UnitQuantity")
                         .HasColumnType("int")
@@ -313,6 +516,10 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_medicines");
 
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_medicines_code");
+
                     b.HasIndex("Name", "UnitQuantity", "UnitType")
                         .IsUnique()
                         .HasDatabaseName("i_x_medicines_name_unit_quantity_unit_type");
@@ -320,11 +527,58 @@ namespace VitaliaBackend.Migrations
                     b.ToTable("medicines");
                 });
 
+            modelBuilder.Entity("VitaliaBackend.Pharmacy.Domain.Model.Aggregates.MedicineRestock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("BranchId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("branch_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset?>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("CreatedByUserId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid>("MedicineId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("medicine_id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("p_k_medicine_restocks");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_medicine_restocks_code");
+
+                    b.ToTable("medicine_restocks", (string)null);
+                });
+
             modelBuilder.Entity("VitaliaBackend.Scheduling.Domain.Model.Aggregates.Appointment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
                     b.Property<string>("BranchId")
@@ -333,31 +587,27 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("branch_id");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<string>("DoctorId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("doctor_id");
 
-                    b.Property<string>("PatientId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("patient_id");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int")
                         .HasColumnName("payment_status");
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("public_id");
 
                     b.Property<string>("Reason")
                         .IsRequired()
@@ -380,9 +630,9 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_appointments");
 
-                    b.HasIndex("PublicId")
+                    b.HasIndex("Code")
                         .IsUnique()
-                        .HasDatabaseName("i_x_appointments_public_id");
+                        .HasDatabaseName("i_x_appointments_code");
 
                     b.HasIndex("DoctorId", "ScheduledAt")
                         .HasDatabaseName("i_x_appointments_doctor_id_scheduled_at");
@@ -392,9 +642,8 @@ namespace VitaliaBackend.Migrations
 
             modelBuilder.Entity("VitaliaBackend.Scheduling.Domain.Model.Aggregates.AvailabilitySlot", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
                     b.Property<string>("BranchId")
@@ -402,6 +651,12 @@ namespace VitaliaBackend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("branch_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -411,21 +666,13 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("date")
                         .HasColumnName("date");
 
-                    b.Property<string>("DoctorId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("doctor_id");
 
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time")
                         .HasColumnName("end_time");
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("public_id");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time")
@@ -442,9 +689,9 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_availability_slots");
 
-                    b.HasIndex("PublicId")
+                    b.HasIndex("Code")
                         .IsUnique()
-                        .HasDatabaseName("i_x_availability_slots_public_id");
+                        .HasDatabaseName("i_x_availability_slots_code");
 
                     b.HasIndex("DoctorId", "BranchId", "Date", "StartTime")
                         .HasDatabaseName("i_x_availability_slots_doctor_id_branch_id_date_start_time");
@@ -454,9 +701,8 @@ namespace VitaliaBackend.Migrations
 
             modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.AppointmentFee", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
                     b.Property<string>("BranchId")
@@ -464,6 +710,12 @@ namespace VitaliaBackend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("branch_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -473,12 +725,6 @@ namespace VitaliaBackend.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("public_id");
 
                     b.Property<string>("SpecialityId")
                         .HasMaxLength(50)
@@ -495,18 +741,17 @@ namespace VitaliaBackend.Migrations
                     b.HasIndex("BranchId")
                         .HasDatabaseName("i_x_appointment_fees_branch_id");
 
-                    b.HasIndex("PublicId")
+                    b.HasIndex("Code")
                         .IsUnique()
-                        .HasDatabaseName("i_x_appointment_fees_public_id");
+                        .HasDatabaseName("i_x_appointment_fees_code");
 
                     b.ToTable("appointment_fees");
                 });
 
             modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.Branch", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
                     b.Property<string>("Address")
@@ -515,10 +760,11 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(250)")
                         .HasColumnName("address");
 
-                    b.Property<string>("AddressId")
+                    b.Property<string>("Code")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("address_id");
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -536,12 +782,6 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("name");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("public_id");
-
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
@@ -549,21 +789,70 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_branches");
 
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_branches_code");
+
                     b.HasIndex("HealthcareCenterId")
                         .HasDatabaseName("i_x_branches_healthcare_center_id");
-
-                    b.HasIndex("PublicId")
-                        .IsUnique()
-                        .HasDatabaseName("i_x_branches_public_id");
 
                     b.ToTable("branches");
                 });
 
+            modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.Doctor", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("CmpNumber")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)")
+                        .HasColumnName("cmp_number");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)")
+                        .HasColumnName("license_number");
+
+                    b.HasKey("UserId")
+                        .HasName("p_k_doctors");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_doctors_code");
+
+                    b.ToTable("doctors", (string)null);
+                });
+
+            modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.DoctorSpeciality", b =>
+                {
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("doctor_id");
+
+                    b.Property<Guid>("SpecialityId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("speciality_id");
+
+                    b.HasKey("DoctorId", "SpecialityId")
+                        .HasName("p_k_doctor_specialities");
+
+                    b.ToTable("doctor_specialities", (string)null);
+                });
+
             modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.HealthcareCenter", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
                         .HasColumnName("id");
 
                     b.Property<DateTime?>("AllianceFinishDate")
@@ -573,6 +862,12 @@ namespace VitaliaBackend.Migrations
                     b.Property<DateTime?>("AllianceStartDate")
                         .HasColumnType("date")
                         .HasColumnName("alliance_start_date");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
@@ -584,14 +879,9 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("name");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("public_id");
-
-                    b.Property<long?>("RucNumber")
-                        .HasColumnType("bigint")
+                    b.Property<string>("RucNumber")
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)")
                         .HasColumnName("ruc_number");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -601,43 +891,89 @@ namespace VitaliaBackend.Migrations
                     b.HasKey("Id")
                         .HasName("p_k_healthcare_centers");
 
-                    b.HasIndex("PublicId")
+                    b.HasIndex("Code")
                         .IsUnique()
-                        .HasDatabaseName("i_x_healthcare_centers_public_id");
+                        .HasDatabaseName("i_x_healthcare_centers_code");
 
                     b.ToTable("healthcare_centers");
                 });
 
-            modelBuilder.Entity("VitaliaBackend.Clinical.Domain.Model.Aggregates.PrescriptionDetail", b =>
+            modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.Patient", b =>
                 {
-                    b.OwnsOne("VitaliaBackend.Clinical.Domain.Model.ValueObjects.Dose", "Dose", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .HasColumnType("int")
-                                .HasColumnName("id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("user_id");
 
-                            b1.Property<int>("Amount")
-                                .HasColumnType("int")
-                                .HasColumnName("dose");
+                    b.Property<DateTime?>("ActiveThru")
+                        .HasColumnType("date")
+                        .HasColumnName("active_thru");
 
-                            b1.Property<string>("Unit")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("varchar(20)")
-                                .HasColumnName("dose_unit_type");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
 
-                            b1.HasKey("Id")
-                                .HasName("p_k_prescription_details");
+                    b.Property<string>("EmergencyContactName")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("varchar(160)")
+                        .HasColumnName("emergency_contact_name");
 
-                            b1.ToTable("prescription_details");
+                    b.Property<string>("EmergencyContactPhone")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("emergency_contact_phone");
 
-                            b1.WithOwner()
-                                .HasForeignKey("Id")
-                                .HasConstraintName("f_k_prescription_details_prescription_details_id");
-                        });
+                    b.Property<string>("InsuranceProvider")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("insurance_provider");
 
-                    b.Navigation("Dose")
-                        .IsRequired();
+                    b.Property<string>("PolicyNumber")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("policy_number");
+
+                    b.HasKey("UserId")
+                        .HasName("p_k_patients");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_patients_code");
+
+                    b.ToTable("patients", (string)null);
+                });
+
+            modelBuilder.Entity("VitaliaBackend.Tenant.Domain.Model.Aggregates.Speciality", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Id")
+                        .HasName("p_k_specialities");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("i_x_specialities_code");
+
+                    b.ToTable("specialities", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -87,7 +87,7 @@ public class BranchesController(
             problemDetailsFactory,
             createdBranch => CreatedAtAction(
                 nameof(GetBranchById),
-                new { branchId = createdBranch.PublicId },
+                new { branchId = createdBranch.Code },
                 BranchResourceFromEntityAssembler.ToResourceFromEntity(createdBranch)));
     }
 

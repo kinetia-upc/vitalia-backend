@@ -4,23 +4,30 @@ namespace VitaliaBackend.Clinical.Domain.Model.Aggregates;
 
 public class MedicalRecord : IAuditableEntity
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Code { get; private set; }
-    public string AppointmentId { get; private set; }
-    public string PatientId { get; private set; }
+    public Guid AppointmentId { get; private set; }
+    public Guid PatientId { get; private set; }
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
     protected MedicalRecord()
     {
         Code = string.Empty;
-        AppointmentId = string.Empty;
-        PatientId = string.Empty;
     }
-    
-    public MedicalRecord(string appointmentId, string patientId)
+
+    public MedicalRecord(Guid appointmentId, Guid patientId)
     {
+        Id = Guid.NewGuid();
         Code = GenerateCode();
+        AppointmentId = appointmentId;
+        PatientId = patientId;
+    }
+
+    public MedicalRecord(Guid id, string code, Guid appointmentId, Guid patientId)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
         AppointmentId = appointmentId;
         PatientId = patientId;
     }

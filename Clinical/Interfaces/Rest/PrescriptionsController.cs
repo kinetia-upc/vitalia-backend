@@ -37,13 +37,13 @@ public class PrescriptionsController(
         return Ok(resources);
     }
 
-    [HttpGet("{prescriptionId:int}")]
+    [HttpGet("{prescriptionId:guid}")]
     [SwaggerOperation(
         Summary = "Get a prescription by id",
-        Description = "Returns a single prescription using its numeric identifier."
+        Description = "Returns a single prescription using its UUID."
     )]
     public async Task<IActionResult> GetPrescriptionById(
-        [FromRoute] int prescriptionId,
+        [FromRoute] Guid prescriptionId,
         CancellationToken cancellationToken)
     {
         var query = new GetPrescriptionByIdQuery(prescriptionId);
@@ -58,13 +58,13 @@ public class PrescriptionsController(
             foundPrescription => Ok(PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(foundPrescription)));
     }
 
-    [HttpGet("medical-records/{medicalRecordId}")]
+    [HttpGet("medical-records/{medicalRecordId:guid}")]
     [SwaggerOperation(
         Summary = "List prescriptions by medical record",
-        Description = "Returns all prescriptions associated with the specified medical record identifier."
+        Description = "Returns all prescriptions associated with the specified medical record UUID."
     )]
     public async Task<IActionResult> GetPrescriptionsByMedicalRecordId(
-        [FromRoute] string medicalRecordId,
+        [FromRoute] Guid medicalRecordId,
         CancellationToken cancellationToken)
     {
         var query = new GetPrescriptionsByMedicalRecordIdQuery(medicalRecordId);
@@ -97,13 +97,13 @@ public class PrescriptionsController(
                 PrescriptionResourceFromEntityAssembler.ToResourceFromEntity(createdPrescription)));
     }
 
-    [HttpDelete("{prescriptionId:int}")]
+    [HttpDelete("{prescriptionId:guid}")]
     [SwaggerOperation(
         Summary = "Delete a prescription",
-        Description = "Deletes an existing prescription using its numeric identifier."
+        Description = "Deletes an existing prescription using its UUID."
     )]
     public async Task<IActionResult> DeletePrescription(
-        [FromRoute] int prescriptionId,
+        [FromRoute] Guid prescriptionId,
         CancellationToken cancellationToken)
     {
         var command = new DeletePrescriptionCommand(prescriptionId);

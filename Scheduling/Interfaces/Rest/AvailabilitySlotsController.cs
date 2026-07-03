@@ -83,7 +83,7 @@ public class AvailabilitySlotsController(
             problemDetailsFactory,
             createdSlot => CreatedAtAction(
                 nameof(GetAvailabilitySlotById),
-                new { availabilitySlotId = createdSlot.PublicId },
+                new { availabilitySlotId = createdSlot.Code },
                 AvailabilitySlotResourceFromEntityAssembler.ToResourceFromEntity(createdSlot)));
     }
 

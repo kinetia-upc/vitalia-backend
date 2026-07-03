@@ -8,7 +8,8 @@ public static class HealthcareCenterResourceFromEntityAssembler
     public static HealthcareCenterResource ToResourceFromEntity(HealthcareCenter entity)
     {
         return new HealthcareCenterResource(
-            entity.PublicId,
+            entity.Id,
+            entity.Code,
             entity.Name,
             entity.AllianceStartDate,
             entity.AllianceFinishDate,

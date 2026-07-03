@@ -1,7 +1,7 @@
 namespace VitaliaBackend.Scheduling.Interfaces.Rest.Resources;
 
 public record CreateAppointmentResource(
-    string Id,
+    string Code,
     string DoctorId,
     string PatientId,
     string BranchId,

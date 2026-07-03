@@ -10,12 +10,13 @@ namespace VitaliaBackend.Billing.Interfaces.Rest.Transform;
 public static class UpdateBillingClaimCommandFromResourceAssembler
 {
     public static UpdateBillingClaimCommand ToCommandFromResource(
-        int billingClaimId,
+        Guid billingClaimId,
         UpdateBillingClaimResource resource)
     {
         return new UpdateBillingClaimCommand(
             billingClaimId,
-            resource.ClaimCode,
+            resource.Code,
+            resource.AppointmentId,
             resource.InsuranceProvider,
             resource.PatientName,
             resource.ProviderName,

@@ -14,7 +14,7 @@ public class AppointmentFeeRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<AppointmentFee>()
-            .FirstOrDefaultAsync(appointmentFee => appointmentFee.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(appointmentFee => appointmentFee.Code == publicId, cancellationToken);
     }
 
     public async Task<bool> ExistsByPublicIdAsync(
@@ -24,8 +24,8 @@ public class AppointmentFeeRepository(AppDbContext context)
     {
         return await Context.Set<AppointmentFee>()
             .AnyAsync(appointmentFee =>
-                    appointmentFee.PublicId == publicId
-                    && (excludingPublicId == null || appointmentFee.PublicId != excludingPublicId),
+                    appointmentFee.Code == publicId
+                    && (excludingPublicId == null || appointmentFee.Code != excludingPublicId),
                 cancellationToken);
     }
 

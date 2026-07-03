@@ -19,7 +19,12 @@ public class MedicineCommandService(
 {
     public async Task<Result<Medicine>> Handle(CreateMedicineCommand command, CancellationToken cancellationToken)
     {
-        if (!IsValid(command.Name, command.UnitQuantity, command.UnitType, command.Price, command.Stock))
+        if (!IsValid(command.Code, command.Name, command.UnitQuantity, command.UnitType))
+            return Result<Medicine>.Failure(
+                PharmacyError.MedicineCreationError,
+                localizer[nameof(PharmacyError.MedicineCreationError)]);
+
+        if (await medicineRepository.ExistsByCodeAsync(command.Code, cancellationToken: cancellationToken))
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineCreationError,
                 localizer[nameof(PharmacyError.MedicineCreationError)]);
@@ -36,11 +41,11 @@ public class MedicineCommandService(
                 localizer[nameof(PharmacyError.MedicineCreationError)]);
 
         var medicine = new Medicine(
+            Guid.NewGuid(),
+            command.Code,
             command.Name,
             command.UnitQuantity,
-            command.UnitType,
-            command.Price,
-            command.Stock);
+            command.UnitType);
 
         try
         {
@@ -64,7 +69,7 @@ public class MedicineCommandService(
 
     public async Task<Result<Medicine>> Handle(UpdateMedicineCommand command, CancellationToken cancellationToken)
     {
-        if (!IsValid(command.Name, command.UnitQuantity, command.UnitType, command.Price, command.Stock))
+        if (!IsValid(command.Code, command.Name, command.UnitQuantity, command.UnitType))
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineUpdateError,
                 localizer[nameof(PharmacyError.MedicineUpdateError)]);
@@ -75,6 +80,11 @@ public class MedicineCommandService(
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineNotFoundError,
                 localizer[nameof(PharmacyError.MedicineNotFoundError)]);
+
+        if (await medicineRepository.ExistsByCodeAsync(command.Code, command.MedicineId, cancellationToken))
+            return Result<Medicine>.Failure(
+                PharmacyError.MedicineUpdateError,
+                localizer[nameof(PharmacyError.MedicineUpdateError)]);
 
         var existsDuplicate = await medicineRepository.ExistsByNameAndPresentationAsync(
             command.Name,
@@ -89,11 +99,10 @@ public class MedicineCommandService(
                 localizer[nameof(PharmacyError.MedicineUpdateError)]);
 
         medicine.UpdateDetails(
+            command.Code,
             command.Name,
             command.UnitQuantity,
-            command.UnitType,
-            command.Price,
-            command.Stock);
+            command.UnitType);
 
         try
         {
@@ -144,12 +153,11 @@ public class MedicineCommandService(
         }
     }
 
-    private static bool IsValid(string name, int unitQuantity, string unitType, decimal price, int stock)
+    private static bool IsValid(string code, string name, int unitQuantity, string unitType)
     {
-        return !string.IsNullOrWhiteSpace(name)
+        return !string.IsNullOrWhiteSpace(code)
+               && !string.IsNullOrWhiteSpace(name)
                && !string.IsNullOrWhiteSpace(unitType)
-               && unitQuantity > 0
-               && price >= 0
-               && stock >= 0;
+               && unitQuantity > 0;
      }
 }

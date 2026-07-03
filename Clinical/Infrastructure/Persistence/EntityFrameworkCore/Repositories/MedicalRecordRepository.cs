@@ -17,7 +17,7 @@ public class MedicalRecordRepository(AppDbContext context)
     }
 
     public async Task<IEnumerable<MedicalRecord>> FindAllByPatientIdAsync(
-        string patientId,
+        Guid patientId,
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<MedicalRecord>()
@@ -27,7 +27,7 @@ public class MedicalRecordRepository(AppDbContext context)
     }
 
     public async Task<MedicalRecord?> FindByAppointmentIdAsync(
-        string appointmentId,
+        Guid appointmentId,
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<MedicalRecord>()
@@ -43,7 +43,7 @@ public class MedicalRecordRepository(AppDbContext context)
     }
 
     public async Task<bool> ExistsByAppointmentIdAsync(
-        string appointmentId,
+        Guid appointmentId,
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<MedicalRecord>()

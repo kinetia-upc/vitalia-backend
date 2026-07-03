@@ -1,5 +1,6 @@
 using Cortex.Mediator.Commands;
 using Cortex.Mediator.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.OpenApi;
@@ -52,12 +53,16 @@ using VitaliaBackend.Tenant.Application.Internal.QueryServices;
 using VitaliaBackend.Tenant.Application.QueryServices;
 using VitaliaBackend.Tenant.Domain.Repositories;
 using VitaliaBackend.Tenant.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using VitaliaBackend.Iam.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
 builder.Services.AddControllers()
     .AddDataAnnotationsLocalization();
+builder.Services.AddAuthentication("Bearer")
+    .AddScheme<AuthenticationSchemeOptions, JwtAuthenticationHandler>("Bearer", _ => { });
+builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
 
 
@@ -65,6 +70,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAvailabilitySlotRepository, AvailabilitySlotRepository>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
+builder.Services.AddScoped<IBranchMedicineRepository, BranchMedicineRepository>();
 builder.Services.AddScoped<IBillingClaimRepository, BillingClaimRepository>();
 builder.Services.AddScoped<IHealthcareCenterRepository, HealthcareCenterRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
@@ -176,7 +182,7 @@ using (var scope = app.Services.CreateScope())
         if (context.Database.CanConnect())
         {
             context.Database.Migrate();
-            DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+            DbSeeder.SeedAsync(context, false).GetAwaiter().GetResult();
             Console.WriteLine("[Database] Database initialized and seeded successfully.");
         }
         else
@@ -205,6 +211,7 @@ app.UseSwaggerUI();
 
 app.UseCors("AllowAllPolicy");
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -24,7 +24,7 @@ public class BranchCommandService(
                 TenantError.BranchCreationError,
                 localizer[nameof(TenantError.BranchCreationError)]);
 
-        var existsDuplicate = await branchRepository.ExistsByPublicIdAsync(command.Id, cancellationToken: cancellationToken);
+        var existsDuplicate = await branchRepository.ExistsByPublicIdAsync(command.Code, cancellationToken: cancellationToken);
 
         if (existsDuplicate)
             return Result<Branch>.Failure(
@@ -32,9 +32,8 @@ public class BranchCommandService(
                 localizer[nameof(TenantError.BranchCreationError)]);
 
         var branch = new Branch(
-            command.Id,
+            command.Code,
             command.HealthcareCenterId,
-            command.AddressId,
             command.BranchName,
             command.Address);
 
@@ -74,7 +73,6 @@ public class BranchCommandService(
 
         branch.UpdateDetails(
             command.HealthcareCenterId,
-            command.AddressId,
             command.BranchName,
             command.Address);
 

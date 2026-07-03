@@ -4,36 +4,35 @@ namespace VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 
 public class Medicine : IAuditableEntity
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
     public string Name { get; private set; }
     public int UnitQuantity { get; private set; }
     public string UnitType { get; private set; }
-    public decimal Price { get; private set; }
-    public int Stock { get; private set; }
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
     protected Medicine()
     {
+        Code = string.Empty;
         Name = string.Empty;
         UnitType = string.Empty;
     }
 
-    public Medicine(string name, int unitQuantity, string unitType, decimal price, int stock)
+    public Medicine(Guid id, string code, string name, int unitQuantity, string unitType)
     {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
         Name = name.Trim();
         UnitQuantity = unitQuantity;
         UnitType = unitType.Trim();
-        Price = price;
-        Stock = stock;
     }
 
-    public void UpdateDetails(string name, int unitQuantity, string unitType, decimal price, int stock)
+    public void UpdateDetails(string code, string name, int unitQuantity, string unitType)
     {
+        Code = code.Trim();
         Name = name.Trim();
         UnitQuantity = unitQuantity;
         UnitType = unitType.Trim();
-        Price = price;
-        Stock = stock;
     }
 }

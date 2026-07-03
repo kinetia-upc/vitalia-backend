@@ -10,11 +10,11 @@ public interface IMedicalRecordRepository : IBaseRepository<MedicalRecord>
         CancellationToken cancellationToken = default);
 
     Task<IEnumerable<MedicalRecord>> FindAllByPatientIdAsync(
-        string patientId,
+        Guid patientId,
         CancellationToken cancellationToken = default);
 
     Task<MedicalRecord?> FindByAppointmentIdAsync(
-        string appointmentId,
+        Guid appointmentId,
         CancellationToken cancellationToken = default);
 
     Task<bool> ExistsByCodeAsync(
@@ -22,6 +22,6 @@ public interface IMedicalRecordRepository : IBaseRepository<MedicalRecord>
         CancellationToken cancellationToken = default);
 
     Task<bool> ExistsByAppointmentIdAsync(
-        string appointmentId,
+        Guid appointmentId,
         CancellationToken cancellationToken = default);
 }

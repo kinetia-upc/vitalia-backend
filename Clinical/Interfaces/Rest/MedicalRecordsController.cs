@@ -57,13 +57,13 @@ public class MedicalRecordsController(
             foundMedicalRecord => Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(foundMedicalRecord)));
     }
 
-    [HttpGet("patients/{patientId}")]
+    [HttpGet("patients/{patientId:guid}")]
     [SwaggerOperation(
         Summary = "List medical records by patient",
-        Description = "Returns all medical records associated with the specified patient identifier."
+        Description = "Returns all medical records associated with the specified patient UUID."
     )]
     public async Task<IActionResult> GetMedicalRecordsByPatientId(
-        [FromRoute] string patientId,
+        [FromRoute] Guid patientId,
         CancellationToken cancellationToken)
     {
         var query = new GetMedicalRecordsByPatientIdQuery(patientId);
@@ -73,13 +73,13 @@ public class MedicalRecordsController(
         return Ok(resources);
     }
 
-    [HttpGet("appointments/{appointmentId}")]
+    [HttpGet("appointments/{appointmentId:guid}")]
     [SwaggerOperation(
         Summary = "Get a medical record by appointment",
-        Description = "Returns the medical record associated with the specified appointment identifier."
+        Description = "Returns the medical record associated with the specified appointment UUID."
     )]
     public async Task<IActionResult> GetMedicalRecordByAppointmentId(
-        [FromRoute] string appointmentId,
+        [FromRoute] Guid appointmentId,
         CancellationToken cancellationToken)
     {
         var query = new GetMedicalRecordByAppointmentIdQuery(appointmentId);

@@ -38,6 +38,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return await Context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
     }
 
+    public async Task<TEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await Context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
+    }
+
     // inheritedDoc
     public void Update(TEntity entity)
     {

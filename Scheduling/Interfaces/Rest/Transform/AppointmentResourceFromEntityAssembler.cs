@@ -8,9 +8,10 @@ public static class AppointmentResourceFromEntityAssembler
     public static AppointmentResource ToResourceFromEntity(Appointment entity)
     {
         return new AppointmentResource(
-            entity.PublicId,
-            entity.DoctorId,
-            entity.PatientId,
+            entity.Id,
+            entity.Code,
+            entity.DoctorId.ToString(),
+            entity.PatientId.ToString(),
             entity.BranchId,
             entity.ScheduledAt,
             entity.Reason,

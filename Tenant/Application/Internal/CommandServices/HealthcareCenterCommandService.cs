@@ -24,7 +24,7 @@ public class HealthcareCenterCommandService(
                 TenantError.HealthcareCenterCreationError,
                 localizer[nameof(TenantError.HealthcareCenterCreationError)]);
 
-        var existsDuplicate = await healthcareCenterRepository.ExistsByPublicIdAsync(command.Id, cancellationToken: cancellationToken);
+        var existsDuplicate = await healthcareCenterRepository.ExistsByPublicIdAsync(command.Code, cancellationToken: cancellationToken);
 
         if (existsDuplicate)
             return Result<HealthcareCenter>.Failure(
@@ -32,7 +32,7 @@ public class HealthcareCenterCommandService(
                 localizer[nameof(TenantError.HealthcareCenterCreationError)]);
 
         var healthcareCenter = new HealthcareCenter(
-            command.Id,
+            command.Code,
             command.HealthcareCenterName,
             command.AllianceStartDate,
             command.AllianceFinishDate,

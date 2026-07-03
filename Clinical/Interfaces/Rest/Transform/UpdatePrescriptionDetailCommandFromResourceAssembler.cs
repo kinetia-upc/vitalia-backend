@@ -6,15 +6,14 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest.Transform;
 public static class UpdatePrescriptionDetailCommandFromResourceAssembler
 {
     public static UpdatePrescriptionDetailCommand ToCommandFromResource(
-        int prescriptionDetailId,
+        Guid prescriptionId,
+        Guid medicineId,
         UpdatePrescriptionDetailResource resource)
     {
         return new UpdatePrescriptionDetailCommand(
-            prescriptionDetailId,
-            resource.MedicineId,
-            resource.MedicineName,
-            resource.DoseAmount,
-            resource.DoseUnit,
+            prescriptionId,
+            medicineId,
+            resource.Quantity,
             resource.Frequency,
             resource.Duration);
     }

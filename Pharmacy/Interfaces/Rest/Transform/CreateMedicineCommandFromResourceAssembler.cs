@@ -8,10 +8,9 @@ public static class CreateMedicineCommandFromResourceAssembler
     public static CreateMedicineCommand ToCommandFromResource(CreateMedicineResource resource)
     {
         return new CreateMedicineCommand(
+            resource.Code,
             resource.Name,
             resource.UnitQuantity,
-            resource.UnitType,
-            resource.Price,
-            resource.Stock);
+            resource.UnitType);
     }
 }

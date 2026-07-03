@@ -10,11 +10,14 @@ namespace VitaliaBackend.Billing.Interfaces.Rest.Resources;
 ///     names to camelCase JSON by default.
 /// </summary>
 public record BillingClaimResource(
-    [property: SwaggerSchema(Description = "Internal numeric identifier assigned by the database.")]
-    int Id,
+    [property: SwaggerSchema(Description = "Internal UUID identifier assigned by the system.")]
+    Guid Id,
 
     [property: SwaggerSchema(Description = "Unique business code for the claim, e.g. 'CLM-2026-0001'.")]
-    string ClaimCode,
+    string Code,
+
+    [property: SwaggerSchema(Description = "UUID of the appointment associated with this claim.")]
+    Guid AppointmentId,
 
     [property: SwaggerSchema(Description = "Name of the insurance company being billed.")]
     string InsuranceProvider,
