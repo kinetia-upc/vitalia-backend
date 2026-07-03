@@ -47,7 +47,7 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
             resource.MaternalSurname,
             resource.IdentityType,
             resource.IdentityNumber,
-            resource.BirthDate,
+            resource.DateBirth,
             email,
             PasswordHashingService.Hash(resource.Password),
             resource.Phone,

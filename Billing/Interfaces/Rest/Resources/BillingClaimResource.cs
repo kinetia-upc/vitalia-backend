@@ -31,9 +31,9 @@ public record BillingClaimResource(
     [property: SwaggerSchema(Description = "Amount being claimed. Must be zero or greater.")]
     decimal Value,
 
-    [property: SwaggerSchema(Description = "Clinical documentation status. One of: verified, pending_sign, missing_icd10.")]
+    [property: SwaggerSchema(Description = "Clinical documentation status. One of: verified, pending, pending_sign, missing_icd10.")]
     string ClinicalCompliance,
 
-    [property: SwaggerSchema(Description = "Revenue cycle status. One of: In Clearinghouse, Funds Released, Auth Required, Rejected.")]
+    [property: SwaggerSchema(Description = "Revenue cycle status. One of: In Clearinghouse, Funds Released, Auth Required, Rejected, cleared, submitted.")]
     string CycleStatus
 );

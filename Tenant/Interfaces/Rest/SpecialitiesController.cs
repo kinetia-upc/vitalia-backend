@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using VitaliaBackend.Tenant.Domain.Model.Aggregates;
+using VitaliaBackend.Tenant.Interfaces.Rest.Resources;
 
 namespace VitaliaBackend.Tenant.Interfaces.Rest;
 
@@ -31,5 +32,25 @@ public class SpecialitiesController(AppDbContext context) : ControllerBase
         context.Specialities.Add(speciality);
         await context.SaveChangesAsync(cancellationToken);
         return CreatedAtAction(nameof(GetSpecialityById), new { id = speciality.Id }, speciality);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateSpeciality([FromRoute] Guid id, [FromBody] UpdateSpecialityResource resource, CancellationToken cancellationToken)
+    {
+        var speciality = await context.Specialities.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (speciality is null) return NotFound();
+        speciality.UpdateDetails(resource.Description);
+        await context.SaveChangesAsync(cancellationToken);
+        return Ok(speciality);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteSpeciality([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var speciality = await context.Specialities.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (speciality is null) return NotFound();
+        context.Specialities.Remove(speciality);
+        await context.SaveChangesAsync(cancellationToken);
+        return NoContent();
     }
 }

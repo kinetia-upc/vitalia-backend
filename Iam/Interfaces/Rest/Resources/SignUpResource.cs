@@ -7,7 +7,7 @@ public record SignUpResource(
     string MaternalSurname,
     string IdentityType,
     string IdentityNumber,
-    DateOnly BirthDate,
+    DateOnly DateBirth,
     string Email,
     string Password,
     string Phone,

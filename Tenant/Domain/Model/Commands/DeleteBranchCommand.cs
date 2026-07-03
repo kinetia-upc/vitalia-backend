@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Tenant.Domain.Model.Commands;
 
-public record DeleteBranchCommand(string BranchId);
+public record DeleteBranchCommand(Guid BranchId);

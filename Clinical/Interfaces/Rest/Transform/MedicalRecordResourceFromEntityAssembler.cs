@@ -5,13 +5,14 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest.Transform;
 
 public static class MedicalRecordResourceFromEntityAssembler
 {
-    public static MedicalRecordResource ToResourceFromEntity(MedicalRecord entity)
+    public static MedicalRecordResource ToResourceFromEntity(MedicalRecord entity, string? appointmentCode = null)
     {
         return new MedicalRecordResource(
             entity.Id,
             entity.Code,
             entity.PatientId,
             entity.AppointmentId,
+            appointmentCode,
             entity.CreatedAt,
             entity.UpdatedAt);
     }

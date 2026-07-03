@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 
-public record CreateDiagnosisResource(string Code, Guid MedicalRecordId, string Description);
+public record CreateDiagnosisResource(Guid MedicalRecordId, string Description);

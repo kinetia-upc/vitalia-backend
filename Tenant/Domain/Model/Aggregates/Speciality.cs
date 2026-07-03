@@ -18,4 +18,9 @@ public class Speciality
         Code = code.Trim();
         Description = description.Trim();
     }
+
+    public void UpdateDetails(string description)
+    {
+        Description = description.Trim();
+    }
 }

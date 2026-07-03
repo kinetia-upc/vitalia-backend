@@ -19,12 +19,16 @@ public class MedicineCommandService(
 {
     public async Task<Result<Medicine>> Handle(CreateMedicineCommand command, CancellationToken cancellationToken)
     {
-        if (!IsValid(command.Code, command.Name, command.UnitQuantity, command.UnitType))
+        if (!IsValid(command.Name, command.UnitQuantity, command.UnitType))
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineCreationError,
                 localizer[nameof(PharmacyError.MedicineCreationError)]);
 
-        if (await medicineRepository.ExistsByCodeAsync(command.Code, cancellationToken: cancellationToken))
+        var code = string.IsNullOrWhiteSpace(command.Code)
+            ? $"med-{Guid.NewGuid().ToString("N")[..8]}"
+            : command.Code.Trim();
+
+        if (await medicineRepository.ExistsByCodeAsync(code, cancellationToken: cancellationToken))
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineCreationError,
                 localizer[nameof(PharmacyError.MedicineCreationError)]);
@@ -42,7 +46,7 @@ public class MedicineCommandService(
 
         var medicine = new Medicine(
             Guid.NewGuid(),
-            command.Code,
+            code,
             command.Name,
             command.UnitQuantity,
             command.UnitType);
@@ -69,7 +73,7 @@ public class MedicineCommandService(
 
     public async Task<Result<Medicine>> Handle(UpdateMedicineCommand command, CancellationToken cancellationToken)
     {
-        if (!IsValid(command.Code, command.Name, command.UnitQuantity, command.UnitType))
+        if (!IsValid(command.Name, command.UnitQuantity, command.UnitType))
             return Result<Medicine>.Failure(
                 PharmacyError.MedicineUpdateError,
                 localizer[nameof(PharmacyError.MedicineUpdateError)]);
@@ -153,11 +157,9 @@ public class MedicineCommandService(
         }
     }
 
-    private static bool IsValid(string code, string name, int unitQuantity, string unitType)
+    private static bool IsValid(string name, int unitQuantity, string unitType)
     {
-        return !string.IsNullOrWhiteSpace(code)
-               && !string.IsNullOrWhiteSpace(name)
-               && !string.IsNullOrWhiteSpace(unitType)
-               && unitQuantity > 0;
-     }
+        return !string.IsNullOrWhiteSpace(name)
+               && !string.IsNullOrWhiteSpace(unitType);
+    }
 }

@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Tenant.Domain.Model.Commands;
 
-public record DeleteAppointmentFeeCommand(string AppointmentFeeId);
+public record DeleteAppointmentFeeCommand(Guid AppointmentFeeId);

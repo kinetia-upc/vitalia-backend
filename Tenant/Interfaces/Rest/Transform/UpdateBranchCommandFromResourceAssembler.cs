@@ -5,7 +5,7 @@ namespace VitaliaBackend.Tenant.Interfaces.Rest.Transform;
 
 public static class UpdateBranchCommandFromResourceAssembler
 {
-    public static UpdateBranchCommand ToCommandFromResource(string branchId, UpdateBranchResource resource)
+    public static UpdateBranchCommand ToCommandFromResource(Guid branchId, UpdateBranchResource resource)
     {
         return new UpdateBranchCommand(
             branchId,

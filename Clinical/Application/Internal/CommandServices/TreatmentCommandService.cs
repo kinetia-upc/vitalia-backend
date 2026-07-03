@@ -32,7 +32,7 @@ public class TreatmentCommandService(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var treatment = new Treatment(Guid.NewGuid(), command.Code, command.MedicalRecordId, command.Description);
+        var treatment = new Treatment(Guid.NewGuid(), GenerateCode(), command.MedicalRecordId, command.Description);
 
         try
         {
@@ -124,5 +124,10 @@ public class TreatmentCommandService(
     private static bool HasValidDescription(string description)
     {
         return !string.IsNullOrWhiteSpace(description) && description.Trim().Length >= 5;
+    }
+
+    private static string GenerateCode()
+    {
+        return $"trt-{Guid.NewGuid():N}"[..20];
     }
 }

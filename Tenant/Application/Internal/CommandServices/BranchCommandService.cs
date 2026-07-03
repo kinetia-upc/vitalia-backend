@@ -64,7 +64,7 @@ public class BranchCommandService(
                 TenantError.BranchUpdateError,
                 localizer[nameof(TenantError.BranchUpdateError)]);
 
-        var branch = await branchRepository.FindByPublicIdAsync(command.BranchId, cancellationToken);
+        var branch = await branchRepository.FindByIdAsync(command.BranchId, cancellationToken);
 
         if (branch is null)
             return Result<Branch>.Failure(
@@ -98,7 +98,7 @@ public class BranchCommandService(
 
     public async Task<Result> Handle(DeleteBranchCommand command, CancellationToken cancellationToken)
     {
-        var branch = await branchRepository.FindByPublicIdAsync(command.BranchId, cancellationToken);
+        var branch = await branchRepository.FindByIdAsync(command.BranchId, cancellationToken);
 
         if (branch is null)
             return Result.Failure(

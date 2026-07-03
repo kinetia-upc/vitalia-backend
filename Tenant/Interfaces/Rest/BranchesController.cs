@@ -91,14 +91,14 @@ public class BranchesController(
                 BranchResourceFromEntityAssembler.ToResourceFromEntity(createdBranch)));
     }
 
-    [HttpPut("{branchId}")]
+    [HttpPut("{branchId:guid}")]
     [SwaggerOperation(Summary = "Update a branch", Description = "Replaces every editable field of an existing branch.")]
     [SwaggerResponse(200, "The branch was updated.", typeof(BranchResource))]
     [SwaggerResponse(400, "The data was invalid.")]
     [SwaggerResponse(404, "No branch exists with the given id.")]
     public async Task<IActionResult> UpdateBranch(
-        [FromRoute, SwaggerParameter("Business id of the branch to update.")]
-        string branchId,
+        [FromRoute, SwaggerParameter("UUID of the branch to update.")]
+        Guid branchId,
         [FromBody, SwaggerParameter("New data for the branch.")]
         UpdateBranchResource resource,
         CancellationToken cancellationToken)
@@ -114,13 +114,13 @@ public class BranchesController(
             updatedBranch => Ok(BranchResourceFromEntityAssembler.ToResourceFromEntity(updatedBranch)));
     }
 
-    [HttpDelete("{branchId}")]
-    [SwaggerOperation(Summary = "Delete a branch", Description = "Permanently removes a branch by its business id.")]
+    [HttpDelete("{branchId:guid}")]
+    [SwaggerOperation(Summary = "Delete a branch", Description = "Permanently removes a branch by its UUID.")]
     [SwaggerResponse(204, "The branch was deleted.")]
     [SwaggerResponse(404, "No branch exists with the given id.")]
     public async Task<IActionResult> DeleteBranch(
-        [FromRoute, SwaggerParameter("Business id of the branch to delete.")]
-        string branchId,
+        [FromRoute, SwaggerParameter("UUID of the branch to delete.")]
+        Guid branchId,
         CancellationToken cancellationToken)
     {
         var command = new DeleteBranchCommand(branchId);

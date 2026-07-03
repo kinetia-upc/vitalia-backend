@@ -8,6 +8,7 @@ using VitaliaBackend.Clinical.Domain.Model;
 using VitaliaBackend.Clinical.Domain.Model.Queries;
 using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
+using VitaliaBackend.Scheduling.Domain.Repositories;
 using VitaliaBackend.Resources.Errors;
 using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 
@@ -20,6 +21,7 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest;
 public class MedicalRecordsController(
     IMedicalRecordQueryService medicalRecordQueryService,
     IMedicalRecordCommandService medicalRecordCommandService,
+    IAppointmentRepository appointmentRepository,
     IStringLocalizer<ErrorMessages> errorLocalizer,
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
@@ -32,7 +34,11 @@ public class MedicalRecordsController(
     {
         var query = new GetAllMedicalRecordsQuery();
         var medicalRecords = await medicalRecordQueryService.Handle(query, cancellationToken);
-        var resources = medicalRecords.Select(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity);
+        var resources = new List<MedicalRecordResource>();
+        foreach (var medicalRecord in medicalRecords)
+        {
+            resources.Add(await ToResourceAsync(medicalRecord, cancellationToken));
+        }
         return Ok(resources);
     }
 
@@ -47,14 +53,18 @@ public class MedicalRecordsController(
     {
         var query = new GetMedicalRecordByCodeQuery(code);
         var medicalRecord = await medicalRecordQueryService.Handle(query, cancellationToken);
+        if (medicalRecord is null)
+        {
+            return ClinicalActionResultAssembler.ToActionResultFromNullable(
+                this,
+                medicalRecord,
+                ClinicalError.MedicalRecordNotFound,
+                errorLocalizer,
+                problemDetailsFactory,
+                _ => Ok());
+        }
 
-        return ClinicalActionResultAssembler.ToActionResultFromNullable(
-            this,
-            medicalRecord,
-            ClinicalError.MedicalRecordNotFound,
-            errorLocalizer,
-            problemDetailsFactory,
-            foundMedicalRecord => Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(foundMedicalRecord)));
+        return Ok(await ToResourceAsync(medicalRecord, cancellationToken));
     }
 
     [HttpGet("patients/{patientId:guid}")]
@@ -68,7 +78,11 @@ public class MedicalRecordsController(
     {
         var query = new GetMedicalRecordsByPatientIdQuery(patientId);
         var medicalRecords = await medicalRecordQueryService.Handle(query, cancellationToken);
-        var resources = medicalRecords.Select(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity);
+        var resources = new List<MedicalRecordResource>();
+        foreach (var medicalRecord in medicalRecords)
+        {
+            resources.Add(await ToResourceAsync(medicalRecord, cancellationToken));
+        }
 
         return Ok(resources);
     }
@@ -84,14 +98,18 @@ public class MedicalRecordsController(
     {
         var query = new GetMedicalRecordByAppointmentIdQuery(appointmentId);
         var medicalRecord = await medicalRecordQueryService.Handle(query, cancellationToken);
+        if (medicalRecord is null)
+        {
+            return ClinicalActionResultAssembler.ToActionResultFromNullable(
+                this,
+                medicalRecord,
+                ClinicalError.MedicalRecordNotFound,
+                errorLocalizer,
+                problemDetailsFactory,
+                _ => Ok());
+        }
 
-        return ClinicalActionResultAssembler.ToActionResultFromNullable(
-            this,
-            medicalRecord,
-            ClinicalError.MedicalRecordNotFound,
-            errorLocalizer,
-            problemDetailsFactory,
-            foundMedicalRecord => Ok(MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(foundMedicalRecord)));
+        return Ok(await ToResourceAsync(medicalRecord, cancellationToken));
     }
 
     [HttpPost]
@@ -115,5 +133,13 @@ public class MedicalRecordsController(
                 nameof(GetMedicalRecordByCode),
                 new { code = createdMedicalRecord.Code },
                 MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(createdMedicalRecord)));
+    }
+
+    private async Task<MedicalRecordResource> ToResourceAsync(
+        VitaliaBackend.Clinical.Domain.Model.Aggregates.MedicalRecord medicalRecord,
+        CancellationToken cancellationToken)
+    {
+        var appointment = await appointmentRepository.FindByIdAsync(medicalRecord.AppointmentId, cancellationToken);
+        return MedicalRecordResourceFromEntityAssembler.ToResourceFromEntity(medicalRecord, appointment?.Code);
     }
 }
