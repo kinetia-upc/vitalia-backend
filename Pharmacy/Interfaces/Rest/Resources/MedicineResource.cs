@@ -1,10 +1,9 @@
 namespace VitaliaBackend.Pharmacy.Interfaces.Rest.Resources;
 
 public record MedicineResource(
-    int Id,
+    Guid Id,
+    string Code,
     string Name,
     int UnitQuantity,
-    string UnitType,
-    decimal Price,
-    int Stock
+    string UnitType
 );

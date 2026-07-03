@@ -6,7 +6,7 @@ namespace VitaliaBackend.Clinical.Interfaces.Rest.Transform;
 public static class UpdateTreatmentDescriptionCommandFromResourceAssembler
 {
     public static UpdateTreatmentDescriptionCommand ToCommandFromResource(
-        int treatmentId,
+        Guid treatmentId,
         UpdateDescriptionResource resource)
     {
         return new UpdateTreatmentDescriptionCommand(treatmentId, resource.Description);

@@ -13,7 +13,8 @@ public static class BillingClaimResourceFromEntityAssembler
     {
         return new BillingClaimResource(
             entity.Id,
-            entity.ClaimCode,
+            entity.Code,
+            entity.AppointmentId,
             entity.InsuranceProvider,
             entity.PatientName,
             entity.ProviderName,

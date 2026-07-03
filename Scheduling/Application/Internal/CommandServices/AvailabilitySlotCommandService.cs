@@ -37,7 +37,7 @@ public class AvailabilitySlotCommandService(
                 localizer[nameof(SchedulingError.AvailabilitySlotCreationError)]);
 
         var slot = new AvailabilitySlot(
-            command.Id,
+            command.Code,
             command.DoctorId,
             command.BranchId,
             command.Date,

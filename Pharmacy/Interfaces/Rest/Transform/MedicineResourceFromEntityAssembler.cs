@@ -9,10 +9,9 @@ public static class MedicineResourceFromEntityAssembler
     {
         return new MedicineResource(
             entity.Id,
+            entity.Code,
             entity.Name,
             entity.UnitQuantity,
-            entity.UnitType,
-            entity.Price,
-            entity.Stock);
+            entity.UnitType);
     }
 }

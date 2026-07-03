@@ -1,10 +1,10 @@
 namespace VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 
 public record MedicalRecordResource(
-    int Id,
+    Guid Id,
     string Code,
-    string PatientId,
-    string AppointmentId,
+    Guid PatientId,
+    Guid AppointmentId,
     DateTimeOffset? CreatedAt,
     DateTimeOffset? UpdatedAt
 );

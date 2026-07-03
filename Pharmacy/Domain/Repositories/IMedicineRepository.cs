@@ -9,7 +9,12 @@ public interface IMedicineRepository : IBaseRepository<Medicine>
         string name,
         int unitQuantity,
         string unitType,
-        int? excludingId = null,
+        Guid? excludingId = null,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByCodeAsync(
+        string code,
+        Guid? excludingId = null,
         CancellationToken cancellationToken = default);
 
     Task<IEnumerable<Medicine>> SearchAsync(

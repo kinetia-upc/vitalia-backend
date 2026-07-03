@@ -1,8 +1,9 @@
 namespace VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 
 public record PrescriptionResource(
-    int Id,
-    string MedicalRecordId,
+    Guid Id,
+    string Code,
+    Guid MedicalRecordId,
     DateTimeOffset? CreatedAt,
     DateTimeOffset? UpdatedAt
 );

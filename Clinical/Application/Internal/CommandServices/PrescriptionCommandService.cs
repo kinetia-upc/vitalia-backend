@@ -21,21 +21,19 @@ public class PrescriptionCommandService(
 {
     public async Task<Result<Prescription>> Handle(CreatePrescriptionCommand command, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(command.MedicalRecordId))
+        if (command.MedicalRecordId == Guid.Empty)
             return Result<Prescription>.Failure(
                 ClinicalError.InvalidPrescriptionData,
                 localizer[nameof(ClinicalError.InvalidPrescriptionData)]);
 
-        var medicalRecordExists = await medicalRecordRepository.ExistsByCodeAsync(
-            command.MedicalRecordId,
-            cancellationToken);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(command.MedicalRecordId, cancellationToken);
 
-        if (!medicalRecordExists)
+        if (medicalRecord is null)
             return Result<Prescription>.Failure(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var prescription = new Prescription(command.MedicalRecordId.Trim());
+        var prescription = new Prescription(command.MedicalRecordId);
 
         try
         {

@@ -14,7 +14,7 @@ public class AvailabilitySlotRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<AvailabilitySlot>()
-            .FirstOrDefaultAsync(slot => slot.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(slot => slot.Code == publicId, cancellationToken);
     }
 
     public async Task<IEnumerable<AvailabilitySlot>> SearchAsync(
@@ -26,7 +26,7 @@ public class AvailabilitySlotRepository(AppDbContext context)
         var query = Context.Set<AvailabilitySlot>().AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(doctorId))
-            query = query.Where(slot => slot.DoctorId == doctorId);
+            query = query.Where(slot => slot.DoctorId.ToString() == doctorId);
 
         if (!string.IsNullOrWhiteSpace(branchId))
             query = query.Where(slot => slot.BranchId == branchId);
@@ -46,7 +46,7 @@ public class AvailabilitySlotRepository(AppDbContext context)
     {
         return await Context.Set<AvailabilitySlot>()
             .FirstOrDefaultAsync(slot =>
-                    slot.DoctorId == doctorId &&
+                    slot.DoctorId.ToString() == doctorId &&
                     slot.BranchId == branchId &&
                     slot.Date == date &&
                     slot.StartTime == startTime,
@@ -62,10 +62,10 @@ public class AvailabilitySlotRepository(AppDbContext context)
     {
         return await Context.Set<AvailabilitySlot>()
             .AnyAsync(slot =>
-                    slot.DoctorId == doctorId &&
+                    slot.DoctorId.ToString() == doctorId &&
                     slot.Date == date &&
                     slot.StartTime == startTime &&
-                    (excludingPublicId == null || slot.PublicId != excludingPublicId),
+                    (excludingPublicId == null || slot.Code != excludingPublicId),
                 cancellationToken);
     }
 }

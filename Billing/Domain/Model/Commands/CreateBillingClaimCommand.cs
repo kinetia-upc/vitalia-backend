@@ -5,7 +5,8 @@ namespace VitaliaBackend.Billing.Domain.Model.Commands;
 ///     interface layer and consumed by the application layer.
 /// </summary>
 public record CreateBillingClaimCommand(
-    string ClaimCode,
+    string Code,
+    Guid AppointmentId,
     string InsuranceProvider,
     string PatientName,
     string ProviderName,

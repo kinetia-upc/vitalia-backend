@@ -23,12 +23,12 @@ public class MedicalRecordCommandService(
         CreateClinicalRecordCommand command,
         CancellationToken cancellationToken)
     {
-        if (!IsValid(command.appointmentId))
+        if (command.AppointmentId == Guid.Empty)
             return Result<MedicalRecord>.Failure(
                 ClinicalError.InvalidMedicalRecordData,
                 localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
 
-        var appointment = await appointmentRepository.FindByPublicIdAsync(command.appointmentId, cancellationToken);
+        var appointment = await appointmentRepository.FindByIdAsync(command.AppointmentId, cancellationToken);
 
         if (appointment is null)
             return Result<MedicalRecord>.Failure(
@@ -36,7 +36,7 @@ public class MedicalRecordCommandService(
                 localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
 
         var existsForAppointment = await medicalRecordRepository.ExistsByAppointmentIdAsync(
-            command.appointmentId,
+            command.AppointmentId,
             cancellationToken);
 
         if (existsForAppointment)
@@ -48,7 +48,7 @@ public class MedicalRecordCommandService(
 
         for (var attempt = 0; attempt < maxCodeGenerationAttempts; attempt++)
         {
-            var medicalRecord = new MedicalRecord(command.appointmentId, appointment.PatientId);
+            var medicalRecord = new MedicalRecord(command.AppointmentId, appointment.PatientId);
             var codeAlreadyExists = await medicalRecordRepository.ExistsByCodeAsync(
                 medicalRecord.Code,
                 cancellationToken);
@@ -86,10 +86,5 @@ public class MedicalRecordCommandService(
         return Result<MedicalRecord>.Failure(
             ClinicalError.MedicalRecordCodeGenerationFailed,
             localizer[nameof(ClinicalError.MedicalRecordCodeGenerationFailed)]);
-    }
-
-    private static bool IsValid(string appointmentId)
-    {
-        return !string.IsNullOrWhiteSpace(appointmentId);
     }
 }

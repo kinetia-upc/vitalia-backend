@@ -13,7 +13,7 @@ public class MedicineRepository(AppDbContext context)
         string name,
         int unitQuantity,
         string unitType,
-        int? excludingId = null,
+        Guid? excludingId = null,
         CancellationToken cancellationToken = default)
     {
         var normalizedName = name.Trim().ToLower();
@@ -28,6 +28,19 @@ public class MedicineRepository(AppDbContext context)
                 cancellationToken);
     }
 
+    public async Task<bool> ExistsByCodeAsync(
+        string code,
+        Guid? excludingId = null,
+        CancellationToken cancellationToken = default)
+    {
+        var normalizedCode = code.Trim().ToLower();
+        return await Context.Set<Medicine>()
+            .AnyAsync(medicine =>
+                    medicine.Code.ToLower() == normalizedCode
+                    && (!excludingId.HasValue || medicine.Id != excludingId.Value),
+                cancellationToken);
+    }
+
     public async Task<IEnumerable<Medicine>> SearchAsync(
         string? search = null,
         CancellationToken cancellationToken = default)
@@ -38,12 +51,14 @@ public class MedicineRepository(AppDbContext context)
         {
             var normalizedSearch = search.Trim().ToLower();
             query = query.Where(medicine =>
-                medicine.Name.ToLower().Contains(normalizedSearch)
+                medicine.Code.ToLower().Contains(normalizedSearch)
+                || medicine.Name.ToLower().Contains(normalizedSearch)
                 || medicine.UnitType.ToLower().Contains(normalizedSearch));
         }
 
         return await query
-            .OrderBy(medicine => medicine.Name)
+            .OrderBy(medicine => medicine.Code)
+            .ThenBy(medicine => medicine.Name)
             .ThenBy(medicine => medicine.UnitQuantity)
             .ToListAsync(cancellationToken);
     }

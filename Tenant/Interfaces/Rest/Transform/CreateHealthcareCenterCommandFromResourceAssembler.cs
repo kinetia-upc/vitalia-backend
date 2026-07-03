@@ -8,7 +8,7 @@ public static class CreateHealthcareCenterCommandFromResourceAssembler
     public static CreateHealthcareCenterCommand ToCommandFromResource(CreateHealthcareCenterResource resource)
     {
         return new CreateHealthcareCenterCommand(
-            resource.Id,
+            resource.Code,
             resource.HealthcareCenterName,
             resource.AllianceStartDate,
             resource.AllianceFinishDate,

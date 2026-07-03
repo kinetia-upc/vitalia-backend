@@ -9,8 +9,8 @@ namespace VitaliaBackend.Tenant.Domain.Model.Aggregates;
 /// </summary>
 public class AppointmentFee : IAuditableEntity
 {
-    public int Id { get; private set; }
-    public string PublicId { get; private set; }
+    public Guid Id { get; private set; }
+    public string Code { get; private set; }
     public string BranchId { get; private set; }
     public string? SpecialityId { get; private set; }
     public decimal Price { get; private set; }
@@ -20,7 +20,7 @@ public class AppointmentFee : IAuditableEntity
 
     protected AppointmentFee()
     {
-        PublicId = string.Empty;
+        Code = string.Empty;
         BranchId = string.Empty;
     }
 
@@ -30,7 +30,17 @@ public class AppointmentFee : IAuditableEntity
         string? specialityId,
         decimal price)
     {
-        PublicId = publicId.Trim();
+        Id = Guid.NewGuid();
+        Code = publicId.Trim();
+        BranchId = branchId.Trim();
+        SpecialityId = specialityId?.Trim();
+        Price = price;
+    }
+
+    public AppointmentFee(Guid id, string code, string branchId, string? specialityId, decimal price)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Code = code.Trim();
         BranchId = branchId.Trim();
         SpecialityId = specialityId?.Trim();
         Price = price;

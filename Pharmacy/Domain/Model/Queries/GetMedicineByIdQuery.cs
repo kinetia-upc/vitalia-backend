@@ -1,3 +1,3 @@
 namespace VitaliaBackend.Pharmacy.Domain.Model.Queries;
 
-public record GetMedicineByIdQuery(int MedicineId);
+public record GetMedicineByIdQuery(Guid MedicineId);

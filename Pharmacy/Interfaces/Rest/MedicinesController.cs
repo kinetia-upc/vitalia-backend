@@ -40,13 +40,13 @@ public class MedicinesController(
         return Ok(resources);
     }
 
-    [HttpGet("{medicineId:int}")]
+    [HttpGet("{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Get a medicine by id",
-        Description = "Retrieves details of a single medicine using its numeric identifier."
+        Description = "Retrieves details of a single medicine using its UUID identifier."
     )]
     public async Task<IActionResult> GetMedicineById(
-        [FromRoute] int medicineId,
+        [FromRoute] Guid medicineId,
         CancellationToken cancellationToken)
     {
         var query = new GetMedicineByIdQuery(medicineId);
@@ -84,13 +84,13 @@ public class MedicinesController(
                 MedicineResourceFromEntityAssembler.ToResourceFromEntity(createdMedicine)));
     }
 
-    [HttpPut("{medicineId:int}")]
+    [HttpPut("{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Update a medicine",
-        Description = "Updates details of an existing medicine record in the inventory using its numeric identifier."
+        Description = "Updates details of an existing medicine record using its UUID identifier."
     )]
     public async Task<IActionResult> UpdateMedicine(
-        [FromRoute] int medicineId,
+        [FromRoute] Guid medicineId,
         [FromBody] UpdateMedicineResource resource,
         CancellationToken cancellationToken)
     {
@@ -105,13 +105,13 @@ public class MedicinesController(
             updatedMedicine => Ok(MedicineResourceFromEntityAssembler.ToResourceFromEntity(updatedMedicine)));
     }
 
-    [HttpDelete("{medicineId:int}")]
+    [HttpDelete("{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Delete a medicine",
-        Description = "Removes an existing medicine record from the pharmacy inventory using its numeric identifier."
+        Description = "Removes an existing medicine record using its UUID identifier."
     )]
     public async Task<IActionResult> DeleteMedicine(
-        [FromRoute] int medicineId,
+        [FromRoute] Guid medicineId,
         CancellationToken cancellationToken)
     {
         var command = new DeleteMedicineCommand(medicineId);

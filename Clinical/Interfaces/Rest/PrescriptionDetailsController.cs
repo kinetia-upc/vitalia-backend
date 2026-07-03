@@ -37,16 +37,17 @@ public class PrescriptionDetailsController(
         return Ok(resources);
     }
 
-    [HttpGet("{prescriptionDetailId:int}")]
+    [HttpGet("prescriptions/{prescriptionId:guid}/medicines/{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Get a prescription detail by id",
-        Description = "Returns a single prescription detail using its numeric identifier."
+        Description = "Returns a single prescription detail using its composite key."
     )]
     public async Task<IActionResult> GetPrescriptionDetailById(
-        [FromRoute] int prescriptionDetailId,
+        [FromRoute] Guid prescriptionId,
+        [FromRoute] Guid medicineId,
         CancellationToken cancellationToken)
     {
-        var query = new GetPrescriptionDetailByIdQuery(prescriptionDetailId);
+        var query = new GetPrescriptionDetailByIdQuery(prescriptionId, medicineId);
         var prescriptionDetail = await prescriptionDetailQueryService.Handle(query, cancellationToken);
 
         return ClinicalActionResultAssembler.ToActionResultFromNullable(
@@ -59,13 +60,13 @@ public class PrescriptionDetailsController(
                 PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(foundPrescriptionDetail)));
     }
 
-    [HttpGet("prescriptions/{prescriptionId:int}")]
+    [HttpGet("prescriptions/{prescriptionId:guid}")]
     [SwaggerOperation(
         Summary = "List prescription details by prescription",
-        Description = "Returns all prescription details associated with the specified prescription identifier."
+        Description = "Returns all prescription details associated with the specified prescription UUID."
     )]
     public async Task<IActionResult> GetPrescriptionDetailsByPrescriptionId(
-        [FromRoute] int prescriptionId,
+        [FromRoute] Guid prescriptionId,
         CancellationToken cancellationToken)
     {
         var query = new GetPrescriptionDetailsByPrescriptionIdQuery(prescriptionId);
@@ -94,22 +95,24 @@ public class PrescriptionDetailsController(
             problemDetailsFactory,
             createdPrescriptionDetail => CreatedAtAction(
                 nameof(GetPrescriptionDetailById),
-                new { prescriptionDetailId = createdPrescriptionDetail.Id },
+                new { prescriptionId = createdPrescriptionDetail.PrescriptionId, medicineId = createdPrescriptionDetail.MedicineId },
                 PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(createdPrescriptionDetail)));
     }
 
-    [HttpPut("{prescriptionDetailId:int}")]
+    [HttpPut("prescriptions/{prescriptionId:guid}/medicines/{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Update a prescription detail",
-        Description = "Updates an existing prescription detail using its numeric identifier."
+        Description = "Updates an existing prescription detail using its composite key."
     )]
     public async Task<IActionResult> UpdatePrescriptionDetail(
-        [FromRoute] int prescriptionDetailId,
+        [FromRoute] Guid prescriptionId,
+        [FromRoute] Guid medicineId,
         [FromBody] UpdatePrescriptionDetailResource resource,
         CancellationToken cancellationToken)
     {
         var command = UpdatePrescriptionDetailCommandFromResourceAssembler.ToCommandFromResource(
-            prescriptionDetailId,
+            prescriptionId,
+            medicineId,
             resource);
         var result = await prescriptionDetailCommandService.Handle(command, cancellationToken);
 
@@ -122,16 +125,17 @@ public class PrescriptionDetailsController(
                 PrescriptionDetailResourceFromEntityAssembler.ToResourceFromEntity(updatedPrescriptionDetail)));
     }
 
-    [HttpDelete("{prescriptionDetailId:int}")]
+    [HttpDelete("prescriptions/{prescriptionId:guid}/medicines/{medicineId:guid}")]
     [SwaggerOperation(
         Summary = "Delete a prescription detail",
-        Description = "Deletes an existing prescription detail using its numeric identifier."
+        Description = "Deletes an existing prescription detail using its composite key."
     )]
     public async Task<IActionResult> DeletePrescriptionDetail(
-        [FromRoute] int prescriptionDetailId,
+        [FromRoute] Guid prescriptionId,
+        [FromRoute] Guid medicineId,
         CancellationToken cancellationToken)
     {
-        var command = new DeletePrescriptionDetailCommand(prescriptionDetailId);
+        var command = new DeletePrescriptionDetailCommand(prescriptionId, medicineId);
         var result = await prescriptionDetailCommandService.Handle(command, cancellationToken);
 
         return ClinicalActionResultAssembler.ToActionResultFromResult(

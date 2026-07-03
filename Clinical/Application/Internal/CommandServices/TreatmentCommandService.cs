@@ -20,21 +20,19 @@ public class TreatmentCommandService(
 {
     public async Task<Result<Treatment>> Handle(CreateTreatmentCommand command, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(command.MedicalRecordId) || !HasValidDescription(command.Description))
+        if (command.MedicalRecordId == Guid.Empty || !HasValidDescription(command.Description))
             return Result<Treatment>.Failure(
                 ClinicalError.InvalidTreatmentDescription,
                 localizer[nameof(ClinicalError.InvalidTreatmentDescription)]);
 
-        var medicalRecordExists = await medicalRecordRepository.ExistsByCodeAsync(
-            command.MedicalRecordId,
-            cancellationToken);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(command.MedicalRecordId, cancellationToken);
 
-        if (!medicalRecordExists)
+        if (medicalRecord is null)
             return Result<Treatment>.Failure(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var treatment = new Treatment(command.MedicalRecordId, command.Description);
+        var treatment = new Treatment(Guid.NewGuid(), command.Code, command.MedicalRecordId, command.Description);
 
         try
         {

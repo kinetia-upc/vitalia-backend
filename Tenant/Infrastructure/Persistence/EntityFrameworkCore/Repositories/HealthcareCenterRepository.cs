@@ -14,7 +14,7 @@ public class HealthcareCenterRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<HealthcareCenter>()
-            .FirstOrDefaultAsync(healthcareCenter => healthcareCenter.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(healthcareCenter => healthcareCenter.Code == publicId, cancellationToken);
     }
 
     public async Task<bool> ExistsByPublicIdAsync(
@@ -24,8 +24,8 @@ public class HealthcareCenterRepository(AppDbContext context)
     {
         return await Context.Set<HealthcareCenter>()
             .AnyAsync(healthcareCenter =>
-                    healthcareCenter.PublicId == publicId
-                    && (excludingPublicId == null || healthcareCenter.PublicId != excludingPublicId),
+                    healthcareCenter.Code == publicId
+                    && (excludingPublicId == null || healthcareCenter.Code != excludingPublicId),
                 cancellationToken);
     }
 }

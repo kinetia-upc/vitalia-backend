@@ -15,7 +15,7 @@ public class AppointmentRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<Appointment>()
-            .FirstOrDefaultAsync(appointment => appointment.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(appointment => appointment.Code == publicId, cancellationToken);
     }
 
     public async Task<IEnumerable<Appointment>> SearchAsync(
@@ -28,10 +28,10 @@ public class AppointmentRepository(AppDbContext context)
         var query = Context.Set<Appointment>().AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(doctorId))
-            query = query.Where(appointment => appointment.DoctorId == doctorId);
+            query = query.Where(appointment => appointment.DoctorId.ToString() == doctorId);
 
         if (!string.IsNullOrWhiteSpace(patientId))
-            query = query.Where(appointment => appointment.PatientId == patientId);
+            query = query.Where(appointment => appointment.PatientId.ToString() == patientId);
 
         if (!string.IsNullOrWhiteSpace(branchId))
             query = query.Where(appointment => appointment.BranchId == branchId);
@@ -57,13 +57,13 @@ public class AppointmentRepository(AppDbContext context)
     {
         return await Context.Set<Appointment>()
             .AnyAsync(appointment =>
-                    appointment.DoctorId == doctorId
+                    appointment.DoctorId.ToString() == doctorId
                     && appointment.ScheduledAt == scheduledAt
                     && (appointment.Status == EAppointmentStatus.Scheduled
                         || appointment.Status == EAppointmentStatus.Confirmed
                         || appointment.Status == EAppointmentStatus.Arrived
                         || appointment.Status == EAppointmentStatus.InAttention)
-                    && (excludingPublicId == null || appointment.PublicId != excludingPublicId),
+                    && (excludingPublicId == null || appointment.Code != excludingPublicId),
                 cancellationToken);
     }
 }

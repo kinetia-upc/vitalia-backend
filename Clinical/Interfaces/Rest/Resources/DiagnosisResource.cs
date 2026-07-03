@@ -1,8 +1,9 @@
 namespace VitaliaBackend.Clinical.Interfaces.Rest.Resources;
 
 public record DiagnosisResource(
-    int Id,
-    string MedicalRecordId,
+    Guid Id,
+    string Code,
+    Guid MedicalRecordId,
     string Description,
     DateTimeOffset? CreatedAt,
     DateTimeOffset? UpdatedAt
