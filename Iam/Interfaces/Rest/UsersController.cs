@@ -28,6 +28,31 @@ public class UsersController(AppDbContext context) : ControllerBase
         return user is null ? NotFound() : Ok(ToResource(user));
     }
 
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UserResource resource, CancellationToken cancellationToken)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (user is null) return NotFound();
+
+        user.UpdateDetails(
+            resource.HealthcareCenterId,
+            resource.Name,
+            resource.PaternalSurname,
+            resource.MaternalSurname,
+            resource.IdentityType,
+            resource.IdentityNumber,
+            resource.DateBirth,
+            resource.Email,
+            resource.Phone,
+            resource.Gender,
+            resource.IsActive,
+            resource.Address,
+            resource.Role);
+
+        await context.SaveChangesAsync(cancellationToken);
+        return Ok(ToResource(user));
+    }
+
     private static UserResource ToResource(User user) => new(
         user.Id,
         user.HealthcareCenterId,

@@ -32,4 +32,21 @@ public class PatientsController(AppDbContext context) : ControllerBase
         await context.SaveChangesAsync(cancellationToken);
         return CreatedAtAction(nameof(GetPatientById), new { userId = patient.UserId }, patient);
     }
+
+    [HttpPut("{userId:guid}")]
+    public async Task<IActionResult> UpdatePatient([FromRoute] Guid userId, [FromBody] Patient resource, CancellationToken cancellationToken)
+    {
+        var patient = await context.Patients.FirstOrDefaultAsync(item => item.UserId == userId, cancellationToken);
+        if (patient is null) return NotFound();
+
+        patient.UpdateDetails(
+            resource.InsuranceProvider,
+            resource.PolicyNumber,
+            resource.ActiveThru,
+            resource.EmergencyContactName,
+            resource.EmergencyContactPhone);
+
+        await context.SaveChangesAsync(cancellationToken);
+        return Ok(patient);
+    }
 }

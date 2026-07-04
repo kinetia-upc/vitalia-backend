@@ -5,6 +5,7 @@ using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Repositories;
 using VitaliaBackend.Resources.Errors;
 using VitaliaBackend.Scheduling.Domain.Repositories;
+using VitaliaBackend.Scheduling.Domain.Model.ValueObjects;
 using VitaliaBackend.Shared.Application.Model;
 using VitaliaBackend.Shared.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,11 @@ public class MedicalRecordCommandService(
                 ClinicalError.InvalidMedicalRecordData,
                 localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
 
+        if (appointment.Status == EAppointmentStatus.Cancelled)
+            return Result<MedicalRecord>.Failure(
+                ClinicalError.InvalidMedicalRecordData,
+                localizer[nameof(ClinicalError.InvalidMedicalRecordData)]);
+
         var existsForAppointment = await medicalRecordRepository.ExistsByAppointmentIdAsync(
             command.AppointmentId,
             cancellationToken);
@@ -59,6 +65,8 @@ public class MedicalRecordCommandService(
             try
             {
                 await medicalRecordRepository.AddAsync(medicalRecord, cancellationToken);
+                appointment.ChangeStatus(EAppointmentStatus.Released);
+                appointmentRepository.Update(appointment);
                 await unitOfWork.CompleteAsync(cancellationToken);
 
                 return Result<MedicalRecord>.Success(medicalRecord);

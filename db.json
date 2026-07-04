@@ -677,7 +677,7 @@
       "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
       "scheduledAt": "2026-05-11T10:15:00",
       "reason": "Blood pressure control",
-      "status": "arrived",
+      "status": "released",
       "paymentStatus": "paid"
     },
     {
@@ -688,7 +688,7 @@
       "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
       "scheduledAt": "2026-05-12T16:00:00",
       "reason": "General consultation",
-      "status": "scheduled",
+      "status": "released",
       "paymentStatus": "pending"
     },
     {
@@ -699,7 +699,7 @@
       "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
       "scheduledAt": "2026-05-13T09:00:00",
       "reason": "Diabetes follow-up",
-      "status": "arrived",
+      "status": "released",
       "paymentStatus": "paid"
     },
     {
@@ -710,7 +710,7 @@
       "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
       "scheduledAt": "2026-05-13T09:30:00",
       "reason": "Sore throat and fever",
-      "status": "completed",
+      "status": "released",
       "paymentStatus": "paid"
     },
     {
@@ -721,7 +721,7 @@
       "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
       "scheduledAt": "2026-05-14T10:00:00",
       "reason": "Recurrent headaches",
-      "status": "arrived",
+      "status": "released",
       "paymentStatus": "paid"
     },
     {
@@ -732,7 +732,7 @@
       "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
       "scheduledAt": "2026-05-14T14:00:00",
       "reason": "Annual checkup",
-      "status": "completed",
+      "status": "released",
       "paymentStatus": "paid"
     },
     {
@@ -743,7 +743,7 @@
       "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
       "scheduledAt": "2026-05-15T08:30:00",
       "reason": "Cardiology consultation for arrhythmia",
-      "status": "arrived",
+      "status": "released",
       "paymentStatus": "pending"
     },
     {
@@ -776,7 +776,7 @@
       "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
       "scheduledAt": "2026-05-16T10:00:00",
       "reason": "Dermatitis follow-up",
-      "status": "completed",
+      "status": "released",
       "paymentStatus": "paid"
     }
   ],

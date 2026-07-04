@@ -71,4 +71,34 @@ public class User : IAuditableEntity
         Address = address.Trim();
         Role = role.Trim();
     }
+
+    public void UpdateDetails(
+        string healthcareCenterId,
+        string name,
+        string paternalSurname,
+        string maternalSurname,
+        string identityType,
+        string identityNumber,
+        DateOnly birthDate,
+        string email,
+        string phone,
+        string gender,
+        bool isActive,
+        string address,
+        string role)
+    {
+        HealthcareCenterId = healthcareCenterId.Trim();
+        Name = name.Trim();
+        PaternalSurname = paternalSurname.Trim();
+        MaternalSurname = maternalSurname.Trim();
+        IdentityType = identityType.Trim();
+        IdentityNumber = identityNumber.Trim();
+        BirthDate = birthDate;
+        Email = email.Trim().ToLowerInvariant();
+        Phone = phone.Trim();
+        Gender = gender.Trim();
+        IsActive = isActive;
+        Address = address.Trim();
+        Role = role.Trim();
+    }
 }
