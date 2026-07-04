@@ -12,6 +12,7 @@ public static class BranchResourceFromEntityAssembler
             entity.Code,
             entity.HealthcareCenterId,
             entity.Name,
-            entity.Address);
+            entity.Address,
+            entity.DiagnosisCatalogSource);
     }
 }

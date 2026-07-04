@@ -16,6 +16,7 @@ public class PrescriptionDetail : IAuditableEntity
     {
     }
 
+    
     public PrescriptionDetail(
         Guid prescriptionId, Guid medicineId, int quantity, int frequency, int duration)
     {

@@ -21,8 +21,20 @@ public static class ModelBuilderExtensions
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Id).IsRequired().ValueGeneratedNever();
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Code).IsRequired().HasMaxLength(20);
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.MedicalRecordId).IsRequired();
+        builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Cie10Code).IsRequired().HasMaxLength(20);
         builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.Description).IsRequired().HasMaxLength(300);
+        builder.Entity<Diagnosis>().Property(diagnosis => diagnosis.DiagnosisCatalogSource).IsRequired().HasConversion<string>().HasMaxLength(40);
         builder.Entity<Diagnosis>().HasIndex(diagnosis => diagnosis.Code).IsUnique();
+
+        builder.Entity<DiagnosisCatalogEntry>().HasKey(entry => entry.Id);
+        builder.Entity<DiagnosisCatalogEntry>().Property(entry => entry.Id).IsRequired().ValueGeneratedNever();
+        builder.Entity<DiagnosisCatalogEntry>().Property(entry => entry.Source).IsRequired().HasConversion<string>().HasMaxLength(40);
+        builder.Entity<DiagnosisCatalogEntry>().Property(entry => entry.Code).IsRequired().HasMaxLength(20);
+        builder.Entity<DiagnosisCatalogEntry>().Property(entry => entry.Description).IsRequired().HasMaxLength(300);
+        builder.Entity<DiagnosisCatalogEntry>().Property(entry => entry.SearchText).IsRequired().HasMaxLength(400);
+        builder.Entity<DiagnosisCatalogEntry>().HasIndex(entry => new { entry.Source, entry.Code }).IsUnique();
+        builder.Entity<DiagnosisCatalogEntry>().HasIndex(entry => entry.Code);
+        builder.Entity<DiagnosisCatalogEntry>().HasIndex(entry => entry.SearchText);
 
         builder.Entity<Treatment>().HasKey(treatment => treatment.Id);
         builder.Entity<Treatment>().Property(treatment => treatment.Id).IsRequired().ValueGeneratedNever();

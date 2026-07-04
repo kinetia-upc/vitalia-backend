@@ -2,6 +2,9 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
+using VitaliaBackend.Clinical.Application.QueryServices;
+using VitaliaBackend.Clinical.Interfaces.Rest.Resources;
+using VitaliaBackend.Clinical.Interfaces.Rest.Transform;
 using VitaliaBackend.Resources.Errors;
 using VitaliaBackend.Shared.Interfaces.Rest.ProblemDetails;
 using VitaliaBackend.Tenant.Application.CommandServices;
@@ -27,6 +30,7 @@ namespace VitaliaBackend.Tenant.Interfaces.Rest;
 public class BranchesController(
     IBranchQueryService branchQueryService,
     IBranchCommandService branchCommandService,
+    IDiagnosisCatalogQueryService diagnosisCatalogQueryService,
     IStringLocalizer<ErrorMessages> errorLocalizer,
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
@@ -43,6 +47,37 @@ public class BranchesController(
         var query = new GetBranchesQuery(healthcareCenterId);
         var branches = await branchQueryService.Handle(query, cancellationToken);
         var resources = branches.Select(BranchResourceFromEntityAssembler.ToResourceFromEntity);
+
+        return Ok(resources);
+    }
+
+    [HttpGet("{branchId}/diagnosis-catalog")]
+    [SwaggerOperation(
+        Summary = "Autocomplete diagnosis catalog",
+        Description = "Searches diagnosis catalog entries using the source configured for the branch.")]
+    [SwaggerResponse(200, "The matching diagnosis catalog entries.", typeof(IEnumerable<DiagnosisCatalogEntryResource>))]
+    public async Task<IActionResult> GetDiagnosisCatalog(
+        [FromRoute, SwaggerParameter("Business id of the branch.")]
+        string branchId,
+        [FromQuery, SwaggerParameter("Text or code to search.")]
+        string? query,
+        [FromQuery, SwaggerParameter("Maximum number of entries to return.")]
+        int limit,
+        CancellationToken cancellationToken)
+    {
+        var branch = await branchQueryService.Handle(new GetBranchByIdQuery(branchId), cancellationToken);
+
+        if (branch is null)
+            return TenantActionResultAssembler.ToActionResultFromNullable(
+                this,
+                branch,
+                TenantError.BranchNotFoundError,
+                errorLocalizer,
+                problemDetailsFactory,
+                foundBranch => Ok(foundBranch));
+
+        var items = await diagnosisCatalogQueryService.SearchByBranchAsync(branchId, query, limit, cancellationToken);
+        var resources = items.Select(DiagnosisCatalogEntryResourceFromItemAssembler.ToResourceFromItem);
 
         return Ok(resources);
     }

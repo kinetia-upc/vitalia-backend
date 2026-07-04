@@ -83,6 +83,9 @@
     <data name="InvalidDiagnosisDescription" xml:space="preserve">
     <value>La descripción del diagnóstico debe tener al menos 5 caracteres.</value>
   </data>
+    <data name="InvalidDiagnosisCatalogCode" xml:space="preserve">
+    <value>El código del catálogo diagnóstico no es válido para esta sede.</value>
+  </data>
     <data name="TreatmentNotFound" xml:space="preserve">
     <value>Tratamiento no encontrado.</value>
   </data>

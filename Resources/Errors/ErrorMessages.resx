@@ -83,6 +83,9 @@
     <data name="InvalidDiagnosisDescription" xml:space="preserve">
     <value>Diagnosis description must have at least 5 characters.</value>
   </data>
+    <data name="InvalidDiagnosisCatalogCode" xml:space="preserve">
+    <value>The diagnosis catalog code is invalid for this branch.</value>
+  </data>
     <data name="TreatmentNotFound" xml:space="preserve">
     <value>Treatment not found.</value>
   </data>

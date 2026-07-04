@@ -11,7 +11,9 @@ public static class DiagnosisResourceFromEntityAssembler
             entity.Id,
             entity.Code,
             entity.MedicalRecordId,
+            entity.Cie10Code,
             entity.Description,
+            entity.DiagnosisCatalogSource,
             entity.CreatedAt,
             entity.UpdatedAt);
     }

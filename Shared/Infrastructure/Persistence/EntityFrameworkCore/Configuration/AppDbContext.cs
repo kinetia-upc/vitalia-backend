@@ -38,6 +38,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<DoctorSpeciality> DoctorSpecialities { get; set; }
     public DbSet<MedicalRecord> MedicalRecords { get; set; }
     public DbSet<Diagnosis> Diagnoses { get; set; }
+    public DbSet<DiagnosisCatalogEntry> DiagnosisCatalogEntries { get; set; }
     public DbSet<Treatment> Treatments { get; set; }
     public DbSet<Prescription> Prescriptions { get; set; }
     public DbSet<PrescriptionDetail> PrescriptionDetails { get; set; }
