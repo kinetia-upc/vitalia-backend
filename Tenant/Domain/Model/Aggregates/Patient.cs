@@ -33,6 +33,15 @@ public class Patient
         EmergencyContactPhone = emergencyContactPhone.Trim();
     }
 
+    public void UpdateDetails(string insuranceProvider, string policyNumber, DateOnly? activeThru, string emergencyContactName, string emergencyContactPhone)
+    {
+        InsuranceProvider = insuranceProvider.Trim();
+        PolicyNumber = policyNumber.Trim();
+        ActiveThru = activeThru;
+        EmergencyContactName = emergencyContactName.Trim();
+        EmergencyContactPhone = emergencyContactPhone.Trim();
+    }
+
     private static string GenerateEhrCode(string patientCode)
     {
         var digits = new string(patientCode.Where(char.IsDigit).ToArray());
