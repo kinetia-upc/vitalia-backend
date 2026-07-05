@@ -7,6 +7,6 @@ namespace VitaliaBackend.Clinical.Application.CommandServices;
 public interface IDiagnosisCommandService
 {
     Task<Result<Diagnosis>> Handle(CreateDiagnosisCommand command, CancellationToken cancellationToken);
-    Task<Result<Diagnosis>> Handle(UpdateDiagnosisDescriptionCommand command, CancellationToken cancellationToken);
+    Task<Result<Diagnosis>> Handle(UpdateDiagnosisCatalogCommand command, CancellationToken cancellationToken);
     Task<Result> Handle(DeleteDiagnosisCommand command, CancellationToken cancellationToken);
 }

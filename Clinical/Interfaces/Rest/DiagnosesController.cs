@@ -99,15 +99,15 @@ public class DiagnosesController(
 
     [HttpPatch("{diagnosisId:guid}")]
     [SwaggerOperation(
-        Summary = "Update a diagnosis description",
-        Description = "Updates the description of an existing diagnosis using its numeric identifier."
+        Summary = "Update a diagnosis catalog data",
+        Description = "Updates CIE-10 code and description of an existing diagnosis."
     )]
-    public async Task<IActionResult> UpdateDiagnosisDescription(
+    public async Task<IActionResult> UpdateDiagnosisCatalogData(
         [FromRoute] Guid diagnosisId,
-        [FromBody] UpdateDescriptionResource resource,
+        [FromBody] UpdateDiagnosisCatalogResource resource,
         CancellationToken cancellationToken)
     {
-        var command = UpdateDiagnosisDescriptionCommandFromResourceAssembler.ToCommandFromResource(
+        var command = UpdateDiagnosisCatalogCommandFromResourceAssembler.ToCommandFromResource(
             diagnosisId,
             resource);
         var result = await diagnosisCommandService.Handle(command, cancellationToken);

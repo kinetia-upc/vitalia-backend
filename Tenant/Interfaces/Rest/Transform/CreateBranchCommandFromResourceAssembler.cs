@@ -11,6 +11,7 @@ public static class CreateBranchCommandFromResourceAssembler
             resource.Code,
             resource.HealthcareCenterId,
             resource.BranchName,
-            resource.Address);
+            resource.Address,
+            resource.DiagnosisCatalogSource);
     }
 }

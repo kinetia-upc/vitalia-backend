@@ -9,6 +9,7 @@ public enum ClinicalError
     InvalidMedicalRecordData,
     DiagnosisNotFound,
     InvalidDiagnosisDescription,
+    InvalidDiagnosisCatalogCode,
     TreatmentNotFound,
     InvalidTreatmentDescription,
     PrescriptionNotFound,

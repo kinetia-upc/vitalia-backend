@@ -22,6 +22,8 @@ using VitaliaBackend.Clinical.Application.Internal.CommandServices;
 using VitaliaBackend.Clinical.Application.Internal.QueryServices;
 using VitaliaBackend.Clinical.Application.QueryServices;
 using VitaliaBackend.Clinical.Domain.Repositories;
+using VitaliaBackend.Clinical.Domain.Services;
+using VitaliaBackend.Clinical.Infrastructure.DiagnosisCatalog;
 using VitaliaBackend.Clinical.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 
 //Scheduling Bounded Context
@@ -77,6 +79,7 @@ builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IAppointmentFeeRepository, AppointmentFeeRepository>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<IDiagnosisCatalogEntryRepository, DiagnosisCatalogEntryRepository>();
 builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
 builder.Services.AddScoped<IPrescriptionDetailRepository, PrescriptionDetailRepository>();
@@ -90,6 +93,7 @@ builder.Services.AddScoped<IBranchQueryService, BranchQueryService>();
 builder.Services.AddScoped<IAppointmentFeeQueryService, AppointmentFeeQueryService>();
 builder.Services.AddScoped<IMedicalRecordQueryService, MedicalRecordQueryService>();
 builder.Services.AddScoped<IDiagnosisQueryService, DiagnosisQueryService>();
+builder.Services.AddScoped<IDiagnosisCatalogQueryService, DiagnosisCatalogQueryService>();
 builder.Services.AddScoped<ITreatmentQueryService, TreatmentQueryService>();
 builder.Services.AddScoped<IPrescriptionQueryService, PrescriptionQueryService>();
 builder.Services.AddScoped<IPrescriptionDetailQueryService, PrescriptionDetailQueryService>();
@@ -103,9 +107,21 @@ builder.Services.AddScoped<IBranchCommandService, BranchCommandService>();
 builder.Services.AddScoped<IAppointmentFeeCommandService, AppointmentFeeCommandService>();
 builder.Services.AddScoped<IMedicalRecordCommandService, MedicalRecordCommandService>();
 builder.Services.AddScoped<IDiagnosisCommandService, DiagnosisCommandService>();
+builder.Services.AddScoped<IDiagnosisCatalogImportService, DiagnosisCatalogImportService>();
 builder.Services.AddScoped<ITreatmentCommandService, TreatmentCommandService>();
 builder.Services.AddScoped<IPrescriptionCommandService, PrescriptionCommandService>();
 builder.Services.AddScoped<IPrescriptionDetailCommandService, PrescriptionDetailCommandService>();
+builder.Services.AddScoped<LocalDiagnosisCatalogProvider>();
+builder.Services.AddHttpClient<WhoDiagnosisCatalogProvider>(client =>
+{
+    client.BaseAddress = new Uri("https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/");
+    client.Timeout = TimeSpan.FromSeconds(8);
+});
+builder.Services.AddScoped<IDiagnosisCatalogProvider>(serviceProvider =>
+    new CompositeDiagnosisCatalogProvider([
+        serviceProvider.GetRequiredService<LocalDiagnosisCatalogProvider>(),
+        serviceProvider.GetRequiredService<WhoDiagnosisCatalogProvider>()
+    ]));
 
 //-----------------------
 

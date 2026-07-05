@@ -11,6 +11,7 @@ public static class UpdateBranchCommandFromResourceAssembler
             branchId,
             resource.HealthcareCenterId,
             resource.BranchName,
-            resource.Address);
+            resource.Address,
+            resource.DiagnosisCatalogSource);
     }
 }
