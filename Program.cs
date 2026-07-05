@@ -111,7 +111,17 @@ builder.Services.AddScoped<IDiagnosisCatalogImportService, DiagnosisCatalogImpor
 builder.Services.AddScoped<ITreatmentCommandService, TreatmentCommandService>();
 builder.Services.AddScoped<IPrescriptionCommandService, PrescriptionCommandService>();
 builder.Services.AddScoped<IPrescriptionDetailCommandService, PrescriptionDetailCommandService>();
-builder.Services.AddScoped<IDiagnosisCatalogProvider, LocalDiagnosisCatalogProvider>();
+builder.Services.AddScoped<LocalDiagnosisCatalogProvider>();
+builder.Services.AddHttpClient<WhoDiagnosisCatalogProvider>(client =>
+{
+    client.BaseAddress = new Uri("https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/");
+    client.Timeout = TimeSpan.FromSeconds(8);
+});
+builder.Services.AddScoped<IDiagnosisCatalogProvider>(serviceProvider =>
+    new CompositeDiagnosisCatalogProvider([
+        serviceProvider.GetRequiredService<LocalDiagnosisCatalogProvider>(),
+        serviceProvider.GetRequiredService<WhoDiagnosisCatalogProvider>()
+    ]));
 
 //-----------------------
 
