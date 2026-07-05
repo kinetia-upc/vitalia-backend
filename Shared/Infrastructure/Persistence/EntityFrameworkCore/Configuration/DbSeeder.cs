@@ -28,7 +28,6 @@ public static class DbSeeder
             {
                 Console.WriteLine("[DbSeeder] Clearing existing data from tables...");
                 await context.PrescriptionDetails.ExecuteDeleteAsync();
-                await context.DiagnosisCatalogEntries.ExecuteDeleteAsync();
                 await context.MedicalOrders.ExecuteDeleteAsync();
                 await context.Prescriptions.ExecuteDeleteAsync();
                 await context.Treatments.ExecuteDeleteAsync();
@@ -657,10 +656,21 @@ public static class DbSeeder
         if (!File.Exists(path))
             return;
 
+        var source = DiagnosisCatalogSource.MINSA_CIE10;
+        var alreadySeeded = await context.DiagnosisCatalogEntries
+            .AnyAsync(entry => entry.Source == source);
+
+        if (alreadySeeded)
+        {
+            Console.WriteLine("[DbSeeder] MINSA CIE-10 catalog import completed.");
+            return;
+        }
+
         Console.WriteLine($"[DbSeeder] Importing MINSA CIE-10 catalog from: {path}");
 
         using var reader = await DiagnosisCatalogCsvEncoding.CreateReaderAsync(path);
         var lineNumber = 0;
+        var entries = new List<DiagnosisCatalogEntry>();
 
         while (await reader.ReadLineAsync() is { } line)
         {
@@ -684,26 +694,17 @@ public static class DbSeeder
             if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(description))
                 continue;
 
-            var source = DiagnosisCatalogSource.MINSA_CIE10;
             var searchText = DiagnosisCatalogSearchNormalizer.NormalizeForSearch($"{code} {description}");
-            var existing = await context.DiagnosisCatalogEntries.FirstOrDefaultAsync(entry =>
-                entry.Source == source && entry.Code == code);
 
-            if (existing is null)
-            {
-                context.DiagnosisCatalogEntries.Add(new DiagnosisCatalogEntry(
-                    Guid.NewGuid(),
-                    source,
-                    code,
-                    description,
-                    searchText));
-            }
-            else
-            {
-                existing.UpdateDetails(description, searchText);
-            }
+            entries.Add(new DiagnosisCatalogEntry(
+                Guid.NewGuid(),
+                source,
+                code,
+                description,
+                searchText));
         }
 
+        context.DiagnosisCatalogEntries.AddRange(entries);
         await context.SaveChangesAsync();
         Console.WriteLine("[DbSeeder] MINSA CIE-10 catalog import completed.");
     }
