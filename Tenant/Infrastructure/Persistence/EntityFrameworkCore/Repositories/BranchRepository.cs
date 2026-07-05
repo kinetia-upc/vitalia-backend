@@ -13,8 +13,12 @@ public class BranchRepository(AppDbContext context)
         string publicId,
         CancellationToken cancellationToken = default)
     {
+        var isInternalId = Guid.TryParse(publicId, out var internalId);
+
         return await Context.Set<Branch>()
-            .FirstOrDefaultAsync(branch => branch.Code == publicId, cancellationToken);
+            .FirstOrDefaultAsync(branch =>
+                branch.Code == publicId || (isInternalId && branch.Id == internalId),
+                cancellationToken);
     }
 
     public async Task<bool> ExistsByPublicIdAsync(
