@@ -4,23 +4,31 @@ using VitaliaBackend.Clinical.Domain.Model.Aggregates;
 using VitaliaBackend.Clinical.Domain.Model.Commands;
 using VitaliaBackend.Clinical.Domain.Repositories;
 using VitaliaBackend.Resources.Errors;
+using VitaliaBackend.Scheduling.Domain.Repositories;
 using VitaliaBackend.Shared.Application.Model;
 using VitaliaBackend.Shared.Domain.Repositories;
+using VitaliaBackend.Tenant.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using VitaliaBackend.Clinical.Domain.Services;
 
 namespace VitaliaBackend.Clinical.Application.Internal.CommandServices;
 
 public class DiagnosisCommandService(
     IDiagnosisRepository diagnosisRepository,
     IMedicalRecordRepository medicalRecordRepository,
+    IAppointmentRepository appointmentRepository,
+    IBranchRepository branchRepository,
+    IDiagnosisCatalogProvider diagnosisCatalogProvider,
     IUnitOfWork unitOfWork,
     IStringLocalizer<ErrorMessages> localizer)
     : IDiagnosisCommandService
 {
     public async Task<Result<Diagnosis>> Handle(CreateDiagnosisCommand command, CancellationToken cancellationToken)
     {
-        if (command.MedicalRecordId == Guid.Empty || !HasValidDescription(command.Description))
+        if (command.MedicalRecordId == Guid.Empty ||
+            !HasValidCie10Code(command.Cie10Code) ||
+            !HasValidDescription(command.Description))
             return Result<Diagnosis>.Failure(
                 ClinicalError.InvalidDiagnosisDescription,
                 localizer[nameof(ClinicalError.InvalidDiagnosisDescription)]);
@@ -32,7 +40,23 @@ public class DiagnosisCommandService(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var diagnosis = new Diagnosis(Guid.NewGuid(), GenerateCode(), command.MedicalRecordId, command.Description);
+        var catalogItem = await ResolveCatalogItemAsync(
+            medicalRecord,
+            command.Cie10Code,
+            cancellationToken);
+
+        if (catalogItem is null)
+            return Result<Diagnosis>.Failure(
+                ClinicalError.InvalidDiagnosisCatalogCode,
+                localizer[nameof(ClinicalError.InvalidDiagnosisCatalogCode)]);
+
+        var diagnosis = new Diagnosis(
+            Guid.NewGuid(),
+            GenerateCode(),
+            command.MedicalRecordId,
+            catalogItem.Code,
+            command.Description,
+            catalogItem.Source);
 
         try
         {
@@ -55,10 +79,10 @@ public class DiagnosisCommandService(
     }
 
     public async Task<Result<Diagnosis>> Handle(
-        UpdateDiagnosisDescriptionCommand command,
+        UpdateDiagnosisCatalogCommand command,
         CancellationToken cancellationToken)
     {
-        if (!HasValidDescription(command.Description))
+        if (!HasValidCie10Code(command.Cie10Code) || !HasValidDescription(command.Description))
             return Result<Diagnosis>.Failure(
                 ClinicalError.InvalidDiagnosisDescription,
                 localizer[nameof(ClinicalError.InvalidDiagnosisDescription)]);
@@ -70,7 +94,24 @@ public class DiagnosisCommandService(
                 ClinicalError.DiagnosisNotFound,
                 localizer[nameof(ClinicalError.DiagnosisNotFound)]);
 
-        diagnosis.UpdateDescription(command.Description);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(diagnosis.MedicalRecordId, cancellationToken);
+
+        if (medicalRecord is null)
+            return Result<Diagnosis>.Failure(
+                ClinicalError.MedicalRecordNotFound,
+                localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
+
+        var catalogItem = await ResolveCatalogItemAsync(
+            medicalRecord,
+            command.Cie10Code,
+            cancellationToken);
+
+        if (catalogItem is null)
+            return Result<Diagnosis>.Failure(
+                ClinicalError.InvalidDiagnosisCatalogCode,
+                localizer[nameof(ClinicalError.InvalidDiagnosisCatalogCode)]);
+
+        diagnosis.UpdateCatalogDetails(catalogItem.Code, command.Description, catalogItem.Source);
 
         try
         {
@@ -124,6 +165,32 @@ public class DiagnosisCommandService(
     private static bool HasValidDescription(string description)
     {
         return !string.IsNullOrWhiteSpace(description) && description.Trim().Length >= 5;
+    }
+
+    private static bool HasValidCie10Code(string cie10Code)
+    {
+        return !string.IsNullOrWhiteSpace(cie10Code);
+    }
+
+    private async Task<Application.Model.DiagnosisCatalogItem?> ResolveCatalogItemAsync(
+        MedicalRecord medicalRecord,
+        string cie10Code,
+        CancellationToken cancellationToken)
+    {
+        var appointment = await appointmentRepository.FindByIdAsync(medicalRecord.AppointmentId, cancellationToken);
+
+        if (appointment is null)
+            return null;
+
+        var branch = await branchRepository.FindByPublicIdAsync(appointment.BranchId, cancellationToken);
+
+        if (branch is null)
+            return null;
+
+        return await diagnosisCatalogProvider.FindByCodeAsync(
+            branch.DiagnosisCatalogSource,
+            cie10Code.Trim(),
+            cancellationToken);
     }
 
     private static string GenerateCode()

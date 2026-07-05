@@ -35,7 +35,8 @@ public class BranchCommandService(
             command.Code,
             command.HealthcareCenterId,
             command.BranchName,
-            command.Address);
+            command.Address,
+            command.DiagnosisCatalogSource);
 
         try
         {
@@ -74,7 +75,8 @@ public class BranchCommandService(
         branch.UpdateDetails(
             command.HealthcareCenterId,
             command.BranchName,
-            command.Address);
+            command.Address,
+            command.DiagnosisCatalogSource);
 
         try
         {

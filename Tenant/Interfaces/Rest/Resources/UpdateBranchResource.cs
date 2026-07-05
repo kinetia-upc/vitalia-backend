@@ -1,4 +1,5 @@
 using Swashbuckle.AspNetCore.Annotations;
+using VitaliaBackend.Shared.Domain.Model.ValueObjects;
 
 namespace VitaliaBackend.Tenant.Interfaces.Rest.Resources;
 
@@ -10,5 +11,8 @@ public record UpdateBranchResource(
     string BranchName,
 
     [property: SwaggerSchema(Description = "Full street address of the branch.")]
-    string Address
+    string Address,
+
+    [property: SwaggerSchema(Description = "Diagnosis catalog source used by this branch.")]
+    DiagnosisCatalogSource DiagnosisCatalogSource = DiagnosisCatalogSource.MINSA_CIE10
 );

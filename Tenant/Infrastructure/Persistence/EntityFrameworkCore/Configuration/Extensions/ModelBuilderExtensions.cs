@@ -29,6 +29,7 @@ public static class ModelBuilderExtensions
         builder.Entity<Branch>().Property(branch => branch.HealthcareCenterId).IsRequired().HasMaxLength(50);
         builder.Entity<Branch>().Property(branch => branch.Name).IsRequired().HasMaxLength(150);
         builder.Entity<Branch>().Property(branch => branch.Address).IsRequired().HasMaxLength(250);
+        builder.Entity<Branch>().Property(branch => branch.DiagnosisCatalogSource).IsRequired().HasConversion<string>().HasMaxLength(40);
         builder.Entity<Branch>().HasIndex(branch => branch.HealthcareCenterId);
 
         builder.Entity<AppointmentFee>().HasKey(appointmentFee => appointmentFee.Id);

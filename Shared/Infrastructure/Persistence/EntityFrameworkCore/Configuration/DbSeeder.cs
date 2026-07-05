@@ -12,6 +12,8 @@ using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.Aggregates;
 using VitaliaBackend.Scheduling.Domain.Model.ValueObjects;
 using VitaliaBackend.Billing.Domain.Model.Aggregates;
+using VitaliaBackend.Clinical.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using VitaliaBackend.Shared.Domain.Model.ValueObjects;
 using VitaliaBackend.Tenant.Domain.Model.Aggregates;
 
 namespace VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
@@ -26,6 +28,7 @@ public static class DbSeeder
             {
                 Console.WriteLine("[DbSeeder] Clearing existing data from tables...");
                 await context.PrescriptionDetails.ExecuteDeleteAsync();
+                await context.DiagnosisCatalogEntries.ExecuteDeleteAsync();
                 await context.MedicalOrders.ExecuteDeleteAsync();
                 await context.Prescriptions.ExecuteDeleteAsync();
                 await context.Treatments.ExecuteDeleteAsync();
@@ -402,7 +405,15 @@ public static class DbSeeder
                         : "";
                     var description = item.GetProperty("description").GetString() ?? "";
 
-                    context.Diagnoses.Add(new Diagnosis(id, code, medicalRecordId, description));
+                    var cie10Code = item.TryGetProperty("cie10Code", out var cie10CodeProp)
+                        ? cie10CodeProp.GetString() ?? code
+                        : code;
+                    var source = item.TryGetProperty("diagnosisCatalogSource", out var sourceProp) &&
+                                 Enum.TryParse<DiagnosisCatalogSource>(sourceProp.GetString(), true, out var parsedSource)
+                        ? parsedSource
+                        : DiagnosisCatalogSource.MINSA_CIE10;
+
+                    context.Diagnoses.Add(new Diagnosis(id, code, medicalRecordId, cie10Code, description, source));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Diagnoses successfully.");
@@ -592,12 +603,18 @@ public static class DbSeeder
 
                     var branchName = item.GetProperty("branchName").GetString() ?? "";
                     var address = item.GetProperty("address").GetString() ?? "";
+                    var diagnosisCatalogSource = item.TryGetProperty("diagnosisCatalogSource", out var sourceProp) &&
+                                                  Enum.TryParse<DiagnosisCatalogSource>(sourceProp.GetString(), true, out var parsedSource)
+                        ? parsedSource
+                        : DiagnosisCatalogSource.MINSA_CIE10;
 
-                    context.Branches.Add(new Branch(id, publicId, healthcareCenterId, branchName, address));
+                    context.Branches.Add(new Branch(id, publicId, healthcareCenterId, branchName, address, diagnosisCatalogSource));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Branches successfully.");
             }
+
+            await SeedDiagnosisCatalogAsync(context);
 
             // Seed Appointment Fees
             if (!context.AppointmentFees.Any() && root.TryGetProperty("appointmentFees", out var appointmentFeesProp))
@@ -625,5 +642,106 @@ public static class DbSeeder
         {
             Console.WriteLine($"[DbSeeder] ERROR: Failed to seed data from db.json. Details: {ex.Message}");
         }
+    }
+
+    private static async Task SeedDiagnosisCatalogAsync(AppDbContext context)
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "minsa-cie10.csv");
+
+        if (!File.Exists(path))
+            path = Path.Combine(Directory.GetCurrentDirectory(), "minsa-cie10.csv");
+
+        if (!File.Exists(path))
+            path = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "minsa-cie10.csv");
+
+        if (!File.Exists(path))
+            return;
+
+        Console.WriteLine($"[DbSeeder] Importing MINSA CIE-10 catalog from: {path}");
+
+        using var reader = await DiagnosisCatalogCsvEncoding.CreateReaderAsync(path);
+        var lineNumber = 0;
+
+        while (await reader.ReadLineAsync() is { } line)
+        {
+            lineNumber++;
+
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+            var columns = ParseCsvLine(line);
+            if (columns.Count < 2)
+                continue;
+
+            if (lineNumber == 1 &&
+                columns[0].Trim().Equals("code", StringComparison.OrdinalIgnoreCase) &&
+                columns[1].Trim().Equals("description", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            var code = columns[0].Trim().ToUpperInvariant();
+            var description = columns[1].Trim();
+
+            if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(description))
+                continue;
+
+            var source = DiagnosisCatalogSource.MINSA_CIE10;
+            var searchText = DiagnosisCatalogSearchNormalizer.NormalizeForSearch($"{code} {description}");
+            var existing = await context.DiagnosisCatalogEntries.FirstOrDefaultAsync(entry =>
+                entry.Source == source && entry.Code == code);
+
+            if (existing is null)
+            {
+                context.DiagnosisCatalogEntries.Add(new DiagnosisCatalogEntry(
+                    Guid.NewGuid(),
+                    source,
+                    code,
+                    description,
+                    searchText));
+            }
+            else
+            {
+                existing.UpdateDetails(description, searchText);
+            }
+        }
+
+        await context.SaveChangesAsync();
+        Console.WriteLine("[DbSeeder] MINSA CIE-10 catalog import completed.");
+    }
+
+    private static List<string> ParseCsvLine(string line)
+    {
+        var columns = new List<string>();
+        var current = new System.Text.StringBuilder();
+        var inQuotes = false;
+
+        for (var index = 0; index < line.Length; index++)
+        {
+            var character = line[index];
+
+            if (character == '"')
+            {
+                if (inQuotes && index + 1 < line.Length && line[index + 1] == '"')
+                {
+                    current.Append('"');
+                    index++;
+                    continue;
+                }
+
+                inQuotes = !inQuotes;
+                continue;
+            }
+
+            if (character == ',' && !inQuotes)
+            {
+                columns.Add(current.ToString());
+                current.Clear();
+                continue;
+            }
+
+            current.Append(character);
+        }
+
+        columns.Add(current.ToString());
+        return columns;
     }
 }
