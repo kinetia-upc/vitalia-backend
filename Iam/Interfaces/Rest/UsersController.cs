@@ -1,5 +1,4 @@
 using System.Net.Mime;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VitaliaBackend.Iam.Domain.Model.Aggregates;
@@ -9,7 +8,6 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Confi
 namespace VitaliaBackend.Iam.Interfaces.Rest;
 
 [ApiController]
-[Authorize]
 [Route("api/v1/users")]
 [Produces(MediaTypeNames.Application.Json)]
 public class UsersController(AppDbContext context) : ControllerBase
