@@ -195,16 +195,9 @@ using (var scope = app.Services.CreateScope())
     try
     {
         Console.WriteLine("[Database] Checking database connection and applying migrations...");
-        if (context.Database.CanConnect())
-        {
-            context.Database.Migrate();
-            DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
-            Console.WriteLine("[Database] Database initialized and seeded successfully.");
-        }
-        else
-        {
-            Console.WriteLine("[Database] WARNING: Cannot connect to the database. Running without migrations/seeding. Please make sure MySQL is running.");
-        }
+        context.Database.Migrate();
+        DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+        Console.WriteLine("[Database] Database initialized and seeded successfully.");
     }
     catch (Exception ex)
     {
