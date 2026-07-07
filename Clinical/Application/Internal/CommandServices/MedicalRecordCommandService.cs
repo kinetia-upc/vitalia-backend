@@ -51,16 +51,19 @@ public class MedicalRecordCommandService(
                 localizer[nameof(ClinicalError.MedicalRecordAlreadyExistsForAppointment)]);
 
         const int maxCodeGenerationAttempts = 5;
+        var nextCodeNumber = await medicalRecordRepository.GetMaxCodeNumberAsync("rec-", cancellationToken) + 1;
 
         for (var attempt = 0; attempt < maxCodeGenerationAttempts; attempt++)
         {
-            var medicalRecord = new MedicalRecord(command.AppointmentId, appointment.PatientId);
+            var candidateCode = $"rec-{nextCodeNumber + attempt:D5}";
             var codeAlreadyExists = await medicalRecordRepository.ExistsByCodeAsync(
-                medicalRecord.Code,
+                candidateCode,
                 cancellationToken);
 
             if (codeAlreadyExists)
                 continue;
+
+            var medicalRecord = new MedicalRecord(Guid.Empty, candidateCode, command.AppointmentId, appointment.PatientId);
 
             try
             {
