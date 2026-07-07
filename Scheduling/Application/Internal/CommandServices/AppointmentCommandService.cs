@@ -14,6 +14,7 @@ namespace VitaliaBackend.Scheduling.Application.Internal.CommandServices;
 
 public class AppointmentCommandService(
     IAppointmentRepository appointmentRepository,
+    IAvailabilitySlotRepository availabilitySlotRepository,
     IUnitOfWork unitOfWork,
     IStringLocalizer<ErrorMessages> localizer)
     : IAppointmentCommandService
@@ -36,6 +37,12 @@ public class AppointmentCommandService(
             cancellationToken: cancellationToken);
 
         if (existsConflict)
+            return Result<Appointment>.Failure(
+                SchedulingError.AppointmentCreationError,
+                localizer[nameof(SchedulingError.AppointmentCreationError)]);
+
+        var slotBooked = await TryBookMatchingSlotAsync(command.DoctorId, command.BranchId, command.ScheduledAt, cancellationToken);
+        if (!slotBooked)
             return Result<Appointment>.Failure(
                 SchedulingError.AppointmentCreationError,
                 localizer[nameof(SchedulingError.AppointmentCreationError)]);
@@ -90,6 +97,24 @@ public class AppointmentCommandService(
                 SchedulingError.AppointmentUpdateError,
                 localizer[nameof(SchedulingError.AppointmentUpdateError)]);
 
+        var previousDoctorId = appointment.DoctorId.ToString();
+        var previousBranchId = appointment.BranchId;
+        var previousScheduledAt = appointment.ScheduledAt;
+        var scheduleChanged = previousDoctorId != command.DoctorId
+                               || previousBranchId != command.BranchId
+                               || previousScheduledAt != command.ScheduledAt;
+
+        if (scheduleChanged)
+        {
+            var newSlotBooked = await TryBookMatchingSlotAsync(command.DoctorId, command.BranchId, command.ScheduledAt, cancellationToken);
+            if (!newSlotBooked)
+                return Result<Appointment>.Failure(
+                    SchedulingError.AppointmentUpdateError,
+                    localizer[nameof(SchedulingError.AppointmentUpdateError)]);
+
+            await ReleaseMatchingSlotAsync(previousDoctorId, previousBranchId, previousScheduledAt, cancellationToken);
+        }
+
         appointment.Reschedule(
             command.DoctorId,
             command.PatientId,
@@ -105,6 +130,9 @@ public class AppointmentCommandService(
                     localizer[nameof(SchedulingError.AppointmentUpdateError)]);
 
             appointment.ChangeStatus(status);
+
+            if (status == EAppointmentStatus.Cancelled)
+                await ReleaseMatchingSlotAsync(command.DoctorId, command.BranchId, command.ScheduledAt, cancellationToken);
         }
         
         if (!string.IsNullOrWhiteSpace(command.PaymentStatus))
@@ -149,6 +177,7 @@ public class AppointmentCommandService(
         try
         {
             appointmentRepository.Remove(appointment);
+            await ReleaseMatchingSlotAsync(appointment.DoctorId.ToString(), appointment.BranchId, appointment.ScheduledAt, cancellationToken);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result.Success();
         }
@@ -163,6 +192,50 @@ public class AppointmentCommandService(
         catch (Exception)
         {
             return Result.Failure(SchedulingError.InternalServerError, localizer[nameof(SchedulingError.InternalServerError)]);
+        }
+    }
+
+    /// <summary>
+    ///     Books the AvailabilitySlot matching this doctor/branch/date/time, if one exists.
+    ///     Returns false only when a matching slot exists and is already booked; true otherwise
+    ///     (booked successfully, or no matching slot to manage).
+    /// </summary>
+    private async Task<bool> TryBookMatchingSlotAsync(string doctorId, string branchId, DateTime scheduledAt, CancellationToken cancellationToken)
+    {
+        var slot = await availabilitySlotRepository.FindByDoctorBranchDateAndStartTimeAsync(
+            doctorId,
+            branchId,
+            DateOnly.FromDateTime(scheduledAt),
+            TimeOnly.FromDateTime(scheduledAt),
+            cancellationToken);
+
+        if (slot is null)
+            return true;
+
+        if (slot.Status == EAvailabilitySlotStatus.Booked)
+            return false;
+
+        slot.Book();
+        availabilitySlotRepository.Update(slot);
+        return true;
+    }
+
+    /// <summary>
+    ///     Releases the AvailabilitySlot matching this doctor/branch/date/time, if one exists and is booked.
+    /// </summary>
+    private async Task ReleaseMatchingSlotAsync(string doctorId, string branchId, DateTime scheduledAt, CancellationToken cancellationToken)
+    {
+        var slot = await availabilitySlotRepository.FindByDoctorBranchDateAndStartTimeAsync(
+            doctorId,
+            branchId,
+            DateOnly.FromDateTime(scheduledAt),
+            TimeOnly.FromDateTime(scheduledAt),
+            cancellationToken);
+
+        if (slot is not null && slot.Status == EAvailabilitySlotStatus.Booked)
+        {
+            slot.Release();
+            availabilitySlotRepository.Update(slot);
         }
     }
 }
