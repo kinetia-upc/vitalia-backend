@@ -24,4 +24,6 @@ public interface IMedicalRecordRepository : IBaseRepository<MedicalRecord>
     Task<bool> ExistsByAppointmentIdAsync(
         Guid appointmentId,
         CancellationToken cancellationToken = default);
+
+    Task<int> GetMaxCodeNumberAsync(string prefix, CancellationToken cancellationToken = default);
 }
