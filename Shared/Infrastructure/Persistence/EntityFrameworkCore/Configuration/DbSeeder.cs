@@ -337,6 +337,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Availability Slots...");
                 foreach (var item in slotsProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -349,7 +352,7 @@ public static class DbSeeder
                     var statusStr = item.GetProperty("status").GetString() ?? "available";
                     var status = Enum.TryParse<EAvailabilitySlotStatus>(statusStr, true, out var parsedStatus) ? parsedStatus : EAvailabilitySlotStatus.Available;
 
-                    context.AvailabilitySlots.Add(new AvailabilitySlot(publicId, doctorId, branchId, date, startTime, endTime, status));
+                    context.AvailabilitySlots.Add(new AvailabilitySlot(id, publicId, Guid.Parse(doctorId), branchId, date, startTime, endTime, status));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Availability Slots successfully.");
@@ -502,6 +505,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Billing Claims...");
                 foreach (var item in billingClaimsProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var claimCode = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("claimCode").GetString() ?? "";
@@ -518,6 +524,7 @@ public static class DbSeeder
                     var cycleStatus = item.GetProperty("cycleStatus").GetString() ?? "";
 
                     context.BillingClaims.Add(new BillingClaim(
+                        id,
                         claimCode,
                         appointmentId,
                         insuranceProvider,
@@ -561,6 +568,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Healthcare Centers...");
                 foreach (var item in healthcareCentersProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -582,7 +592,7 @@ public static class DbSeeder
                         _ => null
                     };
 
-                    context.HealthcareCenters.Add(new HealthcareCenter(publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
+                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Healthcare Centers successfully.");
@@ -621,6 +631,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Appointment Fees...");
                 foreach (var item in appointmentFeesProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -631,7 +644,7 @@ public static class DbSeeder
 
                     var price = item.GetProperty("price").GetDecimal();
 
-                    context.AppointmentFees.Add(new AppointmentFee(publicId, branchId, specialityId, price));
+                    context.AppointmentFees.Add(new AppointmentFee(id, publicId, branchId, specialityId, price));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Appointment Fees successfully.");

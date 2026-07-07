@@ -667,6 +667,1087 @@
       "endTime": "11:30",
       "status": "available"
     }
+,
+    {
+      "id": "ce3df9c7-1613-45a0-880e-a0408d6cfbbd",
+      "code": "slt-00013",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-01",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "1599f2bc-444c-4a39-9de0-999aa1ed8d76",
+      "code": "slt-00014",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-01",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "9aa82ccc-a786-4b5a-b1c0-125f5a2f29ab",
+      "code": "slt-00015",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-01",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "5bca1e20-c4e7-4852-951a-460ba62fe19f",
+      "code": "slt-00016",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-01",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "b9f1cda2-c9ed-4923-b1ff-53cc1d4c5fae",
+      "code": "slt-00017",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-03",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "49a9cea7-7a8e-492d-932f-c9e70e99032e",
+      "code": "slt-00018",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-03",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "ae043622-9c46-4201-923f-f515301f8406",
+      "code": "slt-00019",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-03",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "406bc901-9060-4817-8e70-22d598f65f2d",
+      "code": "slt-00020",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-03",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "20067d85-df73-4b76-9bab-23f365365789",
+      "code": "slt-00021",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-06",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "ee277074-a530-4f27-8b1d-e9e36a4a23ea",
+      "code": "slt-00022",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-06",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "4ba3b45f-83d4-471e-93d7-c894d6e978d2",
+      "code": "slt-00023",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-06",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "699120aa-09ca-4501-9ac0-bd5b251d435e",
+      "code": "slt-00024",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-06",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "ab189f5c-f94e-4341-880d-47f76fa29b37",
+      "code": "slt-00025",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-08",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "f419131b-bdb0-4ec1-be5c-1cd1ce56bbcc",
+      "code": "slt-00026",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-08",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "37c14732-b352-455a-9e58-4421428423e7",
+      "code": "slt-00027",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-08",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "5c153632-9e7e-4442-975a-85aead323cb1",
+      "code": "slt-00028",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-08",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "6ee273cc-4f9d-4a25-b582-20014fe54c77",
+      "code": "slt-00029",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-10",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "72fc945b-1804-4d76-bd95-470399e90c1d",
+      "code": "slt-00030",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-10",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "d1164016-acf2-4434-a3d3-05e12e9abca7",
+      "code": "slt-00031",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-10",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "01a5ea0b-7b06-4afc-92b7-68a8f0d892fd",
+      "code": "slt-00032",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-10",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "95313ab4-d08d-449c-9001-20126c64d32f",
+      "code": "slt-00033",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-13",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "09aa6515-4014-4e2b-a7d2-6f5414c04967",
+      "code": "slt-00034",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-13",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "47a14f51-bb55-49fb-8aa2-c845792e6587",
+      "code": "slt-00035",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-13",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "58786a8d-2fa2-49cf-8a39-df681b937b8e",
+      "code": "slt-00036",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-13",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "21395ec0-e47f-4838-b0f9-b6cfb2e9f9ba",
+      "code": "slt-00037",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-15",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "0c60f060-f74d-4720-b3e9-76938d6768bc",
+      "code": "slt-00038",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-15",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "9f624450-29cd-4d5d-9d82-985bc5fbd1c1",
+      "code": "slt-00039",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-15",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "5e037a69-b34f-47e8-9252-3933a52ae28f",
+      "code": "slt-00040",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-15",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "6f70a497-7810-4746-9604-cbff515fcbee",
+      "code": "slt-00041",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-17",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "7b30c00b-1629-4abd-bf86-cd4d22c19e13",
+      "code": "slt-00042",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-17",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "0ce9ffbc-f54d-483a-bba0-1255bf5f2e73",
+      "code": "slt-00043",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-17",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "ca66cab2-721e-4037-b927-73be34aaefee",
+      "code": "slt-00044",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-17",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "90088c1e-c1a9-4612-a57c-d5fdb95c3f37",
+      "code": "slt-00045",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-20",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "c3995c73-9b8b-499a-abab-7f140eeac88b",
+      "code": "slt-00046",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-20",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "2a2e68d6-b366-4e6e-9288-ec794bc7da05",
+      "code": "slt-00047",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-20",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "e482e99b-583b-419c-ad22-188403e9d300",
+      "code": "slt-00048",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-20",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "f375cd58-b85f-4b31-af14-b125e1a40cae",
+      "code": "slt-00049",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-22",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "3a5b9d44-5818-4340-aa20-1d7967dc9419",
+      "code": "slt-00050",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-22",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "31298dcf-977f-43bd-9816-cade2fdfda56",
+      "code": "slt-00051",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-22",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "3dd854ab-9410-4dfd-be92-3602e3ae94cd",
+      "code": "slt-00052",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-22",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "a482bc77-64b3-457f-b7cf-3d1ff94c8b44",
+      "code": "slt-00053",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-24",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "c61cb23d-68aa-4a64-8a97-7f22bffd1e53",
+      "code": "slt-00054",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-24",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "a4ce081c-99e5-4fc3-b3fc-88a674584d75",
+      "code": "slt-00055",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-24",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "78ff4d05-8bc7-4cae-9add-ad3a7460a126",
+      "code": "slt-00056",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-24",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "b4bcd4d6-4061-4e89-a90d-2a1526fedb5f",
+      "code": "slt-00057",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-27",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "5f9d111e-b49d-4043-bd74-fb376233169b",
+      "code": "slt-00058",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-27",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "87a31ee2-563c-47b2-89d0-31c9fe4376e3",
+      "code": "slt-00059",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-27",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "5447fa17-5d77-47bb-9365-e3d8a1b49a22",
+      "code": "slt-00060",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-27",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "6546185f-5d59-4885-b00e-1b843e1ef73c",
+      "code": "slt-00061",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-29",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "37d2364c-621a-49ca-8214-dd83aa60fd7d",
+      "code": "slt-00062",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-29",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "fe607599-d30e-47f4-8290-6730cc7d3e3f",
+      "code": "slt-00063",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-29",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "8e0ab73a-7a0f-4773-a7df-2fe382a17ca9",
+      "code": "slt-00064",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-29",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "8fe06ed5-7e1c-483c-83ed-0ebcfdaae412",
+      "code": "slt-00065",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-31",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "d3b1a268-6ab3-45c0-9052-7e77f057a38c",
+      "code": "slt-00066",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-07-31",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "cf8693c4-db3e-428f-883f-a4c98b4beb63",
+      "code": "slt-00067",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-31",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "9659e70c-55f8-49c1-9c1a-47a34d5157e6",
+      "code": "slt-00068",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-07-31",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "62dee6ae-ae51-46fd-89c0-6d94a2e610ec",
+      "code": "slt-00069",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-03",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "86a26d0f-374a-45f5-9cab-67cd2a418389",
+      "code": "slt-00070",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-03",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "2d80088b-973b-4163-9a85-4fd27490e32f",
+      "code": "slt-00071",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-03",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "60d6763b-b558-443e-813c-afee66b5571c",
+      "code": "slt-00072",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-03",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "e6db24fb-6c32-4988-9047-370955f3fd44",
+      "code": "slt-00073",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-05",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "284c628a-7f76-427b-a1c8-2f157ca96c82",
+      "code": "slt-00074",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-05",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "1d64dfdf-96d7-4516-9f48-0475df2136e3",
+      "code": "slt-00075",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-05",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "2e995cac-9f52-497b-bbbc-27f71d3d9087",
+      "code": "slt-00076",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-05",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "86d27cf9-0c54-4ea7-a8f8-5373c09997de",
+      "code": "slt-00077",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-07",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "f91915d5-30e9-4002-97a1-fc5e4f9b36a2",
+      "code": "slt-00078",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-07",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "c9da9417-163e-4f0b-9fa0-585691d18aa1",
+      "code": "slt-00079",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-07",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "0ac03973-2489-4fc6-96b4-964c30736b22",
+      "code": "slt-00080",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-07",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "fbb3f441-54f1-43cd-bda6-e22a1cdfe25d",
+      "code": "slt-00081",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-10",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "1f088151-7f72-4373-89c0-36334308da05",
+      "code": "slt-00082",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-10",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "f0ee26e8-dbe3-464f-8d4a-7206bfb59ee1",
+      "code": "slt-00083",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-10",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "def1f7dc-6778-46ef-b16d-617beee659ed",
+      "code": "slt-00084",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-10",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "ba3506fd-e9de-4b7b-b317-a0fa4a01ec5c",
+      "code": "slt-00085",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-12",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "059aae9e-9bd4-4a36-a6c6-c5f56fa6f64f",
+      "code": "slt-00086",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-12",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "66c84f93-b720-4ff4-b845-65d9c8b0f91c",
+      "code": "slt-00087",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-12",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "df614be9-10ea-441a-bb39-6e36d92b9387",
+      "code": "slt-00088",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-12",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "6f3e5f3d-5c44-4611-bb97-8c35fb984171",
+      "code": "slt-00089",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-14",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "76f1d92d-4f0c-4e97-bfbb-39751021f884",
+      "code": "slt-00090",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-14",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "da8ecf5a-51de-4a00-932d-4a192e1fa45a",
+      "code": "slt-00091",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-14",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "c9051392-7da3-4788-869a-0fe8d69d8bd3",
+      "code": "slt-00092",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-14",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "0e9b1e8d-a667-4bcb-907c-98586d07166b",
+      "code": "slt-00093",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-17",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "38528f61-f2e2-44de-afb6-361978f898a6",
+      "code": "slt-00094",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-17",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "15e562a1-480e-4756-aa5d-9b663e2320b3",
+      "code": "slt-00095",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-17",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "385f645a-6d5a-41b3-865d-9602d8c6e5e8",
+      "code": "slt-00096",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-17",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "60698e04-3852-4af5-b3cf-0f9d120a133d",
+      "code": "slt-00097",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-19",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "a5ac0f99-afba-47c3-91da-ec0ad328df23",
+      "code": "slt-00098",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-19",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "c8ae4249-706f-4507-ab9c-0a57260cf413",
+      "code": "slt-00099",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-19",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "f2423115-0811-42bf-957c-86fbac6c1cc0",
+      "code": "slt-00100",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-19",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "96b20b4f-3d58-4ed9-931c-259900a6b807",
+      "code": "slt-00101",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-21",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "9f496e0f-5b4d-47d0-9fff-8ca61f809ddd",
+      "code": "slt-00102",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-21",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "24dc3956-aeb4-4d17-b8b4-d96a5694d923",
+      "code": "slt-00103",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-21",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "dcaba922-6786-48b4-a6e1-43d350e20493",
+      "code": "slt-00104",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-21",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "6e854955-63d7-4151-b20a-ed5289b3caa2",
+      "code": "slt-00105",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-24",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "cd6fd69d-15c8-434e-82f7-c4c3ac54ccfa",
+      "code": "slt-00106",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-24",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "d285288b-ffb4-4a79-a8fe-5d9f1540f947",
+      "code": "slt-00107",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-24",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "8443a668-2d2f-4fe3-9ff5-eeed0fe78abf",
+      "code": "slt-00108",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-24",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "b50c3cbd-61cd-470b-8ad3-746f971d9d19",
+      "code": "slt-00109",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-26",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "6b3c6bd4-041c-42a9-b892-0c0b8ccf37a9",
+      "code": "slt-00110",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-26",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "27670893-830c-4e26-aa6e-ed66f0fc4b8a",
+      "code": "slt-00111",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-26",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    },
+    {
+      "id": "f032e287-e011-407a-a32f-0661ea232dbb",
+      "code": "slt-00112",
+      "doctorId": "7b67787f-b325-48b7-9bd8-66be612827f6",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-26",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "a0378364-b61d-4768-8f56-c8b8d842a678",
+      "code": "slt-00113",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-28",
+      "startTime": "15:00",
+      "endTime": "15:30",
+      "status": "available"
+    },
+    {
+      "id": "7526fa1b-4b7e-488c-a43c-4101c1dfe39f",
+      "code": "slt-00114",
+      "doctorId": "96807b70-ad1e-44ec-a87e-a85c05fbfb1a",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-28",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "7e609093-c6de-4ab4-891e-1d710b64ce6c",
+      "code": "slt-00115",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-28",
+      "startTime": "09:00",
+      "endTime": "09:30",
+      "status": "available"
+    },
+    {
+      "id": "466f5a15-dda9-470c-9dbe-0e59f5cf8f51",
+      "code": "slt-00116",
+      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
+      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
+      "date": "2026-08-28",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "72b57619-49c0-461a-b73f-798b2ab0fcf4",
+      "code": "slt-00117",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-31",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "status": "available"
+    },
+    {
+      "id": "da7c47c6-cd38-4588-9da4-718f6493b023",
+      "code": "slt-00118",
+      "doctorId": "8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-31",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "9540d7bd-d730-4e06-a0dc-fb4af2084907",
+      "code": "slt-00119",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-31",
+      "startTime": "16:30",
+      "endTime": "17:00",
+      "status": "available"
+    },
+    {
+      "id": "afd0eb09-ab35-4f55-97e9-691794469e7f",
+      "code": "slt-00120",
+      "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
+      "branchId": "e9530934-b5eb-48a0-8d9c-3c9bb2d6420a",
+      "date": "2026-08-31",
+      "startTime": "10:00",
+      "endTime": "10:30",
+      "status": "available"
+    }
   ],
   "appointments": [
     {
