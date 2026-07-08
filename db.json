@@ -2220,8 +2220,8 @@
       "patientName": "Alex Mercer Reed",
       "providerName": "Dra. Valeria Rivas Montoya",
       "value": 150,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     },
     {
       "id": "6f0c4b79-dbad-40da-916d-2d0f14379ab6",
@@ -2231,8 +2231,8 @@
       "patientName": "Alex Mercer Reed",
       "providerName": "Dr. Diego Ramirez Soto",
       "value": 180,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "cleared"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     },
     {
       "id": "c52b055a-678d-4533-95c8-f16cefef6ecc",
@@ -2242,8 +2242,8 @@
       "patientName": "Sofía García López",
       "providerName": "Dra. Valeria Rivas Montoya",
       "value": 150,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "In Clearinghouse"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     },
     {
       "id": "60ff33c1-4653-4351-97fb-71d482694a49",
@@ -2253,8 +2253,8 @@
       "patientName": "Andrés Martínez Díaz",
       "providerName": "Dr. Roberto Vargas Paredes",
       "value": 200,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "cleared"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     },
     {
       "id": "9ad2b15b-6a60-4c87-b955-1f8503f00549",
@@ -2264,8 +2264,8 @@
       "patientName": "Luciana Fernández Ruiz",
       "providerName": "Dr. Diego Ramirez Soto",
       "value": 160,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "cleared"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     },
     {
       "id": "2dafce99-d261-43a6-a765-16a21a6206a9",
@@ -2276,7 +2276,7 @@
       "providerName": "Dra. María Elena Costa Bravo",
       "value": 220,
       "clinicalCompliance": "pending",
-      "cycleStatus": "In Clearinghouse"
+      "cycleStatus": "submitted"
     },
     {
       "id": "0d3f1e9d-3f21-44ff-85d8-9acb26940995",
@@ -2297,8 +2297,8 @@
       "patientName": "Luciana Fernández Ruiz",
       "providerName": "Dra. Valeria Rivas Montoya",
       "value": 170,
-      "clinicalCompliance": "verified",
-      "cycleStatus": "cleared"
+      "clinicalCompliance": "pending",
+      "cycleStatus": "submitted"
     }
   ],
   "medicalOrders": [
