@@ -476,6 +476,41 @@
       "name": "Salbutamol",
       "unitQuantity": 100,
       "unitType": "mcg"
+    },
+    {
+      "id": "89ad2eec-d051-4d40-95d0-c5affd3c9fb8",
+      "code": "med-00014",
+      "name": "Prednisona",
+      "unitQuantity": 20,
+      "unitType": "mg"
+    },
+    {
+      "id": "c5f5ee0b-bc19-4eda-8f1a-d98106380901",
+      "code": "med-00015",
+      "name": "Cefalexina",
+      "unitQuantity": 500,
+      "unitType": "mg"
+    },
+    {
+      "id": "3c8ffb95-a12e-44ec-a72d-fc28b7e67197",
+      "code": "med-00016",
+      "name": "Fluconazol",
+      "unitQuantity": 150,
+      "unitType": "mg"
+    },
+    {
+      "id": "509f3a2c-1fdb-4d4a-bf6e-21d2b55f63e2",
+      "code": "med-00017",
+      "name": "Naproxeno",
+      "unitQuantity": 550,
+      "unitType": "mg"
+    },
+    {
+      "id": "cb1d7d96-6514-4a08-9d79-8f58f7126ca8",
+      "code": "med-00018",
+      "name": "Clotrimazol",
+      "unitQuantity": 1,
+      "unitType": "unit"
     }
   ],
   "branchMedicines": [
