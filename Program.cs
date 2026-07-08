@@ -78,6 +78,7 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 builder.Services.AddProblemDetails();
+builder.Services.AddHttpClient();
 
 
 //Builders Scheduling Bounded Context
