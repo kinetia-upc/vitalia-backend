@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -11,10 +12,16 @@ public record BranchMedicineResource(string BranchId, Guid MedicineId, int Stock
 [ApiController]
 [Route("api/v1/branchMedicines")]
 [Produces(MediaTypeNames.Application.Json)]
+[SwaggerTag("Branch medicines endpoints")]
 public class BranchMedicinesController(AppDbContext context) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetBranchMedicines([FromQuery] string? branchId, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "List branch medicines", Description = "Returns branch medicine inventory entries, optionally filtered by branch.")]
+    [SwaggerResponse(200, "The list of branch medicines was returned.", typeof(IEnumerable<BranchMedicine>))]
+    public async Task<IActionResult> GetBranchMedicines(
+        [FromQuery, SwaggerParameter("Optional branch business id used to filter inventory.")]
+        string? branchId,
+        CancellationToken cancellationToken)
     {
         var query = context.BranchMedicines.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(branchId))
@@ -23,7 +30,15 @@ public class BranchMedicinesController(AppDbContext context) : ControllerBase
     }
 
     [HttpGet("branches/{branchId}/medicines/{medicineId:guid}")]
-    public async Task<IActionResult> GetBranchMedicine([FromRoute] string branchId, [FromRoute] Guid medicineId, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Get a branch medicine", Description = "Returns one inventory entry by branch id and medicine UUID.")]
+    [SwaggerResponse(200, "The branch medicine was found.", typeof(BranchMedicine))]
+    [SwaggerResponse(404, "No branch medicine exists for the given ids.")]
+    public async Task<IActionResult> GetBranchMedicine(
+        [FromRoute, SwaggerParameter("Business id of the branch.")]
+        string branchId,
+        [FromRoute, SwaggerParameter("UUID of the medicine.")]
+        Guid medicineId,
+        CancellationToken cancellationToken)
     {
         var branchMedicine = await context.BranchMedicines.AsNoTracking()
             .FirstOrDefaultAsync(item => item.BranchId == branchId && item.MedicineId == medicineId, cancellationToken);
@@ -31,7 +46,13 @@ public class BranchMedicinesController(AppDbContext context) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBranchMedicine([FromBody] BranchMedicineResource resource, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Create a branch medicine", Description = "Creates an inventory entry for a medicine in a branch.")]
+    [SwaggerResponse(201, "The branch medicine was created.", typeof(BranchMedicine))]
+    [SwaggerResponse(409, "The branch already has an inventory entry for this medicine.")]
+    public async Task<IActionResult> CreateBranchMedicine(
+        [FromBody, SwaggerParameter("Data for the new branch medicine inventory entry.")]
+        BranchMedicineResource resource,
+        CancellationToken cancellationToken)
     {
         var exists = await context.BranchMedicines.AnyAsync(item => item.BranchId == resource.BranchId && item.MedicineId == resource.MedicineId, cancellationToken);
         if (exists) return Conflict(new { message = "Branch medicine already exists." });
@@ -43,9 +64,18 @@ public class BranchMedicinesController(AppDbContext context) : ControllerBase
     }
 
     [HttpPut("branches/{branchId}/medicines/{medicineId:guid}")]
+    [SwaggerOperation(Summary = "Update a branch medicine", Description = "Updates stock and price for a branch medicine inventory entry.")]
+    [SwaggerResponse(200, "The branch medicine was updated.", typeof(BranchMedicineResource))]
+    [SwaggerResponse(404, "No branch medicine exists for the given ids.")]
+    [SwaggerResponse(409, "The target branch already has this medicine assigned.")]
     public async Task<IActionResult> UpdateBranchMedicine(
-        [FromRoute] string branchId, [FromRoute] Guid medicineId,
-        [FromBody] BranchMedicineResource resource, CancellationToken cancellationToken)
+        [FromRoute, SwaggerParameter("Business id of the branch.")]
+        string branchId,
+        [FromRoute, SwaggerParameter("UUID of the medicine.")]
+        Guid medicineId,
+        [FromBody, SwaggerParameter("New data for the branch medicine inventory entry.")]
+        BranchMedicineResource resource,
+        CancellationToken cancellationToken)
     {
         var branchMedicine = await context.BranchMedicines
             .FirstOrDefaultAsync(item => item.BranchId == branchId && item.MedicineId == medicineId, cancellationToken);
@@ -71,8 +101,15 @@ public class BranchMedicinesController(AppDbContext context) : ControllerBase
     }
 
     [HttpDelete("branches/{branchId}/medicines/{medicineId:guid}")]
+    [SwaggerOperation(Summary = "Delete a branch medicine", Description = "Permanently removes a medicine inventory entry from a branch.")]
+    [SwaggerResponse(204, "The branch medicine was deleted.")]
+    [SwaggerResponse(404, "No branch medicine exists for the given ids.")]
     public async Task<IActionResult> DeleteBranchMedicine(
-        [FromRoute] string branchId, [FromRoute] Guid medicineId, CancellationToken cancellationToken)
+        [FromRoute, SwaggerParameter("Business id of the branch.")]
+        string branchId,
+        [FromRoute, SwaggerParameter("UUID of the medicine.")]
+        Guid medicineId,
+        CancellationToken cancellationToken)
     {
         var branchMedicine = await context.BranchMedicines
             .FirstOrDefaultAsync(item => item.BranchId == branchId && item.MedicineId == medicineId, cancellationToken);
