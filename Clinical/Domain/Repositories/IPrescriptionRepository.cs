@@ -8,4 +8,10 @@ public interface IPrescriptionRepository : IBaseRepository<Prescription>
     Task<IEnumerable<Prescription>> FindAllByMedicalRecordIdAsync(
         Guid medicalRecordId,
         CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByCodeAsync(
+        string code,
+        CancellationToken cancellationToken = default);
+
+    Task<int> GetMaxCodeNumberAsync(string prefix, CancellationToken cancellationToken = default);
 }
