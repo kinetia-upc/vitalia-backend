@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Iam.Domain.Model.Aggregates;
 using VitaliaBackend.Iam.Infrastructure.Security;
 using VitaliaBackend.Iam.Interfaces.Rest.Resources;
@@ -11,12 +12,19 @@ namespace VitaliaBackend.Iam.Interfaces.Rest;
 [ApiController]
 [Route("api/v1/authentication")]
 [Produces(MediaTypeNames.Application.Json)]
+[SwaggerTag("Authentication endpoints")]
 public class AuthenticationController(AppDbContext context, IConfiguration configuration) : ControllerBase
 {
     private static readonly HashSet<string> AllowedRoles = ["admin", "doctor", "patient"];
 
     [HttpPost("signIn")]
-    public async Task<IActionResult> SignIn([FromBody] SignInResource resource, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Sign in", Description = "Authenticates an active user and returns a JWT bearer token.")]
+    [SwaggerResponse(200, "The user was authenticated.", typeof(AuthenticatedUserResource))]
+    [SwaggerResponse(401, "The email or password is invalid, or the user is inactive.")]
+    public async Task<IActionResult> SignIn(
+        [FromBody, SwaggerParameter("Credentials used to authenticate the user.")]
+        SignInResource resource,
+        CancellationToken cancellationToken)
     {
         var email = resource.Email.Trim().ToLowerInvariant();
         var user = await context.Users.FirstOrDefaultAsync(item => item.Email == email, cancellationToken);
@@ -28,7 +36,14 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
     }
 
     [HttpPost("signUp")]
-    public async Task<IActionResult> SignUp([FromBody] SignUpResource resource, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Sign up", Description = "Registers a new active user and stores a hashed password.")]
+    [SwaggerResponse(201, "The user was registered.", typeof(UserResource))]
+    [SwaggerResponse(400, "The requested role is not supported.")]
+    [SwaggerResponse(409, "A user with the same email already exists.")]
+    public async Task<IActionResult> SignUp(
+        [FromBody, SwaggerParameter("Data for the new user account.")]
+        SignUpResource resource,
+        CancellationToken cancellationToken)
     {
         var email = resource.Email.Trim().ToLowerInvariant();
         var role = resource.Role.Trim().ToLowerInvariant();
