@@ -5,5 +5,6 @@ public record UpdateHealthcareCenterCommand(
     string HealthcareCenterName,
     DateOnly? AllianceStartDate,
     DateOnly? AllianceFinishDate,
-    string? RucNumber
+    string? RucNumber,
+    string? ImageUrl
 );

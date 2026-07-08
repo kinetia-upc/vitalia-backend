@@ -19,6 +19,7 @@ public class HealthcareCenter : IAuditableEntity
     public DateOnly? AllianceStartDate { get; private set; }
     public DateOnly? AllianceFinishDate { get; private set; }
     public string? RucNumber { get; private set; }
+    public string? ImageUrl { get; private set; }
 
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
@@ -34,7 +35,8 @@ public class HealthcareCenter : IAuditableEntity
         string name,
         DateOnly? allianceStartDate,
         DateOnly? allianceFinishDate,
-        string? rucNumber)
+        string? rucNumber,
+        string? imageUrl = null)
     {
         Id = Guid.NewGuid();
         Code = publicId.Trim();
@@ -42,9 +44,10 @@ public class HealthcareCenter : IAuditableEntity
         AllianceStartDate = allianceStartDate;
         AllianceFinishDate = allianceFinishDate;
         RucNumber = rucNumber?.Trim();
+        ImageUrl = imageUrl?.Trim();
     }
 
-    public HealthcareCenter(Guid id, string code, string name, DateOnly? allianceStartDate, DateOnly? allianceFinishDate, string? rucNumber)
+    public HealthcareCenter(Guid id, string code, string name, DateOnly? allianceStartDate, DateOnly? allianceFinishDate, string? rucNumber, string? imageUrl = null)
     {
         Id = id == Guid.Empty ? Guid.NewGuid() : id;
         Code = code.Trim();
@@ -52,17 +55,20 @@ public class HealthcareCenter : IAuditableEntity
         AllianceStartDate = allianceStartDate;
         AllianceFinishDate = allianceFinishDate;
         RucNumber = rucNumber?.Trim();
+        ImageUrl = imageUrl?.Trim();
     }
 
     public void UpdateDetails(
         string name,
         DateOnly? allianceStartDate,
         DateOnly? allianceFinishDate,
-        string? rucNumber)
+        string? rucNumber,
+        string? imageUrl = null)
     {
         Name = name.Trim();
         AllianceStartDate = allianceStartDate;
         AllianceFinishDate = allianceFinishDate;
         RucNumber = rucNumber?.Trim();
+        ImageUrl = imageUrl?.Trim();
     }
 }
