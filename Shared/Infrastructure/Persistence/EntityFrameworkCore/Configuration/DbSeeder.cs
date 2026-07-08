@@ -420,8 +420,8 @@ public static class DbSeeder
                     var description = item.GetProperty("description").GetString() ?? "";
 
                     var cie10Code = item.TryGetProperty("cie10Code", out var cie10CodeProp)
-                        ? cie10CodeProp.GetString() ?? code
-                        : code;
+                        ? cie10CodeProp.GetString() ?? ""
+                        : "";
                     var source = item.TryGetProperty("diagnosisCatalogSource", out var sourceProp) &&
                                  Enum.TryParse<DiagnosisCatalogSource>(sourceProp.GetString(), true, out var parsedSource)
                         ? parsedSource
