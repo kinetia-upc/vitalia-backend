@@ -2,6 +2,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VitaliaBackend.Iam.Domain.Model.Aggregates;
+using VitaliaBackend.Iam.Infrastructure.Security;
 using VitaliaBackend.Iam.Interfaces.Rest.Resources;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -46,6 +47,9 @@ public class UsersController(AppDbContext context) : ControllerBase
             resource.IsActive,
             resource.Address,
             resource.Role);
+
+        if (!string.IsNullOrWhiteSpace(resource.Password))
+            user.UpdatePasswordHash(PasswordHashingService.Hash(resource.Password));
 
         await context.SaveChangesAsync(cancellationToken);
         return Ok(ToResource(user));

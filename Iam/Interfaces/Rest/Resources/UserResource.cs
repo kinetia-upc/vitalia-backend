@@ -14,4 +14,5 @@ public record UserResource(
     string Gender,
     bool IsActive,
     string Address,
-    string Role);
+    string Role,
+    string? Password = null);
