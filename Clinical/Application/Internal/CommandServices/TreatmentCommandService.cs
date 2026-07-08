@@ -37,6 +37,7 @@ public class TreatmentCommandService(
         try
         {
             await treatmentRepository.AddAsync(treatment, cancellationToken);
+            medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result<Treatment>.Success(treatment);
         }
@@ -71,10 +72,12 @@ public class TreatmentCommandService(
                 localizer[nameof(ClinicalError.TreatmentNotFound)]);
 
         treatment.UpdateDescription(command.Description);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(treatment.MedicalRecordId, cancellationToken);
 
         try
         {
             treatmentRepository.Update(treatment);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result<Treatment>.Success(treatment);
         }
@@ -101,9 +104,12 @@ public class TreatmentCommandService(
                 ClinicalError.TreatmentNotFound,
                 localizer[nameof(ClinicalError.TreatmentNotFound)]);
 
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(treatment.MedicalRecordId, cancellationToken);
+
         try
         {
             treatmentRepository.Remove(treatment);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result.Success();
         }

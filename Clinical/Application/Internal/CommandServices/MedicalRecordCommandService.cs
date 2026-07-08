@@ -68,7 +68,7 @@ public class MedicalRecordCommandService(
             try
             {
                 await medicalRecordRepository.AddAsync(medicalRecord, cancellationToken);
-                appointment.ChangeStatus(EAppointmentStatus.Released);
+                appointment.StartAttention();
                 appointmentRepository.Update(appointment);
                 await unitOfWork.CompleteAsync(cancellationToken);
 

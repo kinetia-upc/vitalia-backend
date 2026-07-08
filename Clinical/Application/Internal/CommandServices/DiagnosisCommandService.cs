@@ -61,6 +61,7 @@ public class DiagnosisCommandService(
         try
         {
             await diagnosisRepository.AddAsync(diagnosis, cancellationToken);
+            medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result<Diagnosis>.Success(diagnosis);
         }
@@ -116,6 +117,7 @@ public class DiagnosisCommandService(
         try
         {
             diagnosisRepository.Update(diagnosis);
+            medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result<Diagnosis>.Success(diagnosis);
         }
@@ -142,9 +144,12 @@ public class DiagnosisCommandService(
                 ClinicalError.DiagnosisNotFound,
                 localizer[nameof(ClinicalError.DiagnosisNotFound)]);
 
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(diagnosis.MedicalRecordId, cancellationToken);
+
         try
         {
             diagnosisRepository.Remove(diagnosis);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
             return Result.Success();
         }

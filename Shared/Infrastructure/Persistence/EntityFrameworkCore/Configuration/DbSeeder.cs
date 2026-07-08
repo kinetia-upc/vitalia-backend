@@ -505,6 +505,7 @@ public static class DbSeeder
             if (!context.PrescriptionDetails.Any() && root.TryGetProperty("prescriptionDetails", out var pdProp) && prescriptionIdMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Prescription Details...");
+                var prescriptionDetailTimestamps = new List<(Guid PrescriptionId, Guid MedicineId, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in pdProp.EnumerateArray())
                 {
                     var mockPrescriptionId = item.GetProperty("prescriptionId").GetString() ?? "";
@@ -519,8 +520,11 @@ public static class DbSeeder
                     var duration = item.GetProperty("duration").GetInt32();
 
                     context.PrescriptionDetails.Add(new PrescriptionDetail(prescriptionId, medicineId, quantity, frequency, duration));
+                    prescriptionDetailTimestamps.Add((prescriptionId, medicineId, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
                 await context.SaveChangesAsync();
+                foreach (var (prescriptionId, medicineId, createdAt, updatedAt) in prescriptionDetailTimestamps)
+                    await StampPrescriptionDetailTimestampsAsync(context, prescriptionId, medicineId, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Prescription Details successfully.");
             }
 
@@ -709,6 +713,24 @@ public static class DbSeeder
         await context.Database.ExecuteSqlRawAsync(
             $"UPDATE {tableName} SET created_at = {{0}}, updated_at = {{1}} WHERE id = {{2}}",
             createdAt, updatedAt, id);
+    }
+
+    /// <summary>
+    ///     Same as <see cref="StampAuditTimestampsAsync" /> but for prescription_details, whose
+    ///     primary key is the composite (prescription_id, medicine_id) instead of a single id column.
+    /// </summary>
+    private static async Task StampPrescriptionDetailTimestampsAsync(
+        AppDbContext context,
+        Guid prescriptionId,
+        Guid medicineId,
+        DateTimeOffset? createdAt,
+        DateTimeOffset? updatedAt)
+    {
+        if (createdAt is null && updatedAt is null) return;
+
+        await context.Database.ExecuteSqlRawAsync(
+            "UPDATE prescription_details SET created_at = {0}, updated_at = {1} WHERE prescription_id = {2} AND medicine_id = {3}",
+            createdAt, updatedAt, prescriptionId, medicineId);
     }
 
     private static async Task SeedDiagnosisCatalogAsync(AppDbContext context)
