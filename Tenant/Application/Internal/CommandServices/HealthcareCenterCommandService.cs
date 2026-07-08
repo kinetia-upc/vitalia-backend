@@ -36,7 +36,8 @@ public class HealthcareCenterCommandService(
             command.HealthcareCenterName,
             command.AllianceStartDate,
             command.AllianceFinishDate,
-            command.RucNumber);
+            command.RucNumber,
+            command.ImageUrl);
 
         try
         {
@@ -76,7 +77,8 @@ public class HealthcareCenterCommandService(
             command.HealthcareCenterName,
             command.AllianceStartDate,
             command.AllianceFinishDate,
-            command.RucNumber);
+            command.RucNumber,
+            command.ImageUrl);
 
         try
         {

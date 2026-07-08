@@ -420,8 +420,8 @@ public static class DbSeeder
                     var description = item.GetProperty("description").GetString() ?? "";
 
                     var cie10Code = item.TryGetProperty("cie10Code", out var cie10CodeProp)
-                        ? cie10CodeProp.GetString() ?? code
-                        : code;
+                        ? cie10CodeProp.GetString() ?? ""
+                        : "";
                     var source = item.TryGetProperty("diagnosisCatalogSource", out var sourceProp) &&
                                  Enum.TryParse<DiagnosisCatalogSource>(sourceProp.GetString(), true, out var parsedSource)
                         ? parsedSource
@@ -585,7 +585,10 @@ public static class DbSeeder
                     var type = item.GetProperty("type").GetString() ?? "other";
                     var description = item.GetProperty("description").GetString() ?? "";
                     var status = item.GetProperty("status").GetString() ?? "pending";
-                    context.MedicalOrders.Add(new MedicalOrder(id, code, patientId, doctorId, appointmentId, medicalRecordId, type, description, status));
+                    var priority = item.TryGetProperty("priority", out var priorityProp) ? priorityProp.GetString() ?? "routine" : "routine";
+                    var review = item.TryGetProperty("review", out var reviewProp) ? reviewProp.GetString() ?? "" : "";
+                    var signed = item.TryGetProperty("signed", out var signedProp) && signedProp.ValueKind == JsonValueKind.True;
+                    context.MedicalOrders.Add(new MedicalOrder(id, code, patientId, doctorId, appointmentId, medicalRecordId, type, description, status, priority, review, signed));
                     medicalOrderTimestamps.Add((id, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
 
@@ -624,8 +627,11 @@ public static class DbSeeder
                         JsonValueKind.Number => rucProp.GetInt64().ToString(),
                         _ => null
                     };
+                    var imageUrl = item.TryGetProperty("imageUrl", out var imageUrlProp) && imageUrlProp.ValueKind == JsonValueKind.String
+                        ? imageUrlProp.GetString()
+                        : null;
 
-                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
+                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber, imageUrl));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Healthcare Centers successfully.");

@@ -24,7 +24,40 @@ public class AppointmentFeeCommandService(
                 TenantError.AppointmentFeeCreationError,
                 localizer[nameof(TenantError.AppointmentFeeCreationError)]);
 
-        var existsDuplicate = await appointmentFeeRepository.ExistsByPublicIdAsync(command.Code, cancellationToken: cancellationToken);
+        var existingFee = await appointmentFeeRepository.FindByBranchAndSpecialityAsync(
+            command.BranchId,
+            command.SpecialityId,
+            cancellationToken);
+
+        if (existingFee is not null)
+        {
+            existingFee.UpdateDetails(command.BranchId, command.SpecialityId, command.Price);
+
+            try
+            {
+                appointmentFeeRepository.Update(existingFee);
+                await unitOfWork.CompleteAsync(cancellationToken);
+                return Result<AppointmentFee>.Success(existingFee);
+            }
+            catch (OperationCanceledException)
+            {
+                return Result<AppointmentFee>.Failure(TenantError.OperationCancelled, localizer[nameof(TenantError.OperationCancelled)]);
+            }
+            catch (DbUpdateException)
+            {
+                return Result<AppointmentFee>.Failure(TenantError.DatabaseError, localizer[nameof(TenantError.DatabaseError)]);
+            }
+            catch (Exception)
+            {
+                return Result<AppointmentFee>.Failure(TenantError.InternalServerError, localizer[nameof(TenantError.InternalServerError)]);
+            }
+        }
+
+        var code = string.IsNullOrWhiteSpace(command.Code)
+            ? GenerateCode()
+            : command.Code.Trim();
+
+        var existsDuplicate = await appointmentFeeRepository.ExistsByPublicIdAsync(code, cancellationToken: cancellationToken);
 
         if (existsDuplicate)
             return Result<AppointmentFee>.Failure(
@@ -32,7 +65,7 @@ public class AppointmentFeeCommandService(
                 localizer[nameof(TenantError.AppointmentFeeCreationError)]);
 
         var appointmentFee = new AppointmentFee(
-            command.Code,
+            code,
             command.BranchId,
             command.SpecialityId,
             command.Price);
@@ -125,5 +158,10 @@ public class AppointmentFeeCommandService(
     private static bool IsValid(string branchId, decimal price)
     {
         return !string.IsNullOrWhiteSpace(branchId) && price >= 0;
+    }
+
+    private static string GenerateCode()
+    {
+        return $"fee-{Guid.NewGuid():N}"[..16];
     }
 }

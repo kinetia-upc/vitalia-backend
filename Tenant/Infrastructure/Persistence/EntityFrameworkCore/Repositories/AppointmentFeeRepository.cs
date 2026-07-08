@@ -17,6 +17,18 @@ public class AppointmentFeeRepository(AppDbContext context)
             .FirstOrDefaultAsync(appointmentFee => appointmentFee.Code == publicId, cancellationToken);
     }
 
+    public async Task<AppointmentFee?> FindByBranchAndSpecialityAsync(
+        string branchId,
+        string? specialityId,
+        CancellationToken cancellationToken = default)
+    {
+        return await Context.Set<AppointmentFee>()
+            .FirstOrDefaultAsync(appointmentFee =>
+                    appointmentFee.BranchId == branchId
+                    && appointmentFee.SpecialityId == specialityId,
+                cancellationToken);
+    }
+
     public async Task<bool> ExistsByPublicIdAsync(
         string publicId,
         string? excludingPublicId = null,

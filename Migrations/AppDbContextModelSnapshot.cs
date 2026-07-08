@@ -224,6 +224,22 @@ namespace VitaliaBackend.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("patient_id");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)")
+                        .HasColumnName("priority");
+
+                    b.Property<string>("Review")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("review");
+
+                    b.Property<bool>("Signed")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("signed");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -936,6 +952,11 @@ namespace VitaliaBackend.Migrations
                     b.Property<DateTimeOffset?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("image_url");
 
                     b.Property<string>("Name")
                         .IsRequired()

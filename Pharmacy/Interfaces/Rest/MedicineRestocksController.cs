@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using VitaliaBackend.Pharmacy.Domain.Model.Aggregates;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
@@ -11,10 +12,16 @@ public record CreateMedicineRestockResource(string Code, string BranchId, Guid M
 [ApiController]
 [Route("api/v1/medicineRestocks")]
 [Produces(MediaTypeNames.Application.Json)]
+[SwaggerTag("Medicine restocks endpoints")]
 public class MedicineRestocksController(AppDbContext context) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetMedicineRestocks([FromQuery] string? branchId, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "List medicine restocks", Description = "Returns medicine restock records, optionally filtered by branch.")]
+    [SwaggerResponse(200, "The list of medicine restocks was returned.", typeof(IEnumerable<MedicineRestock>))]
+    public async Task<IActionResult> GetMedicineRestocks(
+        [FromQuery, SwaggerParameter("Optional branch business id used to filter restocks.")]
+        string? branchId,
+        CancellationToken cancellationToken)
     {
         var query = context.MedicineRestocks.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(branchId))
@@ -23,14 +30,27 @@ public class MedicineRestocksController(AppDbContext context) : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetMedicineRestockById([FromRoute] Guid id, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Get a medicine restock by id", Description = "Returns a single medicine restock identified by its UUID.")]
+    [SwaggerResponse(200, "The medicine restock was found.", typeof(MedicineRestock))]
+    [SwaggerResponse(404, "No medicine restock exists with the given id.")]
+    public async Task<IActionResult> GetMedicineRestockById(
+        [FromRoute, SwaggerParameter("UUID of the medicine restock.")]
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var restock = await context.MedicineRestocks.AsNoTracking().FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
         return restock is null ? NotFound() : Ok(restock);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMedicineRestock([FromBody] CreateMedicineRestockResource resource, CancellationToken cancellationToken)
+    [SwaggerOperation(Summary = "Create a medicine restock", Description = "Registers a medicine restock and increases branch inventory stock.")]
+    [SwaggerResponse(201, "The medicine restock was created.", typeof(MedicineRestock))]
+    [SwaggerResponse(400, "The quantity must be greater than zero.")]
+    [SwaggerResponse(404, "No branch medicine inventory entry exists for the given ids.")]
+    public async Task<IActionResult> CreateMedicineRestock(
+        [FromBody, SwaggerParameter("Data for the new medicine restock.")]
+        CreateMedicineRestockResource resource,
+        CancellationToken cancellationToken)
     {
         if (resource.Quantity <= 0) return BadRequest(new { message = "Quantity must be greater than zero." });
 

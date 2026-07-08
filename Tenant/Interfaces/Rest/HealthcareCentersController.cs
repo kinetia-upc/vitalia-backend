@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Annotations;
@@ -33,6 +34,7 @@ public class HealthcareCentersController(
     ProblemDetailsFactory problemDetailsFactory) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [SwaggerOperation(Summary = "List healthcare centers", Description = "Returns every healthcare center registered in the platform.")]
     [SwaggerResponse(200, "The list of healthcare centers.", typeof(IEnumerable<HealthcareCenterResource>))]
     public async Task<IActionResult> GetHealthcareCenters(CancellationToken cancellationToken)
@@ -45,6 +47,7 @@ public class HealthcareCentersController(
     }
 
     [HttpGet("{healthcareCenterId}")]
+    [AllowAnonymous]
     [SwaggerOperation(Summary = "Get a healthcare center by id", Description = "Returns a single healthcare center identified by its business id (e.g. 'hc-001').")]
     [SwaggerResponse(200, "The healthcare center was found.", typeof(HealthcareCenterResource))]
     [SwaggerResponse(404, "No healthcare center exists with the given id.")]

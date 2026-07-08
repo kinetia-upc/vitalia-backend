@@ -1,6 +1,7 @@
 using Cortex.Mediator.Commands;
 using Cortex.Mediator.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.OpenApi;
@@ -62,10 +63,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting();
 builder.Services.AddControllers()
     .AddDataAnnotationsLocalization();
-builder.Services.AddAuthentication("Bearer")
-    .AddScheme<AuthenticationSchemeOptions, JwtAuthenticationHandler>("Bearer", _ => { });
-builder.Services.AddAuthorization();
+const string bearerScheme = "Bearer";
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = bearerScheme;
+        options.DefaultChallengeScheme = bearerScheme;
+    })
+    .AddScheme<AuthenticationSchemeOptions, JwtAuthenticationHandler>(bearerScheme, _ => { });
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 builder.Services.AddProblemDetails();
+builder.Services.AddHttpClient();
 
 
 //Builders Scheduling Bounded Context
@@ -178,6 +191,17 @@ builder.Services.AddSwaggerGen(options =>
             }
         });
     options.EnableAnnotations();
+    options.AddSecurityDefinition(bearerScheme, new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Description = "JWT bearer token returned by the sign in endpoint."
+    });
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference(bearerScheme, document)] = []
+    });
 });
 
 // Shared Bounded Context
@@ -196,7 +220,7 @@ using (var scope = app.Services.CreateScope())
     {
         Console.WriteLine("[Database] Checking database connection and applying migrations...");
         context.Database.Migrate();
-        DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+        DbSeeder.SeedAsync(context).GetAwaiter().GetResult();
         Console.WriteLine("[Database] Database initialized and seeded successfully.");
     }
     catch (Exception ex)

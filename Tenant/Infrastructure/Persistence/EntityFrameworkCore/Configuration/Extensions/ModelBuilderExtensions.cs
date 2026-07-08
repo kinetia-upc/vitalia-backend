@@ -20,6 +20,7 @@ public static class ModelBuilderExtensions
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.AllianceStartDate);
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.AllianceFinishDate);
         builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.RucNumber).HasMaxLength(11);
+        builder.Entity<HealthcareCenter>().Property(healthcareCenter => healthcareCenter.ImageUrl).HasMaxLength(500);
 
         builder.Entity<Branch>().HasKey(branch => branch.Id);
         builder.Entity<Branch>().Property(branch => branch.Id).IsRequired().ValueGeneratedNever();
