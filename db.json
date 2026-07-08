@@ -648,16 +648,6 @@
       "status": "booked"
     },
     {
-      "id": "3968e9b4-e9e6-4b97-a01b-bdd5f3123fff",
-      "code": "slt-00011",
-      "doctorId": "d1010a71-61a1-42b6-a3a5-1e295eab51f8",
-      "branchId": "2638eb14-2a59-4ae2-a2b8-50bf147c1089",
-      "date": "2026-07-22",
-      "startTime": "09:00",
-      "endTime": "09:30",
-      "status": "available"
-    },
-    {
       "id": "41741d19-40b2-45a4-bcdc-7e8dbf3f3556",
       "code": "slt-00012",
       "doctorId": "1b64d891-1215-45ad-be8d-3861ffdd70ed",
@@ -695,7 +685,7 @@
       "date": "2026-07-15",
       "startTime": "09:00",
       "endTime": "09:30",
-      "status": "available"
+      "status": "booked"
     },
     {
       "id": "3fdf2d68-2b90-4bf5-84f9-ed116a7348fb",
@@ -705,7 +695,7 @@
       "date": "2026-07-15",
       "startTime": "11:30",
       "endTime": "12:00",
-      "status": "available"
+      "status": "booked"
     },
     {
       "id": "734db7d2-000f-402a-b3a0-d5be2abda260",
@@ -795,7 +785,7 @@
       "date": "2026-07-22",
       "startTime": "09:00",
       "endTime": "09:30",
-      "status": "available"
+      "status": "booked"
     },
     {
       "id": "f9e62529-6c09-474c-aa62-3851410b23b0",
@@ -2061,6 +2051,13 @@
       "medicalRecordId": "189ebef7-cfe7-407b-8b5b-675e29463ad5",
       "createdAt": "2026-07-05T10:10:00",
       "updatedAt": "2026-07-05T10:25:00"
+    },
+    {
+      "id": "9c1f7a3e-4b6d-4e2a-8f0c-2a5d7e9b6c1a",
+      "code": "prc-00006",
+      "medicalRecordId": "7383b542-265e-485c-a3e1-125de7968233",
+      "createdAt": "2026-07-01T16:15:00",
+      "updatedAt": "2026-07-01T16:15:00"
     }
   ],
   "prescriptionDetails": [
@@ -2133,6 +2130,15 @@
       "quantity": 1,
       "frequency": 8,
       "duration": 7
+    },
+    {
+      "prescriptionId": "9c1f7a3e-4b6d-4e2a-8f0c-2a5d7e9b6c1a",
+      "medicineId": "844b6ef1-8a06-4b25-bada-a14746f725cc",
+      "quantity": 1,
+      "frequency": 8,
+      "duration": 3,
+      "createdAt": "2026-07-01T16:20:00",
+      "updatedAt": "2026-07-01T16:20:00"
     }
   ],
   "billingClaims": [
