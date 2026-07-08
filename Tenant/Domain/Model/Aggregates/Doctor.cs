@@ -21,4 +21,10 @@ public class Doctor
         LicenseNumber = licenseNumber.Trim();
         CmpNumber = cmpNumber.Trim();
     }
+
+    public void UpdateDetails(string licenseNumber, string cmpNumber)
+    {
+        LicenseNumber = licenseNumber.Trim();
+        CmpNumber = cmpNumber.Trim();
+    }
 }

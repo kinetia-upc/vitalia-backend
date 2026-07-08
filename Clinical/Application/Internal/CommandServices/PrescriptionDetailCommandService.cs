@@ -65,6 +65,13 @@ public class PrescriptionDetailCommandService(
                 ClinicalError.InvalidPrescriptionDetailData,
                 localizer[nameof(ClinicalError.InvalidPrescriptionDetailData)]);
 
+        var existingDetail = await prescriptionDetailRepository.FindByPrescriptionAndMedicineAsync(
+            command.PrescriptionId, command.MedicineId, cancellationToken);
+        if (existingDetail is not null)
+            return Result<PrescriptionDetail>.Failure(
+                ClinicalError.PrescriptionDetailAlreadyExists,
+                localizer[nameof(ClinicalError.PrescriptionDetailAlreadyExists)]);
+
         if (!branchMedicine.HasEnoughStock(command.Quantity))
             return Result<PrescriptionDetail>.Failure(
                 ClinicalError.InvalidPrescriptionDetailData,
@@ -83,6 +90,7 @@ public class PrescriptionDetailCommandService(
         {
             await prescriptionDetailRepository.AddAsync(prescriptionDetail, cancellationToken);
             branchMedicineRepository.Update(branchMedicine);
+            medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
 
             return Result<PrescriptionDetail>.Success(prescriptionDetail);
@@ -137,9 +145,12 @@ public class PrescriptionDetailCommandService(
             command.Frequency,
             command.Duration);
 
+        var medicalRecord = await FindMedicalRecordByPrescriptionIdAsync(command.PrescriptionId, cancellationToken);
+
         try
         {
             prescriptionDetailRepository.Update(prescriptionDetail);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
 
             return Result<PrescriptionDetail>.Success(prescriptionDetail);
@@ -176,9 +187,12 @@ public class PrescriptionDetailCommandService(
                 ClinicalError.PrescriptionDetailNotFound,
                 localizer[nameof(ClinicalError.PrescriptionDetailNotFound)]);
 
+        var medicalRecord = await FindMedicalRecordByPrescriptionIdAsync(command.PrescriptionId, cancellationToken);
+
         try
         {
             prescriptionDetailRepository.Remove(prescriptionDetail);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
 
             return Result.Success();
@@ -213,5 +227,15 @@ public class PrescriptionDetailCommandService(
                && command.Quantity > 0
                && command.Frequency > 0
                && command.Duration > 0;
+    }
+
+    private async Task<MedicalRecord?> FindMedicalRecordByPrescriptionIdAsync(
+        Guid prescriptionId,
+        CancellationToken cancellationToken)
+    {
+        var prescription = await prescriptionRepository.FindByIdAsync(prescriptionId, cancellationToken);
+        if (prescription is null) return null;
+
+        return await medicalRecordRepository.FindByIdAsync(prescription.MedicalRecordId, cancellationToken);
     }
 }

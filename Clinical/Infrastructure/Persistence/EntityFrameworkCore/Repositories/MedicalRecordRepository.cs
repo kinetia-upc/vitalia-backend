@@ -49,4 +49,19 @@ public class MedicalRecordRepository(AppDbContext context)
         return await Context.Set<MedicalRecord>()
             .AnyAsync(medicalRecord => medicalRecord.AppointmentId == appointmentId, cancellationToken);
     }
+
+    public async Task<int> GetMaxCodeNumberAsync(string prefix, CancellationToken cancellationToken = default)
+    {
+        var codes = await Context.Set<MedicalRecord>()
+            .Where(medicalRecord => medicalRecord.Code.StartsWith(prefix))
+            .Select(medicalRecord => medicalRecord.Code)
+            .ToListAsync(cancellationToken);
+
+        return codes
+            .Select(code => code[prefix.Length..])
+            .Where(suffix => int.TryParse(suffix, out _))
+            .Select(int.Parse)
+            .DefaultIfEmpty(0)
+            .Max();
+    }
 }

@@ -238,6 +238,7 @@ public static class DbSeeder
             if (!context.MedicineRestocks.Any() && root.TryGetProperty("medicineRestocks", out var medicineRestocksProp))
             {
                 Console.WriteLine("[DbSeeder] Seeding Medicine Restocks...");
+                var restockTimestamps = new List<(Guid Id, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in medicineRestocksProp.EnumerateArray())
                 {
                     var id = Guid.Parse(item.GetProperty("id").GetString() ?? Guid.NewGuid().ToString());
@@ -247,9 +248,13 @@ public static class DbSeeder
                     var quantity = item.GetProperty("quantity").GetInt32();
                     var createdByUserId = Guid.Parse(item.GetProperty("createdByUserId").GetString() ?? Guid.Empty.ToString());
                     context.MedicineRestocks.Add(new MedicineRestock(id, code, branchId, medicineId, quantity, createdByUserId));
+                    var restockCreatedAt = ParseAuditTimestamp(item, "createdAt");
+                    restockTimestamps.Add((id, restockCreatedAt, restockCreatedAt));
                 }
 
                 await context.SaveChangesAsync();
+                foreach (var (id, createdAt, updatedAt) in restockTimestamps)
+                    await StampAuditTimestampsAsync(context, "medicine_restocks", id, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Medicine Restocks successfully.");
             }
 
@@ -337,6 +342,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Availability Slots...");
                 foreach (var item in slotsProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -349,7 +357,7 @@ public static class DbSeeder
                     var statusStr = item.GetProperty("status").GetString() ?? "available";
                     var status = Enum.TryParse<EAvailabilitySlotStatus>(statusStr, true, out var parsedStatus) ? parsedStatus : EAvailabilitySlotStatus.Available;
 
-                    context.AvailabilitySlots.Add(new AvailabilitySlot(publicId, doctorId, branchId, date, startTime, endTime, status));
+                    context.AvailabilitySlots.Add(new AvailabilitySlot(id, publicId, Guid.Parse(doctorId), branchId, date, startTime, endTime, status));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Availability Slots successfully.");
@@ -379,6 +387,12 @@ public static class DbSeeder
 
                     context.MedicalRecords.Add(mr);
                     await context.SaveChangesAsync();
+                    await StampAuditTimestampsAsync(
+                        context,
+                        "medical_records",
+                        mr.Id,
+                        ParseAuditTimestamp(item, "createdAt"),
+                        ParseAuditTimestamp(item, "updatedAt"));
                     medicalRecordCodeMap[mockId] = mr.Code;
                     medicalRecordIdMap[mockId] = mr.Id;
                 }
@@ -389,6 +403,7 @@ public static class DbSeeder
             if (!context.Diagnoses.Any() && root.TryGetProperty("diagnoses", out var diagnosesProp) && medicalRecordIdMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Diagnoses...");
+                var diagnosisTimestamps = new List<(Guid Id, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in diagnosesProp.EnumerateArray())
                 {
                     var mockMrId = item.GetProperty("medicalRecordId").GetString() ?? "";
@@ -413,8 +428,11 @@ public static class DbSeeder
                         : DiagnosisCatalogSource.MINSA_CIE10;
 
                     context.Diagnoses.Add(new Diagnosis(id, code, medicalRecordId, cie10Code, description, source));
+                    diagnosisTimestamps.Add((id, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
                 await context.SaveChangesAsync();
+                foreach (var (id, createdAt, updatedAt) in diagnosisTimestamps)
+                    await StampAuditTimestampsAsync(context, "diagnoses", id, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Diagnoses successfully.");
             }
 
@@ -422,6 +440,7 @@ public static class DbSeeder
             if (!context.Treatments.Any() && root.TryGetProperty("treatments", out var treatmentsProp) && medicalRecordIdMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Treatments...");
+                var treatmentTimestamps = new List<(Guid Id, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in treatmentsProp.EnumerateArray())
                 {
                     var mockMrId = item.GetProperty("medicalRecordId").GetString() ?? "";
@@ -438,8 +457,11 @@ public static class DbSeeder
                     var description = item.GetProperty("description").GetString() ?? "";
 
                     context.Treatments.Add(new Treatment(id, code, medicalRecordId, description));
+                    treatmentTimestamps.Add((id, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
                 await context.SaveChangesAsync();
+                foreach (var (id, createdAt, updatedAt) in treatmentTimestamps)
+                    await StampAuditTimestampsAsync(context, "treatments", id, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Treatments successfully.");
             }
 
@@ -466,8 +488,14 @@ public static class DbSeeder
 
                     var prescription = new Prescription(prsId, code, medicalRecordIdMap[mockMrId]);
                     context.Prescriptions.Add(prescription);
-                    
+
                     await context.SaveChangesAsync();
+                    await StampAuditTimestampsAsync(
+                        context,
+                        "prescriptions",
+                        prescription.Id,
+                        ParseAuditTimestamp(item, "createdAt"),
+                        ParseAuditTimestamp(item, "updatedAt"));
                     prescriptionIdMap[mockId] = prescription.Id;
                 }
                 Console.WriteLine("[DbSeeder] Seeded Prescriptions successfully.");
@@ -477,6 +505,7 @@ public static class DbSeeder
             if (!context.PrescriptionDetails.Any() && root.TryGetProperty("prescriptionDetails", out var pdProp) && prescriptionIdMap.Count > 0)
             {
                 Console.WriteLine("[DbSeeder] Seeding Prescription Details...");
+                var prescriptionDetailTimestamps = new List<(Guid PrescriptionId, Guid MedicineId, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in pdProp.EnumerateArray())
                 {
                     var mockPrescriptionId = item.GetProperty("prescriptionId").GetString() ?? "";
@@ -491,8 +520,11 @@ public static class DbSeeder
                     var duration = item.GetProperty("duration").GetInt32();
 
                     context.PrescriptionDetails.Add(new PrescriptionDetail(prescriptionId, medicineId, quantity, frequency, duration));
+                    prescriptionDetailTimestamps.Add((prescriptionId, medicineId, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
                 await context.SaveChangesAsync();
+                foreach (var (prescriptionId, medicineId, createdAt, updatedAt) in prescriptionDetailTimestamps)
+                    await StampPrescriptionDetailTimestampsAsync(context, prescriptionId, medicineId, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Prescription Details successfully.");
             }
 
@@ -502,6 +534,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Billing Claims...");
                 foreach (var item in billingClaimsProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var claimCode = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("claimCode").GetString() ?? "";
@@ -518,6 +553,7 @@ public static class DbSeeder
                     var cycleStatus = item.GetProperty("cycleStatus").GetString() ?? "";
 
                     context.BillingClaims.Add(new BillingClaim(
+                        id,
                         claimCode,
                         appointmentId,
                         insuranceProvider,
@@ -535,6 +571,7 @@ public static class DbSeeder
             if (!context.MedicalOrders.Any() && root.TryGetProperty("medicalOrders", out var medicalOrdersProp))
             {
                 Console.WriteLine("[DbSeeder] Seeding Medical Orders...");
+                var medicalOrderTimestamps = new List<(Guid Id, DateTimeOffset? CreatedAt, DateTimeOffset? UpdatedAt)>();
                 foreach (var item in medicalOrdersProp.EnumerateArray())
                 {
                     var id = Guid.Parse(item.GetProperty("id").GetString() ?? Guid.NewGuid().ToString());
@@ -549,9 +586,12 @@ public static class DbSeeder
                     var description = item.GetProperty("description").GetString() ?? "";
                     var status = item.GetProperty("status").GetString() ?? "pending";
                     context.MedicalOrders.Add(new MedicalOrder(id, code, patientId, doctorId, appointmentId, medicalRecordId, type, description, status));
+                    medicalOrderTimestamps.Add((id, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
 
                 await context.SaveChangesAsync();
+                foreach (var (id, createdAt, updatedAt) in medicalOrderTimestamps)
+                    await StampAuditTimestampsAsync(context, "medical_orders", id, createdAt, updatedAt);
                 Console.WriteLine("[DbSeeder] Seeded Medical Orders successfully.");
             }
 
@@ -561,6 +601,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Healthcare Centers...");
                 foreach (var item in healthcareCentersProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -582,7 +625,7 @@ public static class DbSeeder
                         _ => null
                     };
 
-                    context.HealthcareCenters.Add(new HealthcareCenter(publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
+                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Healthcare Centers successfully.");
@@ -621,6 +664,9 @@ public static class DbSeeder
                 Console.WriteLine("[DbSeeder] Seeding Appointment Fees...");
                 foreach (var item in appointmentFeesProp.EnumerateArray())
                 {
+                    var id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.String
+                        ? Guid.Parse(idProp.GetString()!)
+                        : Guid.NewGuid();
                     var publicId = item.TryGetProperty("code", out var codeProp)
                         ? codeProp.GetString() ?? ""
                         : item.GetProperty("id").GetString() ?? "";
@@ -631,7 +677,7 @@ public static class DbSeeder
 
                     var price = item.GetProperty("price").GetDecimal();
 
-                    context.AppointmentFees.Add(new AppointmentFee(publicId, branchId, specialityId, price));
+                    context.AppointmentFees.Add(new AppointmentFee(id, publicId, branchId, specialityId, price));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Appointment Fees successfully.");
@@ -641,6 +687,50 @@ public static class DbSeeder
         {
             Console.WriteLine($"[DbSeeder] ERROR: Failed to seed data from db.json. Details: {ex.Message}");
         }
+    }
+
+    private static DateTimeOffset? ParseAuditTimestamp(JsonElement item, string propertyName)
+    {
+        return item.TryGetProperty(propertyName, out var prop) && prop.ValueKind == JsonValueKind.String
+            ? DateTimeOffset.Parse(prop.GetString()!)
+            : null;
+    }
+
+    /// <summary>
+    ///     Overwrites the CreatedAt/UpdatedAt audit columns for a just-seeded row via raw SQL,
+    ///     since <see cref="Interceptors.AuditableEntityInterceptor" /> always stamps them with the
+    ///     current time on insert through the normal EF change tracker.
+    /// </summary>
+    private static async Task StampAuditTimestampsAsync(
+        AppDbContext context,
+        string tableName,
+        Guid id,
+        DateTimeOffset? createdAt,
+        DateTimeOffset? updatedAt)
+    {
+        if (createdAt is null && updatedAt is null) return;
+
+        await context.Database.ExecuteSqlRawAsync(
+            $"UPDATE {tableName} SET created_at = {{0}}, updated_at = {{1}} WHERE id = {{2}}",
+            createdAt, updatedAt, id);
+    }
+
+    /// <summary>
+    ///     Same as <see cref="StampAuditTimestampsAsync" /> but for prescription_details, whose
+    ///     primary key is the composite (prescription_id, medicine_id) instead of a single id column.
+    /// </summary>
+    private static async Task StampPrescriptionDetailTimestampsAsync(
+        AppDbContext context,
+        Guid prescriptionId,
+        Guid medicineId,
+        DateTimeOffset? createdAt,
+        DateTimeOffset? updatedAt)
+    {
+        if (createdAt is null && updatedAt is null) return;
+
+        await context.Database.ExecuteSqlRawAsync(
+            "UPDATE prescription_details SET created_at = {0}, updated_at = {1} WHERE prescription_id = {2} AND medicine_id = {3}",
+            createdAt, updatedAt, prescriptionId, medicineId);
     }
 
     private static async Task SeedDiagnosisCatalogAsync(AppDbContext context)

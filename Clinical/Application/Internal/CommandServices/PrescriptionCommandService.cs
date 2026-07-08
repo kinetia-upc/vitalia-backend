@@ -33,26 +33,41 @@ public class PrescriptionCommandService(
                 ClinicalError.MedicalRecordNotFound,
                 localizer[nameof(ClinicalError.MedicalRecordNotFound)]);
 
-        var prescription = new Prescription(command.MedicalRecordId);
+        const int maxCodeGenerationAttempts = 5;
+        var nextCodeNumber = await prescriptionRepository.GetMaxCodeNumberAsync("prc-", cancellationToken) + 1;
 
-        try
+        for (var attempt = 0; attempt < maxCodeGenerationAttempts; attempt++)
         {
-            await prescriptionRepository.AddAsync(prescription, cancellationToken);
-            await unitOfWork.CompleteAsync(cancellationToken);
-            return Result<Prescription>.Success(prescription);
+            var candidateCode = $"prc-{nextCodeNumber + attempt:D5}";
+            var codeAlreadyExists = await prescriptionRepository.ExistsByCodeAsync(candidateCode, cancellationToken);
+
+            if (codeAlreadyExists)
+                continue;
+
+            var prescription = new Prescription(Guid.Empty, candidateCode, command.MedicalRecordId);
+
+            try
+            {
+                await prescriptionRepository.AddAsync(prescription, cancellationToken);
+                medicalRecordRepository.Update(medicalRecord);
+                await unitOfWork.CompleteAsync(cancellationToken);
+                return Result<Prescription>.Success(prescription);
+            }
+            catch (OperationCanceledException)
+            {
+                return Result<Prescription>.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
+            }
+            catch (DbUpdateException)
+            {
+                return Result<Prescription>.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
+            }
+            catch (Exception)
+            {
+                return Result<Prescription>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
+            }
         }
-        catch (OperationCanceledException)
-        {
-            return Result<Prescription>.Failure(ClinicalError.OperationCancelled, localizer[nameof(ClinicalError.OperationCancelled)]);
-        }
-        catch (DbUpdateException)
-        {
-            return Result<Prescription>.Failure(ClinicalError.DatabaseError, localizer[nameof(ClinicalError.DatabaseError)]);
-        }
-        catch (Exception)
-        {
-            return Result<Prescription>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
-        }
+
+        return Result<Prescription>.Failure(ClinicalError.InternalServerError, localizer[nameof(ClinicalError.InternalServerError)]);
     }
 
     public async Task<Result> Handle(DeletePrescriptionCommand command, CancellationToken cancellationToken)
@@ -67,6 +82,7 @@ public class PrescriptionCommandService(
         var prescriptionDetails = await prescriptionDetailRepository.FindAllByPrescriptionIdAsync(
             command.PrescriptionId,
             cancellationToken);
+        var medicalRecord = await medicalRecordRepository.FindByIdAsync(prescription.MedicalRecordId, cancellationToken);
 
         try
         {
@@ -74,6 +90,7 @@ public class PrescriptionCommandService(
                 prescriptionDetailRepository.Remove(prescriptionDetail);
 
             prescriptionRepository.Remove(prescription);
+            if (medicalRecord is not null) medicalRecordRepository.Update(medicalRecord);
             await unitOfWork.CompleteAsync(cancellationToken);
 
             return Result.Success();
