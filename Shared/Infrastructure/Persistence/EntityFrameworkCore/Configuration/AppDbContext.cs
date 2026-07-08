@@ -164,6 +164,9 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Type).IsRequired().HasMaxLength(40);
         builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Description).IsRequired().HasMaxLength(500);
         builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Status).IsRequired().HasMaxLength(40);
+        builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Priority).IsRequired().HasMaxLength(40);
+        builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Review).IsRequired().HasMaxLength(1000);
+        builder.Entity<MedicalOrder>().Property(medicalOrder => medicalOrder.Signed).IsRequired();
         builder.Entity<MedicalOrder>().HasIndex(medicalOrder => medicalOrder.Code).IsUnique();
     }
 }

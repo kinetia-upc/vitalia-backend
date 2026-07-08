@@ -585,7 +585,10 @@ public static class DbSeeder
                     var type = item.GetProperty("type").GetString() ?? "other";
                     var description = item.GetProperty("description").GetString() ?? "";
                     var status = item.GetProperty("status").GetString() ?? "pending";
-                    context.MedicalOrders.Add(new MedicalOrder(id, code, patientId, doctorId, appointmentId, medicalRecordId, type, description, status));
+                    var priority = item.TryGetProperty("priority", out var priorityProp) ? priorityProp.GetString() ?? "routine" : "routine";
+                    var review = item.TryGetProperty("review", out var reviewProp) ? reviewProp.GetString() ?? "" : "";
+                    var signed = item.TryGetProperty("signed", out var signedProp) && signedProp.ValueKind == JsonValueKind.True;
+                    context.MedicalOrders.Add(new MedicalOrder(id, code, patientId, doctorId, appointmentId, medicalRecordId, type, description, status, priority, review, signed));
                     medicalOrderTimestamps.Add((id, ParseAuditTimestamp(item, "createdAt"), ParseAuditTimestamp(item, "updatedAt")));
                 }
 

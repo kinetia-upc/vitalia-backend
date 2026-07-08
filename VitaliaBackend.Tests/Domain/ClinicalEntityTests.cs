@@ -157,7 +157,7 @@ public class MedicalOrderTests
         var apptId = Guid.NewGuid();
         var mrId = Guid.NewGuid();
 
-        var order = new MedicalOrder(id, "ORD-001", patientId, doctorId, apptId, mrId, "Lab", "Blood test", "pending");
+        var order = new MedicalOrder(id, "ORD-001", patientId, doctorId, apptId, mrId, "Lab", "Blood test", "pending", "routine");
 
         Assert.Equal(id, order.Id);
         Assert.Equal("ORD-001", order.Code);
@@ -168,6 +168,7 @@ public class MedicalOrderTests
         Assert.Equal("Lab", order.Type);
         Assert.Equal("Blood test", order.Description);
         Assert.Equal("pending", order.Status);
+        Assert.Equal("routine", order.Priority);
     }
 
     [Fact]
@@ -175,7 +176,7 @@ public class MedicalOrderTests
     {
         var order = new MedicalOrder(
             Guid.NewGuid(), "ORD-002", Guid.NewGuid(), Guid.NewGuid(),
-            Guid.NewGuid(), null, "Lab", "Test", "pending");
+            Guid.NewGuid(), null, "Lab", "Test", "pending", "routine");
 
         Assert.Null(order.MedicalRecordId);
     }
@@ -185,7 +186,7 @@ public class MedicalOrderTests
     {
         var order = new MedicalOrder(
             Guid.Empty, "ORD-003", Guid.NewGuid(), Guid.NewGuid(),
-            Guid.NewGuid(), null, "Lab", "Test", "pending");
+            Guid.NewGuid(), null, "Lab", "Test", "pending", "routine");
 
         Assert.NotEqual(Guid.Empty, order.Id);
     }
@@ -195,13 +196,14 @@ public class MedicalOrderTests
     {
         var order = new MedicalOrder(
             Guid.NewGuid(), "ORD-004", Guid.NewGuid(), Guid.NewGuid(),
-            Guid.NewGuid(), null, "Lab", "Old desc", "pending");
+            Guid.NewGuid(), null, "Lab", "Old desc", "pending", "routine");
 
-        order.Update("Imaging", "New desc", "completed");
+        order.Update("Imaging", "New desc", "completed", "urgent");
 
         Assert.Equal("Imaging", order.Type);
         Assert.Equal("New desc", order.Description);
         Assert.Equal("completed", order.Status);
+        Assert.Equal("urgent", order.Priority);
     }
 
     [Fact]
@@ -209,11 +211,12 @@ public class MedicalOrderTests
     {
         var order = new MedicalOrder(
             Guid.NewGuid(), " ORD-005 ", Guid.NewGuid(), Guid.NewGuid(),
-            Guid.NewGuid(), null, " Lab ", " Desc ", " pending ");
+            Guid.NewGuid(), null, " Lab ", " Desc ", " pending ", " routine ");
 
         Assert.Equal("ORD-005", order.Code);
         Assert.Equal("Lab", order.Type);
         Assert.Equal("Desc", order.Description);
         Assert.Equal("pending", order.Status);
+        Assert.Equal("routine", order.Priority);
     }
 }

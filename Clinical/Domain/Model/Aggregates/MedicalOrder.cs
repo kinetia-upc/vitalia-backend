@@ -13,6 +13,9 @@ public class MedicalOrder : IAuditableEntity
     public string Type { get; private set; }
     public string Description { get; private set; }
     public string Status { get; private set; }
+    public string Priority { get; private set; }
+    public string Review { get; private set; }
+    public bool Signed { get; private set; }
     public DateTimeOffset? CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
@@ -22,9 +25,11 @@ public class MedicalOrder : IAuditableEntity
         Type = string.Empty;
         Description = string.Empty;
         Status = string.Empty;
+        Priority = string.Empty;
+        Review = string.Empty;
     }
 
-    public MedicalOrder(Guid id, string code, Guid patientId, Guid doctorId, Guid appointmentId, Guid? medicalRecordId, string type, string description, string status)
+    public MedicalOrder(Guid id, string code, Guid patientId, Guid doctorId, Guid appointmentId, Guid? medicalRecordId, string type, string description, string status, string priority, string review = "", bool signed = false)
     {
         Id = id == Guid.Empty ? Guid.NewGuid() : id;
         Code = code.Trim();
@@ -35,12 +40,18 @@ public class MedicalOrder : IAuditableEntity
         Type = type.Trim();
         Description = description.Trim();
         Status = status.Trim();
+        Priority = priority.Trim();
+        Review = (review ?? string.Empty).Trim();
+        Signed = signed;
     }
 
-    public void Update(string type, string description, string status)
+    public void Update(string type, string description, string status, string priority, string review = "", bool signed = false)
     {
         Type = type.Trim();
         Description = description.Trim();
         Status = status.Trim();
+        Priority = priority.Trim();
+        Review = (review ?? string.Empty).Trim();
+        Signed = signed;
     }
 }
