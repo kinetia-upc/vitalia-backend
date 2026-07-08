@@ -101,4 +101,9 @@ public class User : IAuditableEntity
         Address = address.Trim();
         Role = role.Trim();
     }
+
+    public void UpdatePasswordHash(string passwordHash)
+    {
+        PasswordHash = passwordHash;
+    }
 }
