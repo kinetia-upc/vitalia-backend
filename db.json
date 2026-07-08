@@ -441,6 +441,41 @@
       "name": "Azitromicina",
       "unitQuantity": 250,
       "unitType": "mg"
+    },
+    {
+      "id": "9e3888e9-e9b2-4e0f-9c4c-734657bb23e1",
+      "code": "med-00009",
+      "name": "Cetirizina",
+      "unitQuantity": 10,
+      "unitType": "mg"
+    },
+    {
+      "id": "4c64f06a-c317-40a5-890c-11e46a032b1f",
+      "code": "med-00010",
+      "name": "Loratadina",
+      "unitQuantity": 10,
+      "unitType": "mg"
+    },
+    {
+      "id": "73716943-e601-4040-8b9e-6fb9ce1efc0b",
+      "code": "med-00011",
+      "name": "Amlodipino",
+      "unitQuantity": 5,
+      "unitType": "mg"
+    },
+    {
+      "id": "f5035f63-c0be-4e95-9120-dfce74bf9cfa",
+      "code": "med-00012",
+      "name": "Atorvastatina",
+      "unitQuantity": 20,
+      "unitType": "mg"
+    },
+    {
+      "id": "10f0d12b-1dc5-4724-a9c6-28a828d3f34d",
+      "code": "med-00013",
+      "name": "Salbutamol",
+      "unitQuantity": 100,
+      "unitType": "mcg"
     }
   ],
   "branchMedicines": [
