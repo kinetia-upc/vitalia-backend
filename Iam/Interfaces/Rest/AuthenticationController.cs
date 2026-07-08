@@ -5,6 +5,7 @@ using VitaliaBackend.Iam.Domain.Model.Aggregates;
 using VitaliaBackend.Iam.Infrastructure.Security;
 using VitaliaBackend.Iam.Interfaces.Rest.Resources;
 using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
+using VitaliaBackend.Tenant.Domain.Model.Aggregates;
 
 namespace VitaliaBackend.Iam.Interfaces.Rest;
 
@@ -40,7 +41,15 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
         if (string.IsNullOrWhiteSpace(healthcareCenterId))
             return BadRequest(new { message = "Healthcare center is required." });
 
-        if (!await context.HealthcareCenters.AnyAsync(item => item.Code == healthcareCenterId, cancellationToken))
+        var healthcareCenterGuid = Guid.TryParse(healthcareCenterId, out var parsedHealthcareCenterId)
+            ? parsedHealthcareCenterId
+            : (Guid?)null;
+
+        var healthcareCenter = await context.HealthcareCenters.FirstOrDefaultAsync(
+            item => item.Code == healthcareCenterId || (healthcareCenterGuid.HasValue && item.Id == healthcareCenterGuid.Value),
+            cancellationToken);
+
+        if (healthcareCenter is null)
             return NotFound(new { message = "Healthcare center does not exist." });
 
         if (await context.Users.AnyAsync(item => item.Email == email, cancellationToken))
@@ -48,7 +57,7 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
 
         var user = new User(
             Guid.NewGuid(),
-            healthcareCenterId,
+            healthcareCenter.Id.ToString(),
             resource.Name,
             resource.PaternalSurname,
             resource.MaternalSurname,
@@ -63,9 +72,51 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
             resource.Address,
             role);
 
+        await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
+
         context.Users.Add(user);
+        if (role == "patient")
+            await AddPatientProfileAsync(context, user.Id, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+
         return CreatedAtAction(nameof(UsersController.GetUserById), "Users", new { id = user.Id }, ToResource(user));
+    }
+
+    private static async Task AddPatientProfileAsync(AppDbContext context, Guid userId, CancellationToken cancellationToken)
+    {
+        context.Patients.Add(new Patient(
+            userId,
+            await BuildNextPatientCodeAsync(context, cancellationToken),
+            string.Empty,
+            string.Empty,
+            null,
+            string.Empty,
+            string.Empty));
+    }
+
+    private static async Task<string> BuildNextPatientCodeAsync(AppDbContext context, CancellationToken cancellationToken)
+    {
+        var codes = await context.Patients.AsNoTracking()
+            .Select(patient => patient.Code)
+            .ToListAsync(cancellationToken);
+
+        var nextNumber = codes
+            .Select(ParsePatientCodeNumber)
+            .DefaultIfEmpty(0)
+            .Max() + 1;
+
+        return $"pat-{nextNumber:D5}";
+    }
+
+    private static int ParsePatientCodeNumber(string code)
+    {
+        const string prefix = "pat-";
+        if (!code.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            return 0;
+
+        var numericPart = code[prefix.Length..];
+        return int.TryParse(numericPart, out var number) ? number : 0;
     }
 
     private static UserResource ToResource(User user) => new(
