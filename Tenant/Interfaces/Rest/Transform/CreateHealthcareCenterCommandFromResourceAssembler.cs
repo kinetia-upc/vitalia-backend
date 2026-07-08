@@ -12,6 +12,7 @@ public static class CreateHealthcareCenterCommandFromResourceAssembler
             resource.HealthcareCenterName,
             resource.AllianceStartDate,
             resource.AllianceFinishDate,
-            resource.RucNumber);
+            resource.RucNumber,
+            resource.ImageUrl ?? resource.ImageURL);
     }
 }

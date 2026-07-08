@@ -13,6 +13,7 @@ public static class HealthcareCenterResourceFromEntityAssembler
             entity.Name,
             entity.AllianceStartDate,
             entity.AllianceFinishDate,
-            entity.RucNumber);
+            entity.RucNumber,
+            entity.ImageUrl);
     }
 }

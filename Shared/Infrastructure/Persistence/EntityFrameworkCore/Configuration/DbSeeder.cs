@@ -624,8 +624,11 @@ public static class DbSeeder
                         JsonValueKind.Number => rucProp.GetInt64().ToString(),
                         _ => null
                     };
+                    var imageUrl = item.TryGetProperty("imageUrl", out var imageUrlProp) && imageUrlProp.ValueKind == JsonValueKind.String
+                        ? imageUrlProp.GetString()
+                        : null;
 
-                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber));
+                    context.HealthcareCenters.Add(new HealthcareCenter(id, publicId, name, allianceStartDate, allianceFinishDate, rucNumber, imageUrl));
                 }
                 await context.SaveChangesAsync();
                 Console.WriteLine("[DbSeeder] Seeded Healthcare Centers successfully.");

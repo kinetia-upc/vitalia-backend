@@ -14,6 +14,7 @@ public static class UpdateHealthcareCenterCommandFromResourceAssembler
             resource.HealthcareCenterName,
             resource.AllianceStartDate,
             resource.AllianceFinishDate,
-            resource.RucNumber);
+            resource.RucNumber,
+            resource.ImageUrl ?? resource.ImageURL);
     }
 }

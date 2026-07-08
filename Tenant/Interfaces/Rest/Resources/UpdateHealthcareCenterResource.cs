@@ -13,5 +13,11 @@ public record UpdateHealthcareCenterResource(
     DateOnly? AllianceFinishDate,
 
     [property: SwaggerSchema(Description = "Peruvian tax id (RUC) of the healthcare center, if registered as a business.")]
-    string? RucNumber
+    string? RucNumber,
+
+    [property: SwaggerSchema(Description = "Optional public image URL used as the healthcare center brand logo.")]
+    string? ImageUrl,
+
+    [property: SwaggerSchema(Description = "Legacy alias for ImageUrl.")]
+    string? ImageURL = null
 );
