@@ -32,16 +32,23 @@ public class AuthenticationController(AppDbContext context, IConfiguration confi
     {
         var email = resource.Email.Trim().ToLowerInvariant();
         var role = resource.Role.Trim().ToLowerInvariant();
+        var healthcareCenterId = resource.HealthcareCenterId?.Trim() ?? string.Empty;
 
         if (!AllowedRoles.Contains(role))
             return BadRequest(new { message = "Role must be one of: admin, doctor, patient." });
+
+        if (string.IsNullOrWhiteSpace(healthcareCenterId))
+            return BadRequest(new { message = "Healthcare center is required." });
+
+        if (!await context.HealthcareCenters.AnyAsync(item => item.Code == healthcareCenterId, cancellationToken))
+            return NotFound(new { message = "Healthcare center does not exist." });
 
         if (await context.Users.AnyAsync(item => item.Email == email, cancellationToken))
             return Conflict(new { message = "A user with this email already exists." });
 
         var user = new User(
             Guid.NewGuid(),
-            resource.HealthcareCenterId,
+            healthcareCenterId,
             resource.Name,
             resource.PaternalSurname,
             resource.MaternalSurname,
