@@ -65,6 +65,13 @@ public class PrescriptionDetailCommandService(
                 ClinicalError.InvalidPrescriptionDetailData,
                 localizer[nameof(ClinicalError.InvalidPrescriptionDetailData)]);
 
+        var existingDetail = await prescriptionDetailRepository.FindByPrescriptionAndMedicineAsync(
+            command.PrescriptionId, command.MedicineId, cancellationToken);
+        if (existingDetail is not null)
+            return Result<PrescriptionDetail>.Failure(
+                ClinicalError.PrescriptionDetailAlreadyExists,
+                localizer[nameof(ClinicalError.PrescriptionDetailAlreadyExists)]);
+
         if (!branchMedicine.HasEnoughStock(command.Quantity))
             return Result<PrescriptionDetail>.Failure(
                 ClinicalError.InvalidPrescriptionDetailData,

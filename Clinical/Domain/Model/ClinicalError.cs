@@ -16,6 +16,7 @@ public enum ClinicalError
     InvalidPrescriptionData,
     PrescriptionDetailNotFound,
     InvalidPrescriptionDetailData,
+    PrescriptionDetailAlreadyExists,
     OperationCancelled,
     DatabaseError,
     InternalServerError

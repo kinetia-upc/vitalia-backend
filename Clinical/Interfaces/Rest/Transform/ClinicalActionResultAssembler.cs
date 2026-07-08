@@ -19,6 +19,7 @@ public static class ClinicalActionResultAssembler
             ClinicalError.PrescriptionNotFound => StatusCodes.Status404NotFound,
             ClinicalError.PrescriptionDetailNotFound => StatusCodes.Status404NotFound,
             ClinicalError.MedicalRecordAlreadyExistsForAppointment => StatusCodes.Status409Conflict,
+            ClinicalError.PrescriptionDetailAlreadyExists => StatusCodes.Status409Conflict,
             ClinicalError.OperationCancelled => StatusCodes.Status409Conflict,
             ClinicalError.DatabaseError => StatusCodes.Status500InternalServerError,
             ClinicalError.InternalServerError => StatusCodes.Status500InternalServerError,

@@ -104,6 +104,9 @@
     <data name="InvalidPrescriptionDetailData" xml:space="preserve">
     <value>Datos inválidos para el detalle de prescripción.</value>
   </data>
+    <data name="PrescriptionDetailAlreadyExists" xml:space="preserve">
+    <value>Esta medicina ya está agregada en esta receta.</value>
+  </data>
     <data name="DatabaseError" xml:space="preserve">
     <value>Ocurrió un error de base de datos durante la operación.</value>
   </data>
