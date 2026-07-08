@@ -22,8 +22,5 @@ public record CreateHealthcareCenterResource(
     string? RucNumber,
 
     [property: SwaggerSchema(Description = "Optional public image URL used as the healthcare center brand logo.")]
-    string? ImageUrl,
-
-    [property: SwaggerSchema(Description = "Legacy alias for ImageUrl.")]
-    string? ImageURL = null
+    string? ImageUrl
 );
