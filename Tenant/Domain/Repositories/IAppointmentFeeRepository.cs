@@ -7,6 +7,11 @@ public interface IAppointmentFeeRepository : IBaseRepository<AppointmentFee>
 {
     Task<AppointmentFee?> FindByPublicIdAsync(string publicId, CancellationToken cancellationToken = default);
 
+    Task<AppointmentFee?> FindByBranchAndSpecialityAsync(
+        string branchId,
+        string? specialityId,
+        CancellationToken cancellationToken = default);
+
     Task<bool> ExistsByPublicIdAsync(
         string publicId,
         string? excludingPublicId = null,

@@ -1,0 +1,436 @@
+Usando la configuración de inicio de C:\Users\aleja\RiderProjects\vitalia-backend\Properties\launchSettings.json...
+[Database] Checking database connection and applying migrations...
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10400]
+      Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+fail: Microsoft.EntityFrameworkCore.Migrations[20409]
+      The model for context 'AppDbContext' has pending changes. Add a new migration before updating the database. See https://aka.ms/efcore-docs-pending-changes.
+info: Microsoft.EntityFrameworkCore.Migrations[20411]
+      Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT GET_LOCK('__EFMigrationsLock',-1);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+          `MigrationId` varchar(150) NOT NULL,
+          `ProductVersion` varchar(32) NOT NULL,
+          PRIMARY KEY (`MigrationId`)
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vitalia-db' AND TABLE_NAME='__EFMigrationsHistory';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `MigrationId`, `ProductVersion`
+      FROM `__EFMigrationsHistory`
+      ORDER BY `MigrationId`;
+info: Microsoft.EntityFrameworkCore.Migrations[20405]
+      No migrations were applied. The database is already up to date.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT RELEASE_LOCK('__EFMigrationsLock');
+[DbSeeder] Reading db.json from: C:\Users\aleja\RiderProjects\vitalia-backend\bin\Debug\net10.0\db.json
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `users` AS `u`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `doctors` AS `d`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `patients` AS `p`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `specialities` AS `s`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `doctor_specialities` AS `d`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `medicines` AS `m`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `branch_medicines` AS `b`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `medicine_restocks` AS `m`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `appointments` AS `a`)
+[DbSeeder] Synchronizing existing Appointment ids by code...
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id` AS `Id`, `a`.`code` AS `Code`
+      FROM `appointments` AS `a`
+[DbSeeder] Appointment id synchronization completed.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `appointments` AS `a`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `availability_slots` AS `a`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `medical_records` AS `m`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `diagnoses` AS `d`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `treatments` AS `t`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `prescriptions` AS `p`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `prescription_details` AS `p`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `billing_claims` AS `b`)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM `medical_orders` AS `m`)
+[DbSeeder] Seeding Medical Orders...
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (15ms) [Parameters=[@p0='0bc39847-2e57-499a-925b-2be921134c85', @p1='14b25a2b-d371-420f-a967-db01e06fa371', @p2='ord-00001' (Nullable = false) (Size = 20), @p3='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p4='Complete blood count and lipid panel' (Nullable = false) (Size = 500), @p5='96807b70-ad1e-44ec-a87e-a85c05fbfb1a', @p6='2d881bfd-8952-477b-acaa-0b741d206f02' (Nullable = true), @p7='f02e19db-9a3e-415d-91fe-2de7e53b6eb7', @p8='routine' (Nullable = false) (Size = 40), @p9='' (Nullable = false) (Size = 1000), @p10='False' (DbType = SByte), @p11='pending' (Nullable = false) (Size = 40), @p12='lab' (Nullable = false) (Size = 40), @p13='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p14='15f36717-c8cf-4185-8340-2195aaebc3bc', @p15='522b6f0f-09a5-496c-841d-ba15d6638982', @p16='ord-00002' (Nullable = false) (Size = 20), @p17='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p18='HbA1c and fasting glucose' (Nullable = false) (Size = 500), @p19='d1010a71-61a1-42b6-a3a5-1e295eab51f8', @p20='ca54ca0c-1e9a-4cd1-a02d-9d9f3ca26999' (Nullable = true), @p21='f02e19db-9a3e-415d-91fe-2de7e53b6eb7', @p22='routine' (Nullable = false) (Size = 40), @p23='Results within normal range. HbA1c 5.6%, fasting glucose 92 mg/dL. No further action required.' (Nullable = false) (Size = 1000), @p24='True' (DbType = SByte), @p25='completed' (Nullable = false) (Size = 40), @p26='lab' (Nullable = false) (Size = 40), @p27='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p28='22605f83-c9cd-438c-911b-3c30149e6a93', @p29='0d946857-7ddb-4245-ac6d-3debaed236be', @p30='ord-00003' (Nullable = false) (Size = 20), @p31='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p32='Chest X-ray to rule out pneumonia' (Nullable = false) (Size = 500), @p33='96807b70-ad1e-44ec-a87e-a85c05fbfb1a', @p34='1a62a9c1-4419-4639-b77d-d0e13cbf4010' (Nullable = true), @p35='9d459298-f99c-4dbb-b0e8-4822aa84a16e', @p36='urgent' (Nullable = false) (Size = 40), @p37='No consolidation or infiltrate observed. Findings do not support pneumonia. Patient notified.' (Nullable = false) (Size = 1000), @p38='True' (DbType = SByte), @p39='completed' (Nullable = false) (Size = 40), @p40='imaging' (Nullable = false) (Size = 40), @p41='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p42='4caabece-f7c1-4c71-ad7c-a67379484717', @p43='06ab282b-e327-4171-9908-ab61f72e3645', @p44='ord-00004' (Nullable = false) (Size = 20), @p45='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p46='Thyroid panel and vitamin B12' (Nullable = false) (Size = 500), @p47='8ba7b73a-08a5-4023-8e1d-b1a92dc45ed2', @p48='86887ad2-c773-4a8e-8248-ed4aa234b3b9' (Nullable = true), @p49='b07fad52-269f-411a-824c-94889fd292f4', @p50='routine' (Nullable = false) (Size = 40), @p51='' (Nullable = false) (Size = 1000), @p52='False' (DbType = SByte), @p53='pending' (Nullable = false) (Size = 40), @p54='lab' (Nullable = false) (Size = 40), @p55='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p56='e4320d39-36ad-4078-b4be-a7b64ce24275', @p57='45982fc5-a7d1-4695-b2a8-82dca9445ab6', @p58='ord-00005' (Nullable = false) (Size = 20), @p59='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p60='ECG and cardiac enzyme panel' (Nullable = false) (Size = 500), @p61='1b64d891-1215-45ad-be8d-3861ffdd70ed', @p62='5f7bc37f-eb28-442e-90ac-3ae3042ac238' (Nullable = true), @p63='f02e19db-9a3e-415d-91fe-2de7e53b6eb7', @p64='emergency' (Nullable = false) (Size = 40), @p65='' (Nullable = false) (Size = 1000), @p66='False' (DbType = SByte), @p67='pending' (Nullable = false) (Size = 40), @p68='lab' (Nullable = false) (Size = 40), @p69='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p70='e7540841-f357-473c-b1e9-3449161aa8f6', @p71='adaf8d60-239f-48d3-898b-3e406dfa8cff', @p72='ord-00006' (Nullable = false) (Size = 20), @p73='2026-07-08T22:00:11.8582269+00:00' (Nullable = true), @p74='Dermatology patch test for contact allergens' (Nullable = false) (Size = 500), @p75='96807b70-ad1e-44ec-a87e-a85c05fbfb1a', @p76='189ebef7-cfe7-407b-8b5b-675e29463ad5' (Nullable = true), @p77='8e331033-504b-4036-aab8-d9c9ca7b9d20', @p78='routine' (Nullable = false) (Size = 40), @p79='Referral accepted by Dermatology. Patch test scheduled and results forwarded to patient's file.' (Nullable = false) (Size = 1000), @p80='True' (DbType = SByte), @p81='completed' (Nullable = false) (Size = 40), @p82='referral' (Nullable = false) (Size = 40), @p83='2026-07-08T22:00:11.8582269+00:00' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO `medical_orders` (`id`, `appointment_id`, `code`, `created_at`, `description`, `doctor_id`, `medical_record_id`, `patient_id`, `priority`, `review`, `signed`, `status`, `type`, `updated_at`)
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13),(@p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27),(@p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41),(@p42, @p43, @p44, @p45, @p46, @p47, @p48, @p49, @p50, @p51, @p52, @p53, @p54, @p55),(@p56, @p57, @p58, @p59, @p60, @p61, @p62, @p63, @p64, @p65, @p66, @p67, @p68, @p69),(@p70, @p71, @p72, @p73, @p74, @p75, @p76, @p77, @p78, @p79, @p80, @p81, @p82, @p83);
+fail: Microsoft.EntityFrameworkCore.Update[10000]
+      An exception occurred in the database while saving changes for context type 'VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration.AppDbContext'.
+      Microsoft.EntityFrameworkCore.DbUpdateException: Could not save changes. Please configure your entity type accordingly.
+       ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'review' in 'field list'
+         at MySql.Data.MySqlClient.MySqlStream.CheckForServerError()
+         at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync()
+         at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId)
+         at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId)
+         at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force)
+         at MySql.Data.MySqlClient.MySqlDataReader.NextResultInternalAsync(CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlDataReader.NextResultInternalAsync(CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+         --- End of inner exception stack trace ---
+         at MySql.EntityFrameworkCore.Update.MySQLModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+         at MySql.EntityFrameworkCore.Storage.Internal.MySQLExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+      Microsoft.EntityFrameworkCore.DbUpdateException: Could not save changes. Please configure your entity type accordingly.
+       ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'review' in 'field list'
+         at MySql.Data.MySqlClient.MySqlStream.CheckForServerError()
+         at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync()
+         at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId)
+         at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId)
+         at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force)
+         at MySql.Data.MySqlClient.MySqlDataReader.NextResultInternalAsync(CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlDataReader.NextResultInternalAsync(CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderInternalAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+         --- End of inner exception stack trace ---
+         at MySql.EntityFrameworkCore.Update.MySQLModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+         at MySql.EntityFrameworkCore.Storage.Internal.MySQLExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+[DbSeeder] ERROR: Failed to seed data from db.json. Details: Could not save changes. Please configure your entity type accordingly.
+[Database] Database initialized and seeded successfully.
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5032
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\aleja\RiderProjects\vitalia-backend
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `h`.`id`, `h`.`alliance_finish_date`, `h`.`alliance_start_date`, `h`.`code`, `h`.`created_at`, `h`.`image_url`, `h`.`name`, `h`.`ruc_number`, `h`.`updated_at`
+      FROM `healthcare_centers` AS `h`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`id`, `b`.`address`, `b`.`code`, `b`.`created_at`, `b`.`diagnosis_catalog_source`, `b`.`healthcare_center_id`, `b`.`name`, `b`.`updated_at`
+      FROM `branches` AS `b`
+      ORDER BY `b`.`name`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `p`.`user_id`, `p`.`active_thru`, `p`.`code`, `p`.`ehr_code`, `p`.`emergency_contact_name`, `p`.`emergency_contact_phone`, `p`.`insurance_provider`, `p`.`policy_number`
+      FROM `patients` AS `p`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `d`.`user_id`, `d`.`cmp_number`, `d`.`code`, `d`.`license_number`
+      FROM `doctors` AS `d`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`id`, `b`.`appointment_id`, `b`.`clinical_compliance`, `b`.`code`, `b`.`created_at`, `b`.`cycle_status`, `b`.`insurance_provider`, `b`.`patient_name`, `b`.`provider_name`, `b`.`updated_at`, `b`.`value`
+      FROM `billing_claims` AS `b`
+      ORDER BY `b`.`patient_name`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `m`.`id`, `m`.`code`, `m`.`created_at`, `m`.`name`, `m`.`unit_quantity`, `m`.`unit_type`, `m`.`updated_at`
+      FROM `medicines` AS `m`
+      ORDER BY `m`.`code`, `m`.`name`, `m`.`unit_quantity`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`date`, `a`.`doctor_id`, `a`.`end_time`, `a`.`start_time`, `a`.`status`, `a`.`updated_at`
+      FROM `availability_slots` AS `a`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`id`, `b`.`address`, `b`.`code`, `b`.`created_at`, `b`.`diagnosis_catalog_source`, `b`.`healthcare_center_id`, `b`.`name`, `b`.`updated_at`
+      FROM `branches` AS `b`
+      ORDER BY `b`.`name`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `d`.`doctor_id`, `d`.`speciality_id`
+      FROM `doctor_specialities` AS `d`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `s`.`id`, `s`.`code`, `s`.`description`
+      FROM `specialities` AS `s`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`price`, `a`.`speciality_id`, `a`.`updated_at`
+      FROM `appointment_fees` AS `a`
+      ORDER BY `a`.`price`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `h`.`id`, `h`.`alliance_finish_date`, `h`.`alliance_start_date`, `h`.`code`, `h`.`created_at`, `h`.`image_url`, `h`.`name`, `h`.`ruc_number`, `h`.`updated_at`
+      FROM `healthcare_centers` AS `h`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `d`.`doctor_id`, `d`.`speciality_id`
+      FROM `doctor_specialities` AS `d`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `m`.`id`, `m`.`appointment_id`, `m`.`code`, `m`.`created_at`, `m`.`patient_id`, `m`.`updated_at`
+      FROM `medical_records` AS `m`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`branch_id`, `b`.`medicine_id`, `b`.`price`, `b`.`stock`
+      FROM `branch_medicines` AS `b`
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='adaf8d60-239f-48d3-898b-3e406dfa8cff' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='0d946857-7ddb-4245-ac6d-3debaed236be' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='14b25a2b-d371-420f-a967-db01e06fa371' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='45982fc5-a7d1-4695-b2a8-82dca9445ab6' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='61b89a3e-9e93-4edb-b4a0-0f95b9cf6cd0' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='7f9063c1-fcd2-4a3f-a03a-6d353819936f' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='06ab282b-e327-4171-9908-ab61f72e3645' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p='522b6f0f-09a5-496c-841d-ba15d6638982' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`id`, `a`.`branch_id`, `a`.`code`, `a`.`created_at`, `a`.`doctor_id`, `a`.`patient_id`, `a`.`payment_status`, `a`.`reason`, `a`.`scheduled_at`, `a`.`status`, `a`.`updated_at`
+      FROM `appointments` AS `a`
+      WHERE `a`.`id` = @p
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@userId='e04a29e1-cc2d-4ca2-89ce-cd1a8ad27601'], CommandType='Text', CommandTimeout='30']
+      SELECT `u`.`id`, `u`.`address`, `u`.`birth_date`, `u`.`created_at`, `u`.`email`, `u`.`gender`, `u`.`healthcare_center_id`, `u`.`identity_number`, `u`.`identity_type`, `u`.`is_active`, `u`.`maternal_surname`, `u`.`name`, `u`.`password_hash`, `u`.`paternal_surname`, `u`.`phone`, `u`.`role`, `u`.`updated_at`
+      FROM `users` AS `u`
+      WHERE (`u`.`id` = @userId) AND `u`.`is_active`
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `s`.`id`, `s`.`code`, `s`.`description`
+      FROM `specialities` AS `s`

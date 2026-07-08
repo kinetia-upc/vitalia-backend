@@ -219,7 +219,7 @@ using (var scope = app.Services.CreateScope())
     {
         Console.WriteLine("[Database] Checking database connection and applying migrations...");
         context.Database.Migrate();
-        DbSeeder.SeedAsync(context, true).GetAwaiter().GetResult();
+        DbSeeder.SeedAsync(context).GetAwaiter().GetResult();
         Console.WriteLine("[Database] Database initialized and seeded successfully.");
     }
     catch (Exception ex)
