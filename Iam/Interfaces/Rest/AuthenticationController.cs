@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,6 +13,7 @@ namespace VitaliaBackend.Iam.Interfaces.Rest;
 [ApiController]
 [Route("api/v1/authentication")]
 [Produces(MediaTypeNames.Application.Json)]
+[AllowAnonymous]
 [SwaggerTag("Authentication endpoints")]
 public class AuthenticationController(AppDbContext context, IConfiguration configuration) : ControllerBase
 {
