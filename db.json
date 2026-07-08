@@ -2312,6 +2312,9 @@
       "type": "lab",
       "description": "Complete blood count and lipid panel",
       "status": "pending",
+      "priority": "routine",
+      "review": "",
+      "signed": false,
       "createdAt": "2026-06-30T10:35:00",
       "updatedAt": "2026-06-30T10:35:00"
     },
@@ -2325,6 +2328,9 @@
       "type": "lab",
       "description": "HbA1c and fasting glucose",
       "status": "completed",
+      "priority": "routine",
+      "review": "Results within normal range. HbA1c 5.6%, fasting glucose 92 mg/dL. No further action required.",
+      "signed": true,
       "createdAt": "2026-07-02T09:20:00",
       "updatedAt": "2026-07-02T15:00:00"
     },
@@ -2338,6 +2344,9 @@
       "type": "imaging",
       "description": "Chest X-ray to rule out pneumonia",
       "status": "completed",
+      "priority": "urgent",
+      "review": "No consolidation or infiltrate observed. Findings do not support pneumonia. Patient notified.",
+      "signed": true,
       "createdAt": "2026-07-02T09:50:00",
       "updatedAt": "2026-07-02T14:30:00"
     },
@@ -2351,6 +2360,9 @@
       "type": "lab",
       "description": "Thyroid panel and vitamin B12",
       "status": "pending",
+      "priority": "routine",
+      "review": "",
+      "signed": false,
       "createdAt": "2026-07-03T10:15:00",
       "updatedAt": "2026-07-03T10:15:00"
     },
@@ -2364,6 +2376,9 @@
       "type": "lab",
       "description": "ECG and cardiac enzyme panel",
       "status": "pending",
+      "priority": "emergency",
+      "review": "",
+      "signed": false,
       "createdAt": "2026-07-04T08:45:00",
       "updatedAt": "2026-07-04T08:45:00"
     },
@@ -2377,6 +2392,9 @@
       "type": "referral",
       "description": "Dermatology patch test for contact allergens",
       "status": "completed",
+      "priority": "routine",
+      "review": "Referral accepted by Dermatology. Patch test scheduled and results forwarded to patient's file.",
+      "signed": true,
       "createdAt": "2026-07-05T10:15:00",
       "updatedAt": "2026-07-05T12:00:00"
     }

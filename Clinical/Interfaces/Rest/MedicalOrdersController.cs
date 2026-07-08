@@ -7,8 +7,8 @@ using VitaliaBackend.Shared.Infrastructure.Persistence.EntityFrameworkCore.Confi
 
 namespace VitaliaBackend.Clinical.Interfaces.Rest;
 
-public record CreateMedicalOrderResource(string Code, Guid PatientId, Guid DoctorId, Guid AppointmentId, Guid? MedicalRecordId, string Type, string Description, string Status);
-public record UpdateMedicalOrderResource(string Type, string Description, string Status);
+public record CreateMedicalOrderResource(string Code, Guid PatientId, Guid DoctorId, Guid AppointmentId, Guid? MedicalRecordId, string Type, string Description, string Status, string Priority, string? Review = null, bool Signed = false);
+public record UpdateMedicalOrderResource(string Type, string Description, string Status, string Priority, string? Review = null, bool Signed = false);
 
 [ApiController]
 [Route("api/v1/medicalOrders")]
@@ -22,12 +22,15 @@ public class MedicalOrdersController(AppDbContext context) : ControllerBase
     public async Task<IActionResult> GetMedicalOrders(
         [FromQuery, SwaggerParameter("Optional UUID of the patient used to filter orders.")]
         Guid? patientId,
+        [FromQuery, SwaggerParameter("Optional UUID of the doctor used to filter orders.")]
+        Guid? doctorId,
         [FromQuery, SwaggerParameter("Optional UUID of the appointment used to filter orders.")]
         Guid? appointmentId,
         CancellationToken cancellationToken)
     {
         var query = context.MedicalOrders.AsNoTracking();
         if (patientId.HasValue) query = query.Where(item => item.PatientId == patientId.Value);
+        if (doctorId.HasValue) query = query.Where(item => item.DoctorId == doctorId.Value);
         if (appointmentId.HasValue) query = query.Where(item => item.AppointmentId == appointmentId.Value);
         return Ok(await query.ToListAsync(cancellationToken));
     }
@@ -66,7 +69,7 @@ public class MedicalOrdersController(AppDbContext context) : ControllerBase
         CreateMedicalOrderResource resource,
         CancellationToken cancellationToken)
     {
-        var order = new MedicalOrder(Guid.NewGuid(), resource.Code, resource.PatientId, resource.DoctorId, resource.AppointmentId, resource.MedicalRecordId, resource.Type, resource.Description, resource.Status);
+        var order = new MedicalOrder(Guid.NewGuid(), resource.Code, resource.PatientId, resource.DoctorId, resource.AppointmentId, resource.MedicalRecordId, resource.Type, resource.Description, resource.Status, resource.Priority, resource.Review ?? string.Empty, resource.Signed);
         context.MedicalOrders.Add(order);
         await context.SaveChangesAsync(cancellationToken);
         return CreatedAtAction(nameof(GetMedicalOrderById), new { id = order.Id }, order);
@@ -85,7 +88,7 @@ public class MedicalOrdersController(AppDbContext context) : ControllerBase
     {
         var order = await context.MedicalOrders.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (order is null) return NotFound();
-        order.Update(resource.Type, resource.Description, resource.Status);
+        order.Update(resource.Type, resource.Description, resource.Status, resource.Priority, resource.Review ?? string.Empty, resource.Signed);
         await context.SaveChangesAsync(cancellationToken);
         return Ok(order);
     }
